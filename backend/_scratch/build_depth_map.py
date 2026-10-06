@@ -38,10 +38,10 @@ OUT_HTML.parent.mkdir(parents=True, exist_ok=True)
 
 # ---------- bins ----------
 BINS = [
-    (">500",   float("inf"),  500,  "Very deep (> 500 ft)",   "#7F1D1D"),  # dark red
-    ("250-500",500,           250,  "Deep (250 - 500 ft)",    "#B45309"),  # amber
-    ("100-250",250,           100,  "Medium (100 - 250 ft)",  "#0F766E"),  # teal
-    ("<100",   100,           0,    "Shallow (< 100 ft)",     "#2563EB"),  # blue
+    (">500",   float("inf"),  500,  "Very deep (> 500 ft)",   "#DC2626"),  # bright red
+    ("250-500",500,           250,  "Deep (250 - 500 ft)",    "#F97316"),  # bright orange
+    ("100-250",250,           100,  "Medium (100 - 250 ft)",  "#22C55E"),  # bright green
+    ("<100",   100,           0,    "Shallow (< 100 ft)",     "#0EA5E9"),  # bright sky blue
 ]
 
 def classify(d):
@@ -136,7 +136,7 @@ html_doc = f"""<!doctype html>
   .legend{{position:absolute;z-index:400;bottom:18px;left:14px;background:#fff;border:1px solid #e3e8ef;border-radius:10px;padding:10px 14px;box-shadow:0 4px 20px rgba(15,23,42,.07);font-size:12.5px}}
   .legend h2{{margin:0 0 6px;font-size:13px;color:#0b3d4c}}
   .legend-row{{display:flex;align-items:center;gap:8px;margin:2px 0;color:#1f2937}}
-  .sw{{display:inline-block;width:14px;height:14px;border-radius:50%;border:1px solid #0b3d4c33}}
+  .sw{{display:inline-block;width:18px;height:18px;border-radius:50%;border:2px solid #ffffff;box-shadow:0 0 0 1px #0b3d4c33}}
   .pop{{font:13px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#0b3d4c}}
   .pop b{{color:#0b3d4c}}
 </style>
@@ -165,7 +165,7 @@ const wardLayer = L.geoJSON(WARDS,{{
 }}).addTo(map);
 const groups = {{}};
 for (const p of PTS){{
-  const m = L.circleMarker([p.lat,p.lng],{{radius:5,color:p.color,fillColor:p.color,fillOpacity:0.75,weight:1,className:'dot-'+p.cls}});
+  const m = L.circleMarker([p.lat,p.lng],{{radius:7,color:'#ffffff',fillColor:p.color,fillOpacity:0.95,weight:1.5,className:'dot-'+p.cls}});
   m.bindPopup("<div class='pop'><b>UID "+p.uid+"</b><br/>"+p.label+"<br/>Depth: <b>"+p.depth+"</b> ft"+(p.hp!==null?"<br/>Motor HP: "+p.hp:"")+(p.name?"<br/>"+p.name:"")+"</div>");
   if (!groups[p.cls]) groups[p.cls] = L.layerGroup();
   m.addTo(groups[p.cls]);
@@ -202,7 +202,7 @@ for key, _, _, label, color in BINS:
     if not subs: continue
     xs = [r["lng"] for r in subs]
     ys = [r["lat"] for r in subs]
-    ax.scatter(xs, ys, s=22, c=color, alpha=0.75, edgecolors="white", linewidths=0.4,
+    ax.scatter(xs, ys, s=42, c=color, alpha=0.95, edgecolors="white", linewidths=0.9,
                label=f"{label} ({len(subs)})")
 
 ax.set_xlabel("Longitude", fontsize=12)
