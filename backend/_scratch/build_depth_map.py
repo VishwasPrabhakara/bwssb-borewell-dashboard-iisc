@@ -66,10 +66,36 @@ with _zipfile.ZipFile(ZIP_PATH) as _z:
         if m: uid_set.add(m.group(1))
 print(f"  {len(uid_set)} unique UIDs in ZIP")
 
-import sys as _sys
+import sys as _sys, pickle as _pickle, argparse as _argparse
 _sys.path.insert(0, str(Path(__file__).parent))
 from _kh_meta import fetch_for_uids
-kh_meta = fetch_for_uids(sorted(uid_set))
+
+_ap = _argparse.ArgumentParser()
+_ap.add_argument("--refresh", action="store_true",
+                 help="Ignore cache and re-fetch every UID from KH.")
+_args, _ = _ap.parse_known_args()
+
+CACHE_PATH = Path(__file__).parent / "_kh_meta_cache.pkl"
+cached = {}
+if CACHE_PATH.exists() and not _args.refresh:
+    try:
+        cached = _pickle.loads(CACHE_PATH.read_bytes())
+        print(f"  loaded KH meta cache: {len(cached)} UIDs")
+    except Exception as _e:
+        print(f"  cache unreadable ({_e}); starting fresh")
+        cached = {}
+
+missing = sorted(set(uid_set) - set(cached.keys()))
+if missing:
+    print(f"  {len(missing)} UID(s) missing from cache -- fetching only those")
+    fresh = fetch_for_uids(missing, workers=12, sleep_s=0.03)
+    cached.update(fresh)
+    CACHE_PATH.write_bytes(_pickle.dumps(cached))
+    print(f"  cache updated: now {len(cached)} UIDs on disk at {CACHE_PATH.name}")
+else:
+    print("  all UIDs already in cache -- skipping KH fetch")
+
+kh_meta = {uid: cached[uid] for uid in uid_set if uid in cached}
 
 print("Loading wards.geojson (reference layer only) ...")
 wards = json.load(open(DATA / "wards.geojson"))
@@ -228,7 +254,7 @@ if rows:
     ax.set_ylim(ymin - ypad, ymax + ypad)
 
 plt.tight_layout()
-plt.savefig(OUT_PNG, dpi=160, bbox_inches="tight")
+plt.savefig(OUT_PNG, dpi=110, bbox_inches="tight")
 plt.close()
 print(f"  wrote {OUT_PNG}")
 
