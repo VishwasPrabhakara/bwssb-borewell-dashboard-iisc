@@ -60,7 +60,7 @@ def load_wards():
         num  = (p.get("ward_no") or p.get("WARD_NO") or p.get("ward_number") or "")
         geom = shape(f["geometry"]) if f.get("geometry") else None
         if geom is None or geom.is_empty: continue
-        out.append({"name": str(name), "num": str(num), "geom": geom, "raw": f})
+        swd = int(p.get("sensor_with_data") or 0); out.append({"name": str(name), "num": str(num), "geom": geom, "raw": f, "swd": swd})
     return out
 
 def main():
@@ -127,7 +127,7 @@ def main():
     sensor_ward_nums = set()
     for r in rows:
         m = _re.search(r"#(\d+)", r[5] or "")
-        if m: sensor_ward_nums.add(m.group(1))
+        if m: sensor_ward_nums.add(m.group(1).lstrip('0') or '0')
     print(f"[wards] {len(sensor_ward_nums)} wards host sensors")
 
     # Ward GeoJSON with centroid lng/lat so JS can place number labels without recomputing
@@ -140,7 +140,7 @@ def main():
             cx, cy = None, None
         wards_slim["features"].append({
             "type":"Feature",
-            "properties":{"ward_name": w["name"], "ward_num": w["num"], "cx": cx, "cy": cy},
+            "properties":{"ward_name": w["name"], "ward_num": w["num"], "cx": cx, "cy": cy, "has_sensors": (w.get("swd", 0) > 0)},
             "geometry": w["raw"]["geometry"]
         })
 
@@ -214,9 +214,13 @@ html,body,#map{margin:0;height:100%;background:#0a0a0a;font-family:system-ui,-ap
              padding:var(--pad) calc(var(--pad) * 1.15);
              box-shadow:0 10px 40px rgba(0,0,0,0.8);display:none;max-height:52vh;overflow:auto;
              font-size:var(--base)}
- .chartpanel.fullscreen{top:0;left:0;right:0;bottom:0;transform:none;width:100vw;height:100vh;max-height:100vh;max-width:100vw;border-radius:0;padding:calc(var(--pad) * 1.5)}
- .chartpanel.fullscreen .chartbox2{height:calc(100vh - 220px * var(--scale))}
- .chartpanel.fullscreen .cstats{grid-template-columns:repeat(auto-fit,minmax(calc(180px * var(--scale)),1fr))}
+ .chartpanel.fullscreen{top:0;left:0;right:0;bottom:0;transform:none;width:100vw;height:100vh;max-height:100vh;max-width:100vw;border-radius:0;padding:calc(var(--pad) * 1.3);display:flex;flex-direction:column;overflow:hidden}
+ .chartpanel.fullscreen .cph{flex:0 0 auto;margin-bottom:calc(10px * var(--scale))}
+ .chartpanel.fullscreen .chartbox2{flex:1 1 auto;height:auto !important;min-height:0;padding:calc(14px * var(--scale))}
+ .chartpanel.fullscreen .cstats{flex:0 0 auto;grid-template-columns:repeat(5, 1fr);gap:calc(10px * var(--scale));margin-top:calc(12px * var(--scale))}
+ .chartpanel.fullscreen .cstat{padding:calc(10px * var(--scale)) calc(14px * var(--scale))}
+ .chartpanel.fullscreen .cstat .v{font-size:calc(22px * var(--scale))}
+ .chartpanel.fullscreen .cstat .k{font-size:calc(12px * var(--scale))}
  .chartpanel.show{display:block}
  .cph{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px;flex-wrap:wrap}
  .cph h3{margin:0;font-size:var(--h1);font-weight:800;color:#fff}
@@ -659,6 +663,10 @@ document.addEventListener('keydown', e => {
 
 if __name__ == "__main__":
     main()
+
+
+
+
 
 
 
