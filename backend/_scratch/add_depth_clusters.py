@@ -219,7 +219,7 @@ L.tileLayer('https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
 
 // Ward layer underneath everything
 const wardLayer = L.geoJSON(WARDS_GJ, {{
-  style: {{color: '#9ca3af', weight: 1, opacity: 0.55, fillColor: '#ffffff', fillOpacity: 0.03}},
+  style: {{color: '#1f2937', weight: 1.8, opacity: 0.9, fillColor: '#ffffff', fillOpacity: 0}},
   onEachFeature: (feature, layer) => {{
     const n  = feature.properties.ward_name;
     const no = feature.properties.ward_num;
