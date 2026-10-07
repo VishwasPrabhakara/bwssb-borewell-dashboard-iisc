@@ -147,6 +147,8 @@ def main():
 <title>Depth Clusters - Bangalore 3D</title>
 <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">
 <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <style>
  html,body,#map{margin:0;height:100%;background:#0a0a0a;font-family:system-ui,-apple-system,sans-serif}
  .panel{position:absolute;background:rgba(10,10,10,0.92);color:#fff;border-radius:10px;z-index:5;
@@ -185,6 +187,20 @@ def main():
  .ml-popup-content{background:#111;color:#fff;padding:8px 10px;border-radius:6px;font-weight:600}
  .maplibregl-popup-content{background:#111 !important;color:#fff !important;font-weight:600;border-radius:6px;padding:8px 10px}
  .maplibregl-popup-tip{border-top-color:#111 !important;border-bottom-color:#111 !important}
+ .chartpanel{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);width:min(900px,calc(100vw - 24px));
+             background:rgba(10,10,10,0.96);border-radius:12px;z-index:20;padding:16px 20px;
+             box-shadow:0 10px 40px rgba(0,0,0,0.8);display:none;max-height:52vh;overflow:auto}
+ .chartpanel.show{display:block}
+ .cph{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px;flex-wrap:wrap}
+ .cph h3{margin:0;font-size:15px;font-weight:800;color:#fff}
+ .cph .sub2{color:#9ca3af;font-size:12px;font-weight:600;margin-top:2px}
+ .cph select{background:#1f2937;color:#fff;border:1px solid #374151;border-radius:5px;padding:5px 8px;font-size:12px;font-weight:700}
+ .cph .close{background:#1f2937;color:#fbbf24;border:1px solid #4b5563;border-radius:5px;padding:5px 10px;font-size:12px;cursor:pointer;font-weight:800}
+ .chartbox2{position:relative;height:260px;background:#111;border-radius:8px;padding:10px}
+ .cstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}
+ .cstat{background:#111;border:1px solid #1f2937;border-radius:6px;padding:8px 12px}
+ .cstat .k{color:#9ca3af;font-size:10px;text-transform:uppercase;font-weight:700}
+ .cstat .v{color:#fbbf24;font-size:16px;font-weight:800;margin-top:2px}
 </style></head><body>
 <div id="map"></div>
 
@@ -215,6 +231,29 @@ def main():
 <div class="panel legend">
   <h2>Depth classes <span style="color:#9ca3af;font-weight:600;font-size:11px">(click to toggle)</span></h2>
   <div id="legendRows"></div>
+</div>
+
+<div class="chartpanel" id="chartPanel">
+  <div class="cph">
+    <div>
+      <h3 id="cTitle">Sensor</h3>
+      <div class="sub2" id="cSub"></div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <label style="font-size:12px;color:#e5e7eb;font-weight:700">Day:
+        <select id="cDow">
+          <option value="all">All days</option>
+          <option value="0">Mon</option><option value="1">Tue</option>
+          <option value="2">Wed</option><option value="3" selected>Thu</option>
+          <option value="4">Fri</option><option value="5">Sat</option>
+          <option value="6">Sun</option>
+        </select>
+      </label>
+      <button class="close" id="cClose">Close</button>
+    </div>
+  </div>
+  <div class="chartbox2"><canvas id="cChart"></canvas></div>
+  <div class="cstats" id="cStats"></div>
 </div>
 
 <div class="panel stats">
@@ -452,6 +491,98 @@ mSl.addEventListener('input', () => {
 });
 document.getElementById('epsLabel').textContent = fmtEps(curEps());
 document.getElementById('msLabel').textContent  = curMs();
+
+// --- Inline sensor chart ---
+let cChart = null;
+let cSeries = [];
+
+async function openSensorChart(uid, cls, ward) {
+  document.getElementById('cTitle').textContent = 'Sensor ' + uid;
+  document.getElementById('cSub').textContent   = [cls, ward].filter(Boolean).join(' - ');
+  document.getElementById('chartPanel').classList.add('show');
+  try {
+    const r = await fetch('sensor_dow/' + uid + '.json');
+    if (!r.ok) throw new Error('No data file (' + r.status + ')');
+    cSeries = await r.json();
+    cRender();
+  } catch (e) {
+    document.getElementById('cStats').innerHTML = '<div class="cstat"><div class="k">Error</div><div class="v">' + e.message + '</div></div>';
+    if (cChart) { cChart.destroy(); cChart = null; }
+  }
+}
+
+function cOls(xs, ys) {
+  const n = xs.length; if (n < 2) return null;
+  const mx = xs.reduce((a,b)=>a+b,0)/n;
+  const my = ys.reduce((a,b)=>a+b,0)/n;
+  let num=0, den=0, ssr=0, sst=0;
+  for (let i=0;i<n;i++){ num+=(xs[i]-mx)*(ys[i]-my); den+=(xs[i]-mx)**2; }
+  const slope = den ? num/den : 0;
+  const intercept = my - slope*mx;
+  for (let i=0;i<n;i++){ const yh=slope*xs[i]+intercept; ssr+=(ys[i]-yh)**2; sst+=(ys[i]-my)**2; }
+  return {slope, intercept, r2: sst?1-ssr/sst:0, n};
+}
+
+function cRender() {
+  const dow = document.getElementById('cDow').value;
+  let data = (dow === 'all') ? cSeries.slice() : cSeries.filter(s => s.weekday == +dow);
+  data.sort((a,b)=> new Date(a.ts) - new Date(b.ts));
+  const pts = data.map(s => ({x: new Date(s.ts), y: s.med_water_ft, n: s.n}));
+  const t0 = pts.length ? pts[0].x.getTime() : 0;
+  const xs = pts.map(p => (p.x.getTime() - t0) / 86400000);
+  const ys = pts.map(p => p.y);
+  const fit = cOls(xs, ys);
+
+  const datasets = [{
+    label: 'Session median water level (ft)',
+    data: pts, showLine: false,
+    pointRadius: 3, pointHoverRadius: 6,
+    pointBackgroundColor: '#fbbf24', pointBorderColor: '#000', pointBorderWidth: 1
+  }];
+  if (fit && pts.length >= 2) {
+    const xMinT = pts[0].x.getTime(), xMaxT = pts[pts.length-1].x.getTime();
+    const xMaxD = (xMaxT - xMinT) / 86400000;
+    datasets.push({
+      label: 'OLS fit', type: 'line',
+      data: [{x:new Date(xMinT), y:fit.intercept}, {x:new Date(xMaxT), y:fit.intercept + fit.slope*xMaxD}],
+      borderColor: fit.slope > 0 ? '#ef4444' : '#22c55e',
+      borderWidth: 2.5, borderDash: [6,4], pointRadius: 0, fill: false
+    });
+  }
+
+  if (cChart) cChart.destroy();
+  cChart = new Chart(document.getElementById('cChart'), {
+    type: 'scatter', data: {datasets},
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: {type:'time', time:{unit:'week'}, ticks:{color:'#9ca3af'}, grid:{color:'#1f2937'}},
+        y: {reverse: true, ticks:{color:'#9ca3af'}, grid:{color:'#1f2937'},
+            title:{display:true, text:'Water level (ft below surface)', color:'#d1d5db', font:{weight:'700'}}}
+      },
+      plugins: {legend: {labels: {color:'#e5e7eb', font:{weight:'700'}}}}
+    }
+  });
+
+  const el = document.getElementById('cStats');
+  if (!fit) { el.innerHTML = '<div class="cstat"><div class="k">No sessions</div><div class="v">-</div></div>'; return; }
+  const dayLabel = (dow === 'all') ? 'All days' : ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][+dow];
+  const slopePerYear = fit.slope * 365.25;
+  const sclr = fit.slope > 0 ? '#f87171' : (fit.slope < 0 ? '#4ade80' : '#fbbf24');
+  const sign = fit.slope > 0 ? 'declining' : (fit.slope < 0 ? 'rising' : 'flat');
+  el.innerHTML =
+    '<div class="cstat"><div class="k">Day filter</div><div class="v">' + dayLabel + '</div></div>' +
+    '<div class="cstat"><div class="k">Sessions</div><div class="v">' + fit.n + '</div></div>' +
+    '<div class="cstat"><div class="k">OLS slope ft/day</div><div class="v" style="color:'+sclr+'">' + fit.slope.toFixed(4) + ' (' + sign + ')</div></div>' +
+    '<div class="cstat"><div class="k">Annualized ft/yr</div><div class="v" style="color:'+sclr+'">' + slopePerYear.toFixed(2) + '</div></div>' +
+    '<div class="cstat"><div class="k">R-squared</div><div class="v">' + fit.r2.toFixed(3) + '</div></div>';
+}
+
+document.getElementById('cDow').addEventListener('change', cRender);
+document.getElementById('cClose').addEventListener('click', () => {
+  document.getElementById('chartPanel').classList.remove('show');
+  if (cChart) { cChart.destroy(); cChart = null; }
+});
 </script></body></html>"""
 
     html = (tmpl
@@ -472,3 +603,4 @@ document.getElementById('msLabel').textContent  = curMs();
 
 if __name__ == "__main__":
     main()
+
