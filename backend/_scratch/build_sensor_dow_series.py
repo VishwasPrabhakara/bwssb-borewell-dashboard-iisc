@@ -29,7 +29,7 @@ def parse_ts(ts):
     except Exception: return None
 
 def parse_sheet(name, raw):
-    uid = Path(name).stem
+    uid = Path(name).stem.split("_")[0]
     try:
         wb = pc.CalamineWorkbook.from_filelike(io.BytesIO(raw))
         sheet = wb.get_sheet_by_index(0).to_python()
