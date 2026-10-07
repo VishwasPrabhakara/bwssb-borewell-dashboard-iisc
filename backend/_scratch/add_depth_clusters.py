@@ -204,9 +204,9 @@ def main():
 
   <label class="toggle"><input type="checkbox" id="wardToggle" checked>Show ward boundaries</label>
   <label class="toggle"><input type="checkbox" id="wardNumToggle">Show ward numbers</label>
-  <label class="toggle" id="terrWrap"><input type="checkbox" id="terrainToggle">3D terrain</label>
+  <label class="toggle" id="terrWrap" style="display:none"><input type="checkbox" id="terrainToggle">3D terrain</label>
 
-  <div id="exagWrap" style="display:none">
+  <div id="exagWrap" style="display:none !important">
     <div class="lbl"><span>Terrain exaggeration</span><b id="exagLabel">1.5x</b></div>
     <input id="exagSlider" type="range" min="1" max="4" step="0.25" value="1.5">
   </div>
