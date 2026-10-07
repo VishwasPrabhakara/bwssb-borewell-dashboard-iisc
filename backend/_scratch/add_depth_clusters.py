@@ -122,6 +122,14 @@ def main():
                 csv_lines.append(f"{eps},{ms},{cname},{s['points']},{s['clusters']},{s['noise']}")
     (out_dir / f"depth_cluster_stats_{today}.csv").write_text("\n".join(csv_lines))
 
+    # Which ward numbers actually host at least one sensor?
+    import re as _re
+    sensor_ward_nums = set()
+    for r in rows:
+        m = _re.search(r"#(\d+)", r[5] or "")
+        if m: sensor_ward_nums.add(m.group(1))
+    print(f"[wards] {len(sensor_ward_nums)} wards host sensors")
+
     # Ward GeoJSON with centroid lng/lat so JS can place number labels without recomputing
     wards_slim = {"type":"FeatureCollection","features":[]}
     for w in wards:
@@ -339,6 +347,10 @@ map.on('load', () => {
       (p.ward ? '<br><span style="color:#fde047">'+p.ward+'</span>' : '')).addTo(map);
   });
   map.on('mouseleave','point-circle', ()=>{ map.getCanvas().style.cursor=''; popup.remove(); });
+  map.on('click', 'point-circle', e => {
+    const p = e.features[0].properties;
+    openSensorChart(p.uid, p.cls || '', p.ward || '');
+  });
   map.on('mouseenter','hull-fill', e => {
     map.getCanvas().style.cursor='pointer';
     const p = e.features[0].properties;
@@ -435,6 +447,7 @@ function setWardNums(on) {
   WARDS_GJ.features.forEach(f => {
     const p = f.properties;
     if (!p.cx || !p.cy || !p.ward_num) return;
+    if (!p.has_sensors) return;
     const el = document.createElement('div');
     el.className = 'ward-num-marker';
     el.textContent = p.ward_num;
@@ -603,4 +616,6 @@ document.getElementById('cClose').addEventListener('click', () => {
 
 if __name__ == "__main__":
     main()
+
+
 

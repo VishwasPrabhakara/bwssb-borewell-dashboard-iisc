@@ -194,6 +194,10 @@ map.on('load', () => {
       (p.ward ? '<br><span style="color:#fde047">'+p.ward+'</span>' : '')).addTo(map);
   });
   map.on('mouseleave','point-circle', ()=>{ map.getCanvas().style.cursor=''; popup.remove(); });
+  map.on('click', 'point-circle', e => {
+    const p = e.features[0].properties;
+    openSensorChart(p.uid, p.cls || '', p.ward || '');
+  });
   map.on('mouseenter','hull-fill', e => {
     map.getCanvas().style.cursor='pointer';
     const p = e.features[0].properties;
@@ -290,6 +294,7 @@ function setWardNums(on) {
   WARDS_GJ.features.forEach(f => {
     const p = f.properties;
     if (!p.cx || !p.cy || !p.ward_num) return;
+    if (!p.has_sensors) return;
     const el = document.createElement('div');
     el.className = 'ward-num-marker';
     el.textContent = p.ward_num;
