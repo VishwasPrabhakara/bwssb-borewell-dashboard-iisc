@@ -1,0 +1,10 @@
+{
+  "west": 77.39979885616754,
+  "south": 12.799779252340056,
+  "east": 77.80026780982801,
+  "north": 13.200248206000538,
+  "minzoom": 10,
+  "maxzoom": 13,
+  "tile_url": "dem_tiles/{z}/{x}/{y}.png",
+  "encoding": "mapbox"
+}
