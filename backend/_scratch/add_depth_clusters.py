@@ -170,7 +170,7 @@ def main():
  .lg .ct{{color:#888;font-size:11px;min-width:70px;text-align:right}}
  .stats{{bottom:12px;left:12px;min-width:260px;max-width:300px}}
  .stats h2{{margin:0 0 8px 0;font-size:13px;font-weight:600;color:#fff}}
- .srow{{display:grid;grid-template-columns:1fr 70px 50px;gap:8px;font-size:12px;padding:3px 0;color:#ccc}}
+ .srow{{display:grid;grid-template-columns:14px 1fr 70px 50px;gap:8px;font-size:12px;padding:3px 0;color:#ccc}}
  .srow.head{{color:#888;font-size:10px;text-transform:uppercase;border-bottom:1px solid #333;padding-bottom:4px;margin-bottom:4px}}
  .srow b{{color:#fff;font-weight:600}}
  .ward-label{{background:rgba(0,0,0,0.7);color:#fff;border:none;padding:2px 6px;border-radius:3px;font-size:11px;font-weight:500}}
@@ -198,7 +198,7 @@ def main():
 <div class="panel stats">
   <h2>Clusters at <span id="statsEps">500 m</span></h2>
   <div class="srow head"><span>Class</span><span>Clusters</span><span>Noise</span></div>
-  <div id="statsRows"></div>
+  <div id="statsRows"></div><button id="resetBtn" class="reset-btn">Show all classes</button>
 </div>
 
 <script>
@@ -288,7 +288,13 @@ function renderLegend() {{
   el.querySelectorAll('.lg').forEach(r => r.addEventListener('click', () => {{
     const c = r.dataset.c;
     if (hidden.has(c)) hidden.delete(c); else hidden.add(c);
-    renderLegend();
+    document.getElementById('resetBtn').addEventListener('click', () => {
+  hidden.clear();
+  document.getElementById('resetBtn').classList.remove('show');
+  const curEps = LADDER[document.getElementById('epsSlider').value];
+  renderLegend(); renderStats(curEps); drawHulls(curEps); drawPoints();
+});
+renderLegend();
     const eps = LADDER[document.getElementById('epsSlider').value];
     drawHulls(eps); drawPoints();
   }}));
@@ -321,6 +327,12 @@ slider.addEventListener('input', () => {{
   drawHulls(eps); renderStats(eps);
 }});
 
+document.getElementById('resetBtn').addEventListener('click', () => {
+  hidden.clear();
+  document.getElementById('resetBtn').classList.remove('show');
+  const curEps = LADDER[document.getElementById('epsSlider').value];
+  renderLegend(); renderStats(curEps); drawHulls(curEps); drawPoints();
+});
 renderLegend();
 drawPoints();
 const eps0 = LADDER[slider.value];
@@ -332,3 +344,4 @@ drawHulls(eps0); renderStats(eps0);
 
 if __name__ == "__main__":
     main()
+
