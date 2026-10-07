@@ -158,12 +158,25 @@ def main():
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <style>
- html,body,#map{margin:0;height:100%;background:#0a0a0a;font-family:system-ui,-apple-system,sans-serif}
+ :root{
+  --scale: clamp(1, calc(0.6 + 0.5vw/16), 2.2);
+  --base: calc(14px * var(--scale));
+  --h1:   calc(17px * var(--scale));
+  --h2:   calc(14px * var(--scale));
+  --small:calc(12px * var(--scale));
+  --tiny: calc(11px * var(--scale));
+  --pad:  calc(14px * var(--scale));
+  --rad:  calc(10px * var(--scale));
+}
+@media (min-width: 2200px){ :root{ --scale: 1.6; } }
+@media (min-width: 3000px){ :root{ --scale: 2.4; } }
+@media (min-width: 4000px){ :root{ --scale: 3.4; } }
+html,body,#map{margin:0;height:100%;background:#0a0a0a;font-family:system-ui,-apple-system,sans-serif;font-size:var(--base)}
  .panel{position:absolute;background:rgba(10,10,10,0.92);color:#fff;border-radius:10px;z-index:5;
        box-shadow:0 4px 20px rgba(0,0,0,0.7);padding:14px 16px;font-size:14px;font-weight:600}
  .title{top:12px;left:12px;max-width:380px}
- .title h1{margin:0 0 4px 0;font-size:17px;font-weight:800}
- .title .sub{color:#d1d5db;font-size:13px;line-height:1.5;font-weight:500}
+ .title h1{margin:0 0 4px 0;font-size:var(--h1);font-weight:800}
+ .title .sub{color:#d1d5db;font-size:var(--small);line-height:1.5;font-weight:500}
  .controls{top:12px;right:12px;min-width:280px}
  .controls .lbl{display:flex;justify-content:space-between;font-size:13px;color:#e5e7eb;margin-bottom:4px;margin-top:14px;font-weight:700}
  .controls .lbl:first-of-type{margin-top:0}
@@ -174,7 +187,7 @@ def main():
  .controls .toggle input{accent-color:#f59e0b;width:16px;height:16px}
  .controls .toggle.disabled{opacity:0.4;cursor:not-allowed}
  .legend{bottom:12px;right:12px;min-width:240px}
- .legend h2{margin:0 0 8px 0;font-size:14px;font-weight:800;color:#fff}
+ .legend h2{margin:0 0 8px 0;font-size:var(--h2);font-weight:800;color:#fff}
  .lg{display:flex;align-items:center;gap:10px;padding:6px 8px;cursor:pointer;border-radius:5px;font-weight:700}
  .lg:hover{background:#1f2937}
  .lg.off{opacity:0.35}
@@ -182,7 +195,7 @@ def main():
  .lg .lbl2{flex:1;color:#f9fafb;font-size:14px}
  .lg .ct{color:#d1d5db;font-size:12px;min-width:70px;text-align:right;font-weight:600}
  .stats{bottom:12px;left:12px;min-width:320px;max-width:360px}
- .stats h2{margin:0 0 10px 0;font-size:14px;font-weight:800;color:#fff}
+ .stats h2{margin:0 0 10px 0;font-size:var(--h2);font-weight:800;color:#fff}
  .srow{display:grid;grid-template-columns:16px 1fr 70px 50px;gap:10px;font-size:13px;padding:4px 0;color:#e5e7eb;align-items:center;font-weight:700}
  .srow.head{color:#9ca3af;font-size:11px;text-transform:uppercase;border-bottom:1px solid #374151;padding-bottom:5px;margin-bottom:5px;font-weight:700}
  .srow b{color:#fbbf24;font-weight:800;font-size:14px}
@@ -195,20 +208,27 @@ def main():
  .ml-popup-content{background:#111;color:#fff;padding:8px 10px;border-radius:6px;font-weight:600}
  .maplibregl-popup-content{background:#111 !important;color:#fff !important;font-weight:600;border-radius:6px;padding:8px 10px}
  .maplibregl-popup-tip{border-top-color:#111 !important;border-bottom-color:#111 !important}
- .chartpanel{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);width:min(900px,calc(100vw - 24px));
-             background:rgba(10,10,10,0.96);border-radius:12px;z-index:20;padding:16px 20px;
-             box-shadow:0 10px 40px rgba(0,0,0,0.8);display:none;max-height:52vh;overflow:auto}
+ .chartpanel{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
+             width:min(calc(60vw + 300px), calc(100vw - 24px));
+             background:rgba(10,10,10,0.96);border-radius:var(--rad);z-index:20;
+             padding:var(--pad) calc(var(--pad) * 1.15);
+             box-shadow:0 10px 40px rgba(0,0,0,0.8);display:none;max-height:52vh;overflow:auto;
+             font-size:var(--base)}
+ .chartpanel.fullscreen{top:0;left:0;right:0;bottom:0;transform:none;width:100vw;height:100vh;max-height:100vh;max-width:100vw;border-radius:0;padding:calc(var(--pad) * 1.5)}
+ .chartpanel.fullscreen .chartbox2{height:calc(100vh - 220px * var(--scale))}
+ .chartpanel.fullscreen .cstats{grid-template-columns:repeat(auto-fit,minmax(calc(180px * var(--scale)),1fr))}
  .chartpanel.show{display:block}
  .cph{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:12px;flex-wrap:wrap}
- .cph h3{margin:0;font-size:15px;font-weight:800;color:#fff}
- .cph .sub2{color:#9ca3af;font-size:12px;font-weight:600;margin-top:2px}
- .cph select{background:#1f2937;color:#fff;border:1px solid #374151;border-radius:5px;padding:5px 8px;font-size:12px;font-weight:700}
- .cph .close{background:#1f2937;color:#fbbf24;border:1px solid #4b5563;border-radius:5px;padding:5px 10px;font-size:12px;cursor:pointer;font-weight:800}
- .chartbox2{position:relative;height:260px;background:#111;border-radius:8px;padding:10px}
+ .cph h3{margin:0;font-size:var(--h1);font-weight:800;color:#fff}
+ .cph .sub2{color:#9ca3af;font-size:var(--small);font-weight:600;margin-top:2px}
+ .cph select{background:#1f2937;color:#fff;border:1px solid #374151;border-radius:5px;padding:calc(5px * var(--scale)) calc(10px * var(--scale));font-size:var(--small);font-weight:700}
+ .cph .close,.cph .expand{background:#1f2937;color:#fbbf24;border:1px solid #4b5563;border-radius:5px;padding:calc(5px * var(--scale)) calc(12px * var(--scale));font-size:var(--small);cursor:pointer;font-weight:800;margin-left:6px}
+ .cph .close:hover,.cph .expand:hover{background:#374151}
+ .chartbox2{position:relative;height:calc(260px * var(--scale));background:#111;border-radius:8px;padding:calc(10px * var(--scale))}
  .cstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}
  .cstat{background:#111;border:1px solid #1f2937;border-radius:6px;padding:8px 12px}
- .cstat .k{color:#9ca3af;font-size:10px;text-transform:uppercase;font-weight:700}
- .cstat .v{color:#fbbf24;font-size:16px;font-weight:800;margin-top:2px}
+ .cstat .k{color:#9ca3af;font-size:var(--tiny);text-transform:uppercase;font-weight:700;letter-spacing:0.5px}
+ .cstat .v{color:#fbbf24;font-size:calc(16px * var(--scale));font-weight:800;margin-top:2px}
 </style></head><body>
 <div id="map"></div>
 
@@ -257,6 +277,7 @@ def main():
           <option value="6">Sun</option>
         </select>
       </label>
+      <button class="expand" id="cExpand">Expand</button>
       <button class="close" id="cClose">Close</button>
     </div>
   </div>
@@ -593,8 +614,30 @@ function cRender() {
 
 document.getElementById('cDow').addEventListener('change', cRender);
 document.getElementById('cClose').addEventListener('click', () => {
-  document.getElementById('chartPanel').classList.remove('show');
+  const panel = document.getElementById('chartPanel');
+  panel.classList.remove('show');
+  panel.classList.remove('fullscreen');
+  document.getElementById('cExpand').textContent = 'Expand';
   if (cChart) { cChart.destroy(); cChart = null; }
+});
+document.getElementById('cExpand').addEventListener('click', () => {
+  const panel = document.getElementById('chartPanel');
+  panel.classList.toggle('fullscreen');
+  document.getElementById('cExpand').textContent = panel.classList.contains('fullscreen') ? 'Restore' : 'Expand';
+  if (cChart) setTimeout(() => cChart.resize(), 50);
+});
+// Esc to collapse / close
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  const panel = document.getElementById('chartPanel');
+  if (panel.classList.contains('fullscreen')) {
+    panel.classList.remove('fullscreen');
+    document.getElementById('cExpand').textContent = 'Expand';
+    if (cChart) setTimeout(() => cChart.resize(), 50);
+  } else if (panel.classList.contains('show')) {
+    panel.classList.remove('show');
+    if (cChart) { cChart.destroy(); cChart = null; }
+  }
 });
 </script></body></html>"""
 
@@ -616,6 +659,7 @@ document.getElementById('cClose').addEventListener('click', () => {
 
 if __name__ == "__main__":
     main()
+
 
 
 
