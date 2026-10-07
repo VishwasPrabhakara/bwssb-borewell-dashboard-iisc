@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """Depth-class map of Bangalore borewells, classified by WATER-LEVEL statistics
 (not by physical borewell depth).
 
@@ -62,10 +62,10 @@ MAX_WATER_LEVEL_FT = 1500   # drop obviously impossible readings only
 
 # ---------------- bins ----------------
 BINS = [
-    (">500",   float("inf"),  500,  "Very deep (> 500 ft)",   "#DC2626"),
-    ("250-500",500,           250,  "Deep (250 - 500 ft)",    "#F97316"),
-    ("100-250",250,           100,  "Medium (100 - 250 ft)",  "#22C55E"),
-    ("<100",   100,           0,    "Shallow (< 100 ft)",     "#0EA5E9"),
+    (">500",   float("inf"),  500,  "Very deep (> 500 ft)",   "#450A0A"),
+    ("250-500",500,           250,  "Deep (250 - 500 ft)",    "#7C2D12"),
+    ("100-250",250,           100,  "Medium (100 - 250 ft)",  "#14532D"),
+    ("<100",   100,           0,    "Shallow (< 100 ft)",     "#1E3A8A"),
 ]
 LABEL = {k: lbl for k, _, _, lbl, _ in BINS}
 COLOR = {k: col for k, _, _, _, col in BINS}
@@ -316,7 +316,7 @@ L.tileLayer('https://tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png',{{
 }}).addTo(map);
 
 L.geoJSON(WARDS,{{
-  style:()=>({{color:'#64748b',weight:0.6,fillOpacity:0.03,fillColor:'#64748b'}})
+  style:()=>({{color:'#64748b',weight:0.6,fillOpacity: 0.92,fillColor:'#64748b'}})
 }}).addTo(map);
 
 let currentMetric = document.getElementById('metric').value;
@@ -324,7 +324,7 @@ let hidden = new Set();     // class keys currently toggled off
 
 const markers = [];          // {{m, p}}
 for (const p of PTS){{
-  const m = L.circleMarker([p.lat,p.lng],{{radius:7,color:'#ffffff',fillColor:'#999',fillOpacity:0.95,weight:1.5}});
+  const m = L.circleMarker([p.lat,p.lng],{{radius:7,color:'#ffffff',fillColor:'#999',fillOpacity: 0.92,weight:1.5}});
   m.bindPopup(''); // populated on open
   m.on('popupopen', () => {{
     const metric = currentMetric;
@@ -356,7 +356,7 @@ function refresh(){{
     const visible = cls && !hidden.has(cls);
     const b = BINS.find(x => x.key === cls);
     if (visible){{
-      m.setStyle({{fillColor: b.color, opacity: 1, fillOpacity: 0.95}});
+      m.setStyle({{fillColor: b.color, opacity: 1, fillOpacity: 0.92}});
       m.addTo(map);
       counts[cls] = (counts[cls] || 0) + 1;
     }} else {{
@@ -427,3 +427,4 @@ refresh();
     plt.tight_layout(); plt.savefig(OUT_PNG, dpi=110, bbox_inches="tight"); plt.close()
     print(f"  wrote {OUT_PNG}")
     print("\nDone.")
+
