@@ -8,3 +8,9 @@ __pycache__/
 .DS_Store
 Thumbs.db
 worker/seed_generated/
+
+backend/_scratch/*.pkl
+backend/_scratch/_kh_meta_cache.pkl
+backend/_scratch/_water_stats_cache.pkl
+
+backend/_scratch/*.pkl
