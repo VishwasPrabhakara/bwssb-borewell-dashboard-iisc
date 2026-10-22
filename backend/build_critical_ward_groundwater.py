@@ -154,6 +154,34 @@ def modified_mann_kendall(ys):
 
 
 
+
+
+def pettitt_test(y):
+    """Pettitt (1979) non-parametric change-point test.
+    Returns (change_idx, p_value, significant_bool). None index -> no result.
+    Significance at p < 0.05 (standard)."""
+    n = len(y)
+    if n < 10:
+        return None, 1.0, False
+    # U_t = 2 * sum(rank_i for i<=t) - t*(n+1)
+    ranks = [sorted(y).index(v) + 1 for v in y]  # simple ranks (ties handled by first-match; OK for medians)
+    best_k, best_u = 0, 0
+    cum = 0
+    for t in range(n):
+        cum += ranks[t]
+        u = abs(2 * cum - (t + 1) * (n + 1))
+        if u > best_u:
+            best_u = u
+            best_k = t
+    K = best_u
+    # Pettitt approx p-value
+    try:
+        p = 2.0 * math.exp(-6.0 * K * K / (n**3 + n**2))
+    except OverflowError:
+        p = 0.0
+    p = min(1.0, max(0.0, p))
+    return best_k, round(p, 4), bool(p < 0.05)
+
 def _phi(x):
     """Standard normal CDF using erf."""
     return 0.5 * (1.0 + math.erf(x / math.sqrt(2)))
@@ -321,6 +349,20 @@ def main():
             mk_s, mk_z, mk_p, mk_verdict = mann_kendall(ys)
             mk_nfactor, mk_r1 = 1.0, 0.0
 
+        # Pettitt step-change (ward-level weekly medians)
+        _p_idx, _p_p, _p_sig = pettitt_test(ys)
+        if _p_idx is not None and 0 <= _p_idx < len(weeks_sorted):
+            _iso_year, _iso_week = weeks_sorted[_p_idx]
+            step_date = f"{_iso_year}-W{_iso_week:02d}"
+        else:
+            step_date = None
+        # Physical plausibility: |slope| in m/yr <= 5 (Taylor 2013 / CGWB norms)
+        if lin_slope is None:
+            slope_reliable = False
+        else:
+            slope_reliable = bool(abs(lin_slope * 52.0 * 0.3048) <= 5.0)
+        insufficient_ward = bool(good_sensors < 3)
+
         lin_critical = (lin_slope is not None
                         and lin_slope > SIGNIFICANT_SLOPE_FT_PER_WEEK
                         and mk_verdict == "Yes")
@@ -371,6 +413,11 @@ def main():
             "dashboardAction": action,
             "dashboardMapCategory": category,
             "updateReason": reason,
+            "stepChangeDetected": "Yes" if _p_sig else "No",
+            "stepChangeDate": step_date,
+            "pettittP": _p_p,
+            "slopeReliable": slope_reliable,
+            "insufficientWard": insufficient_ward,
         })
         output_wards.append(row)
         kept += 1
@@ -389,27 +436,25 @@ def main():
             p50 = _pct(slopes, 50)
             for r, sl in valid:
                 mk = r.get("mannKendallVerdict") == "Yes"
-                if sl >= p80 and mk:
+                mk_tag = " (MK confirmed)" if mk else " (watchlist, MK not significant)"
+                if sl >= p80:
                     cat = "Critical: Ward-average groundwater decline"
                     status, direction, action = "Critical", "Declining", "Yes"
-                    reason = f"Slope {sl:.3f} ft/week in top-20% (>= {p80:.3f}) with MK verdict Yes."
-                elif sl <= p20 and mk:
+                    reason = f"Slope {sl:.3f} ft/week in top-20% (>= {p80:.3f}){mk_tag}."
+                elif sl <= p20:
                     cat = "Confirmed groundwater rise"
                     status, direction, action = "Normal", "Improving", "No"
-                    reason = f"Slope {sl:.3f} ft/week in bottom-20% (<= {p20:.3f}) with MK verdict Yes."
-                elif sl < p50:
-                    cat = "Possible groundwater rise"
-                    status, direction, action = "Normal", "Possible improvement", "No"
-                    reason = f"Slope {sl:.3f} ft/week below network median ({p50:.3f}); rising but not top-20%."
+                    reason = f"Slope {sl:.3f} ft/week in bottom-20% (<= {p20:.3f}){mk_tag}."
                 else:
                     cat = "Stable groundwater trend"
                     status, direction, action = "Normal", "Stable", "No"
-                    reason = f"Slope {sl:.3f} ft/week above network median ({p50:.3f}); not top-20% deepening."
+                    reason = f"Slope {sl:.3f} ft/week in middle-60% (between {p20:.3f} and {p80:.3f}); not top/bottom quintile."
                 r["dashboardMapCategory"] = cat
                 r["groundwaterStatus"] = status
                 r["groundwaterDirection"] = direction
                 r["dashboardAction"] = action
                 r["updateReason"] = reason
+                r["mkConfirmed"] = bool(mk)
             print(f"  PERCENTILE thresholds: p20={p20:.4f}  p50={p50:.4f}  p80={p80:.4f} ft/week")
 
     from collections import Counter

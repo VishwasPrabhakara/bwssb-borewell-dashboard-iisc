@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-18T11:29:52.562229Z",
-  "kh_zip": "borewell_data_08.09.26.zip",
-  "sensor_total": 579,
-  "sensor_with_data": 579,
+  "generated_at": "2026-10-22T07:58:20.428340Z",
+  "kh_zip": "borewell_data_07.10.26.zip",
+  "sensor_total": 1715,
+  "sensor_with_data": 865,
   "wards": 198,
-  "wards_with_data": 83,
-  "period_start": "2025-07-19T13:17:41",
-  "period_end": "2026-09-08T10:57:51"
+  "wards_with_data": 105,
+  "period_start": "2025-07-18T18:18:12",
+  "period_end": "2026-10-07T17:56:23"
 }

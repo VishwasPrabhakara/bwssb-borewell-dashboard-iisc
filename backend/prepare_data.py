@@ -198,31 +198,54 @@ def _kh_sessions(times, water, flow, yield_):
     return build_sessions(times, water, flow, yield_)
 
 
-def parse_kh_file(name, raw_bytes):
-    """Parse one KH .xlsx into rows + KH-official sessions. read_only mode is
-    fast because we no longer need cell fills (KH's boundary rule is purely
-    data-based: yield-reset OR >30 min gap)."""
-    wb = load_workbook(io.BytesIO(raw_bytes), data_only=True, read_only=True)
-    ws = wb[wb.sheetnames[0]]
-    rows_iter = ws.iter_rows()
-    meta_row = next(rows_iter, None)
-    _header_row = next(rows_iter, None)
-    meta = parse_meta_row(meta_row) if meta_row else {}
-    uid = meta.get("uid", uid_from_filename(name))
-    lat = parse_number(meta.get("lat"))
-    lng = parse_number(meta.get("long"))
+# Try fast calamine parser; fall back to openpyxl.
+try:
+    from python_calamine import CalamineWorkbook as _CalamineWorkbook
+    _HAS_CALAMINE = True
+except Exception:
+    _HAS_CALAMINE = False
 
-    times, water, flow, yield_ = [], [], [], []
-    for row in rows_iter:
-        vals = [c.value for c in row]
-        when = parse_ts(vals[0] if len(vals) > 0 else None)
-        if not when:
-            continue
-        times.append(when)
-        water.append(parse_number(vals[1] if len(vals) > 1 else None))
-        flow.append(parse_number(vals[2] if len(vals) > 2 else None))
-        yield_.append(parse_number(vals[3] if len(vals) > 3 else None))
-    wb.close()
+
+def parse_kh_file(name, raw_bytes):
+    """Parse one KH .xlsx into rows + KH-official sessions.
+    Uses python-calamine when available (5-10x faster), falls back to openpyxl."""
+    if _HAS_CALAMINE:
+        wb = _CalamineWorkbook.from_filelike(io.BytesIO(raw_bytes))
+        rows = wb.get_sheet_by_index(0).to_python(skip_empty_area=True)
+        meta_row = rows[0] if rows else None
+        meta = parse_meta_row(meta_row) if meta_row else {}
+        uid = meta.get("uid", uid_from_filename(name))
+        lat = parse_number(meta.get("lat"))
+        lng = parse_number(meta.get("long"))
+        times, water, flow, yield_ = [], [], [], []
+        for row in rows[2:]:
+            if not row: continue
+            when = parse_ts(row[0] if len(row) > 0 else None)
+            if not when: continue
+            times.append(when)
+            water.append(parse_number(row[1] if len(row) > 1 else None))
+            flow.append(parse_number(row[2] if len(row) > 2 else None))
+            yield_.append(parse_number(row[3] if len(row) > 3 else None))
+    else:
+        wb = load_workbook(io.BytesIO(raw_bytes), data_only=True, read_only=True)
+        ws = wb[wb.sheetnames[0]]
+        rows_iter = ws.iter_rows()
+        meta_row = next(rows_iter, None)
+        _header_row = next(rows_iter, None)
+        meta = parse_meta_row(meta_row) if meta_row else {}
+        uid = meta.get("uid", uid_from_filename(name))
+        lat = parse_number(meta.get("lat"))
+        lng = parse_number(meta.get("long"))
+        times, water, flow, yield_ = [], [], [], []
+        for row in rows_iter:
+            vals = [c.value for c in row]
+            when = parse_ts(vals[0] if len(vals) > 0 else None)
+            if not when: continue
+            times.append(when)
+            water.append(parse_number(vals[1] if len(vals) > 1 else None))
+            flow.append(parse_number(vals[2] if len(vals) > 2 else None))
+            yield_.append(parse_number(vals[3] if len(vals) > 3 else None))
+        wb.close()
 
     if not times:
         return {"uid": uid, "lat": lat, "lng": lng, "n": 0}
@@ -295,18 +318,30 @@ def main():
     print(f"  {len(pop_by_ward)} wards with population data")
 
     print("Parsing KH ZIP with KH-official session detection (yield-reset + 30 min gap)...")
+    import os as _os
+    from concurrent.futures import ProcessPoolExecutor, as_completed
     zip_sensor_data = {}
     with zipfile.ZipFile(CONFIG["kh_zip"]) as z:
         names = [n for n in z.namelist() if n.lower().endswith(".xlsx")]
-        for i, name in enumerate(names, 1):
+        # Read all file bytes into memory first (one-time cost; enables parallel parse).
+        print(f"  loading {len(names)} xlsx into memory ...")
+        payloads = [(name, z.read(name)) for name in names]
+    workers = max(1, (_os.cpu_count() or 2) - 1)
+    print(f"  parsing with {workers} worker process(es) ...")
+    done = 0
+    with ProcessPoolExecutor(max_workers=workers) as ex:
+        futs = {ex.submit(parse_kh_file, name, raw): name for name, raw in payloads}
+        for fut in as_completed(futs):
+            name = futs[fut]
             try:
-                parsed = parse_kh_file(name, z.read(name))
+                parsed = fut.result()
                 if parsed.get("uid"):
                     zip_sensor_data[parsed["uid"]] = parsed
             except Exception as e:
                 print(f"  parse fail {name}: {e}")
-            if i % 100 == 0:
-                print(f"  parsed {i}/{len(names)}")
+            done += 1
+            if done % 100 == 0 or done == len(names):
+                print(f"  parsed {done}/{len(names)}")
     print(f"  {len(zip_sensor_data)} sensors with data in ZIP")
 
     print("Optional: reading sensors_db.json for extra metadata (motor_hp, depth, extra UIDs)...")

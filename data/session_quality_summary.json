@@ -1,19 +1,18 @@
 {
-  "policy_version": 3,
-  "sensor_files": 579,
+  "policy_version": 3.1,
+  "sensor_files": 871,
   "raw_arrays_preserved": true,
-  "total": 163853,
-  "ok": 59377,
-  "flagged": 92213,
-  "excluded": 12263,
-  "eligible_volume": 156873,
-  "eligible_drawdown": 53396,
-  "eligible_specific_capacity": 53268,
-  "jump_events": 360511,
+  "total": 257348,
+  "ok": 256946,
+  "flagged": 77,
+  "excluded": 325,
+  "eligible_volume": 254185,
+  "eligible_drawdown": 257268,
+  "eligible_specific_capacity": 254185,
+  "jump_events": 82,
   "by_reason": {
-    "too_few_samples": 11999,
-    "no_volume": 6980,
-    "sensor_relock_jump": 75595,
-    "net_level_rise": 52024
+    "no_volume": 325,
+    "sensor_relock_jump": 78,
+    "net_level_rise": 13
   }
 }

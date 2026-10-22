@@ -464,22 +464,32 @@ def cmd_live():
                           "ward_no": ward, "rainfall_mm": float(rf)}
     print(f"  {len(fresh)} (date, station) rows from KSNDMC")
 
-    # Merge into rolling log — replace any existing (date, station) row.
-    existing = {}
-    if KSNDMC_LOG.exists():
-        with KSNDMC_LOG.open("r", encoding="utf-8") as f:
-            for row in csv.DictReader(f):
-                existing[(row["date"], row["station_code"])] = row
-    for k, v in fresh.items():
-        existing[k] = {"date": v["date"], "station_code": v["station_code"],
+    # Append fresh data to the existing log without overwriting old entries
+    with KSNDMC_LOG.open("a", newline="", encoding="utf-8") as f:
+        # Load station names from the station catalog
+        station_names = {}
+        with KWRIS_STATIONS_CSV.open("r", encoding="utf-8") as station_file:
+            for row in csv.DictReader(station_file):
+                station_names[row["location_guid"]] = row["location_name"]
+
+        # Update fieldnames to include station_name
+        w = csv.DictWriter(f, fieldnames=["date", "station_code", "station_name", "ward_no", "rainfall_mm"])
+        # Write header only if the file is empty
+        if f.tell() == 0:
+            w.writeheader()
+        # Write only new entries
+        for k, v in fresh.items():
+            station_name = station_names.get(v["station_code"], "Unknown")
+            w.writerow({"date": v["date"], "station_code": v["station_code"],
+                       "station_name": station_name,
                        "ward_no": "" if v["ward_no"] is None else v["ward_no"],
-                       "rainfall_mm": v["rainfall_mm"]}
-    with KSNDMC_LOG.open("w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=["date", "station_code", "ward_no", "rainfall_mm"])
-        w.writeheader()
-        for row in sorted(existing.values(), key=lambda r: (r["date"], r["station_code"])):
-            w.writerow(row)
-    print(f"[live] log now has {len(existing)} (date, station) rows -> {KSNDMC_LOG}")
+                       "rainfall_mm": v["rainfall_mm"]})
+    # Count the total number of rows in the log file
+    total_rows = 0
+    with KSNDMC_LOG.open("r", encoding="utf-8") as f:
+        for _ in csv.DictReader(f):
+            total_rows += 1
+    print(f"[live] log now has {total_rows} (date, station) rows -> {KSNDMC_LOG}")
 
 
 # ---------------------------------------------------------------------------
@@ -502,14 +512,19 @@ def _load_kwris_station_catalog():
         return []
     out = []
     with KWRIS_STATIONS_CSV.open("r", encoding="utf-8") as f:
-        for row in csv.DictReader(f):
+        reader = csv.DictReader(f)
+        for row in reader:
             try:
                 lat = float(row["lat"]); lng = float(row["lng"])
             except (TypeError, ValueError):
                 continue
-            out.append({"guid": row["location_guid"],
-                        "name": row["location_name"],
-                        "lat": lat, "lng": lng})
+            out.append({
+                "guid": row["location_guid"],
+                "name": row["location_name"],
+                "ward_no": row["ward_no"],
+                "ward_name": row["ward_name"],
+                "lat": lat, "lng": lng
+            })
     return out
 
 
@@ -632,9 +647,18 @@ def cmd_build():
             vals = ksndmc.get((d, wno))
             if not vals:
                 continue
-            merged.append({"date": d,
+            # Extract station code from KSNDMC log entries for station name lookup
+        station_code = None
+        for row in csv.DictReader(KSNDMC_LOG.open("r", encoding="utf-8")):
+            if row["date"] == d and int(row["ward_no"]) == wno:
+                station_code = row.get("station_code")
+                break
+
+        station_name = station_info.get(station_code, "Unknown")
+        merged.append({"date": d,
                            "rainfall_mm": round(sum(vals) / len(vals), 1),
-                           "source": "KSNDMC"})
+                           "source": "KSNDMC",
+                           "station_name": station_name})
 
         # Ward stats.
         annual_cutoff = (dt.date.fromisoformat(today) - dt.timedelta(days=365)).isoformat()
@@ -650,14 +674,35 @@ def cmd_build():
         p["rainfall_updated_at"] = now_utc
         p["rainfall_source"] = SOURCE_LABEL
 
+        # Ensure station names are included in the merged data for each entry
+        station_info = {}
+        for station in catalog:
+            if station["ward_no"] == wno:
+                station_info[station["guid"]] = station["name"]
+                break  # Use the first station name for simplicity if multiple stations belong to the same ward
+
+        # Update daily entries to include station names
+        daily_with_station = []
+        for entry in merged:
+            date = entry["date"]
+            source = entry["source"]
+            rf_mm = entry["rainfall_mm"]
+            station_name = station_info.get(entry.get("station_code"), "Unknown") if source == "KSNDMC" else station_info.get(entry.get("station_guid"), "Unknown")
+            daily_with_station.append({
+                "date": date,
+                "rainfall_mm": rf_mm,
+                "source": source,
+                "station_name": station_name
+            })
+
         payload = {
             "ward_no": wno,
             "ward_name": p.get("ward_name"),
             "source": SOURCE_LABEL,
             "start": merged[0]["date"] if merged else None,
             "end":   merged[-1]["date"] if merged else None,
-            "daily": merged,
-            "monthly": _monthly_totals(merged),
+            "daily": daily_with_station,
+            "monthly": _monthly_totals(daily_with_station),
             "annual_total_mm": round(annual, 1),
             "current_month_mm": round(cur_month, 1),
         }

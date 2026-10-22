@@ -3,14 +3,20 @@
 No observations are removed or corrected. 'excluded' means excluded from the
 default session analysis; metric eligibility remains independent of that label.
 
-Policy v3: the device cumulative-yield counter is unreliable in the delivered
-ZIPs (it can sit stationary or emit spurious resets), so it is no longer used
-to segment sessions or to measure volume. Sessions are split only on a >30 min
-gap, and volume is reconstructed by integrating the flow rate
-(flow_lpm x minutes / 1000), reset per session -- the same quantity KH's own
-reference tables report. The raw yield array is still stored untouched for audit.
+Policy v3: the device cumulative-yield counter is unreliable when integrated
+step-by-step in the delivered ZIPs (it can sit stationary or emit spurious
+small decreases), so it is no longer used to segment sessions. Sessions are
+split only on a >30 min gap, and volume is reconstructed by integrating the
+flow rate (flow_lpm x minutes / 1000), reset per session.
+
+Policy v3.1 flow-missing fallback: when a session has NO flow readings at all
+(KH stripped the Flow Rate column in the 05.10.26 cleanup), volume falls back
+to yield_end - yield_start on the session endpoints. The step-by-step jiggle
+that killed Policy v2 averages out across a session, so endpoint delta is
+reliable (>99% positive) in audits. If the yield endpoints also don't give a
+positive delta, no_volume is kept and the session is excluded.
 """
-POLICY_VERSION = 3
+POLICY_VERSION = 3.1
 
 
 def build_sessions(times, water, flow, yield_):
@@ -32,13 +38,21 @@ def build_sessions(times, water, flow, yield_):
                  if water[i] is not None and water[i - 1] is not None]
         jumps = sum(v > 20 for v in steps)
         drawdown = water[e] - water[a] if water[e] is not None and water[a] is not None else None
-        # Volume reconstructed from flow; the yield counter is unreliable.
+        # Policy v3: volume reconstructed from flow.
+        # Policy v3.1: fall back to yield endpoints when flow is entirely missing.
         volume = 0.0
+        has_any_flow = False
         for i in range(a + 1, end):
             if flow[i - 1] is not None:
+                has_any_flow = True
                 minutes = (times[i] - times[i - 1]).total_seconds() / 60.0
                 if minutes >= 0:
                     volume += flow[i - 1] * minutes / 1000.0
+        if not has_any_flow:
+            y_start = yield_[a] if a < len(yield_) else None
+            y_end = yield_[e] if e < len(yield_) else None
+            if y_start is not None and y_end is not None and y_end > y_start:
+                volume = y_end - y_start
         reasons = []
         if n < 3:
             reasons.append('too_few_samples')
