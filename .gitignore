@@ -23,3 +23,8 @@ Claude outputs/
 council-transcript-*.md
 .impeccable/
 docs/superpowers/
+
+backend/_scratch/
+data_raw/
+
+outputs/
