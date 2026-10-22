@@ -9,219 +9,269 @@
 </head>
 <body>
 
-<!-- FULL-SCREEN MAP -->
-<div id="map"></div>
+<div id="app">
 
-<!-- FLOATING HEADER (minimal, top-left) -->
-<div id="brand" class="floating">
-  <div class="brand-title">BWSSB Borewell Dashboard</div>
-  <div class="brand-sub">Indian Institute of Science</div>
-</div>
-
-<!-- HIGH-SIGNAL SNAPSHOT STRIP -->
-<div id="data-window-banner" class="data-window-banner">Data window <b>Jul 2025 &ndash; Sep 2026</b>. Trends within this window largely reflect monsoon recovery, not long-term change.</div>
-<div id="status-strip" class="floating" aria-live="polite">
-  <div class="metric-card kpi-clickable" data-kpi-highlight="total" role="button" tabindex="0" title="Highlight wards with sensors">
-    <div class="metric-value" id="metric-total-sensors">—</div>
-    <div class="metric-label">Total sensors</div>
-  </div>
-  <div class="metric-card kpi-clickable" data-kpi-highlight="covered" role="button" tabindex="0" title="Highlight covered wards">
-    <div class="metric-value" id="metric-wards">—</div>
-    <div class="metric-label">Wards covered</div>
-  </div>
-  <div class="metric-card kpi-clickable" data-kpi-highlight="critical" role="button" tabindex="0" title="Highlight deepening wards">
-    <div class="metric-value metric-critical" id="metric-critical">—</div>
-    <div class="metric-label" id="metric-critical-label">Deepening wards</div>
-  </div>
-  <div class="metric-card kpi-clickable" data-kpi-highlight="rise" role="button" tabindex="0" title="Highlight rising wards">
-    <div class="metric-value metric-rise" id="metric-rise">—</div>
-    <div class="metric-label">Rising</div>
-  </div>
-  <div class="metric-card kpi-clickable" data-kpi-highlight="stable" role="button" tabindex="0" title="Highlight no-strong-trend wards">
-    <div class="metric-value metric-stable" id="metric-stable">—</div>
-    <div class="metric-label" id="metric-stable-label">No strong trend</div>
-  </div>
-</div>
-
-<!-- TOP-RIGHT ACTION BAR -->
-<button id="clear-filter-chip" class="floating clear-filter-chip" hidden title="Clear selection (Esc)"><svg viewBox="0 0 24 24" width="16" height="16" style="vertical-align:middle;margin-right:6px"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg>Clear selection</button>
-
-<div id="toolbar" class="floating">
-  <button id="btn-search" class="tool" title="Search wards or sensors (Ctrl-K)">
-    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zM9.5 14C7 14 5 12 5 9.5S7 5 9.5 5 14 7 14 9.5 12 14 9.5 14"/></svg>
-  </button>
-  <button id="btn-filter" class="tool" title="Filters &amp; layers">
-    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M10 18h4v-2h-4zM3 6v2h18V6zm3 7h12v-2H6z"/></svg>
-  </button>
-  <button id="btn-info" class="tool" title="About this dashboard">
-    <svg viewBox="0 0 24 24" width="20" height="20"><path d="M11 17h2v-6h-2zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8M11 9h2V7h-2z"/></svg>
-  </button>
-</div>
-
-<!-- BOTTOM-RIGHT LEGEND & LAYER TOGGLE -->
-<div id="legend" class="floating">
-  <div class="legend-scale" id="legend-scale"></div>
-  <div id="legend-items" class="legend-items"></div>
-  <div class="legend-caption">Wards shaded by sensor count</div>
-</div>
-
-<!-- SEARCH OVERLAY (hidden by default) -->
-<div id="search-overlay" class="overlay" hidden>
-  <div class="overlay-panel search-panel">
-    <div class="search-header">
-      <input id="search-input" type="text" placeholder="Search by ward name, ward number, or UID..." autocomplete="off" />
-      <button class="close-btn" data-close="search-overlay">×</button>
-    </div>
-    <div id="search-results" class="search-results"></div>
-    <div class="search-hint">Tip: type "max sensors", "min sensors", or a ward name.</div>
-  </div>
-</div>
-
-<!-- FILTER OVERLAY (hidden by default) -->
-<div id="filter-overlay" class="overlay" hidden>
-  <div class="overlay-panel filter-panel">
-    <div class="panel-header">
-      <h3>Filters &amp; layers</h3>
-      <button class="close-btn" data-close="filter-overlay">×</button>
-    </div>
-    <div class="filter-section">
-      <div class="filter-label">Map lens</div>
-      <div class="method-row lens-row">
-        <label for="criticality-method">Classification method</label>
-        <select id="criticality-method">
-          <option value="modern" selected>Static-only + Network-percentile + Modified MK (Recommended)</option>
-          <option value="legacy">Legacy: 0.1 ft/week threshold, raw levels, standard MK</option>
-        </select>
+  <!-- ======================= TOP BAR ======================= -->
+  <header id="topbar">
+    <div id="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2.5c3.6 4.2 6 7.6 6 10.8a6 6 0 0 1-12 0c0-3.2 2.4-6.6 6-10.8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.2 13.4c.5 1.2 1.6 2 2.8 2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
       </div>
-      <div class="method-row lens-row">
-        <label for="analysis-lens">Analysis lens</label>
-        <select id="analysis-lens">
-          <option value="groundwater">Groundwater Decline</option>
-          <option value="volumetric_deficit">High Volumetric Deficit (ML)</option>
-          <option value="extraction">High Extraction</option>
-          <option value="pumping_stress">Volume-normalized Drawdown</option>
-          <option value="consumption">Previous Consumption Criticality</option>
-          <option value="specific_capacity">Low Specific Capacity</option>
-          <option value="current_stress">Current Stress (well vs own history)</option>
-        </select>
-      </div>
-      <div class="filter-note" id="analytics-note">Groundwater criticality uses the earlier dashboard API when available; no raw water-level or discharge series are imported.</div>
-      <div class="method-row" id="groundwater-method-row" hidden>
-        <label for="groundwater-method">Trend method</label>
-        <select id="groundwater-method">
-          <option value="linear">Linear slope only</option>
-          <option value="theil">Theil-Sen only</option>
-          <option value="mann">Mann-Kendall (standard) only</option>
-          <option value="mk_mod">Modified Mann-Kendall (Hamed-Rao)</option>
-          <option value="linear_theil">Linear slope + Theil-Sen</option>
-          <option value="linear_mann">Linear slope + Mann-Kendall</option>
-          <option value="theil_mann">Theil-Sen + Mann-Kendall</option>
-          <option value="linear_mk_mod">Linear slope + Modified MK</option>
-          <option value="theil_mk_mod">Theil-Sen + Modified MK</option>
-          <option value="linear_theil_mk_mod">Linear slope + Theil-Sen + Modified MK</option>
-          <option value="all_three">Linear slope + Theil-Sen + Standard MK</option>
-        </select>
-      </div>
-      <div class="common-query">
-        <label for="common-threshold">Common query</label>
-        <div class="common-query-controls">
-          <input id="common-threshold" type="number" min="1" max="5" step="1" value="2" />
-          <button class="chip" type="button" id="common-query-apply">Highlight wards</button>
-        </div>
-        <div class="filter-note" id="common-query-note">Highlights wards active in at least 2 of 5 component lenses.</div>
-        <div class="chip-group query-chip-group">
-          <button class="chip" type="button" data-query-preset="groundwater_critical">Groundwater critical</button>
-          <button class="chip" type="button" data-query-preset="previous_consumption">Previous consumption</button>
-          <button class="chip" type="button" data-query-preset="volumetric_deficit">Volumetric deficit</button>
-          <button class="chip" type="button" data-query-preset="extraction">High extraction</button>
-          <button class="chip" type="button" data-query-preset="pumping_stress">Volume-normalized drawdown</button>
-          <button class="chip" type="button" data-query-preset="specific_capacity">Low specific capacity</button>
-          <button class="chip" type="button" data-query-preset="current_stress_critical">Current stress critical</button>
-          <button class="chip" type="button" data-query-preset="current_stress_elevated">Current stress elevated</button>
-        </div>
+      <div class="brand-text">
+        <div class="brand-title">BWSSB Borewell Dashboard</div>
+        <div class="brand-sub">Indian Institute of Science</div>
       </div>
     </div>
-    <div class="filter-section">
-      <div class="filter-label">Ward status</div>
-      <div class="chip-group" id="ward-status-controls">
-        <button class="chip active" data-ward-status="">All wards</button>
-        <button class="chip critical-chip" data-ward-status="critical">Critical</button>
-        <button class="chip rise-chip" data-ward-status="rise">Rising</button>
-        <button class="chip stable-chip" data-ward-status="stable" id="ward-stable-chip">No strong trend</button>
-      </div>
-    </div>
-    <div class="filter-section">
-      <div class="filter-label">Sensor status</div>
-      <div class="chip-group" id="sensor-status-controls">
-        <button class="chip active" data-sensor-status="with_data">Reporting</button>
-        <button class="chip" data-sensor-status="no_data">No data</button>
-        <button class="chip" data-sensor-status="all">All</button>
-      </div>
-    </div>
-    <div class="filter-section compact-option">
-      <div>
-        <div class="filter-label">Presentation</div>
-        <div class="filter-note">Use TV mode for large-screen reviews and control-room display.</div>
-      </div>
-      <label class="switch">
-        <input type="checkbox" id="tv-mode-toggle" />
-        <span class="track"><span class="thumb"></span></span>
-      </label>
-    </div>
-    <div class="filter-section">
-      <div class="filter-label">Quick views</div>
-      <div class="chip-group vertical">
-        <button class="chip" data-quick="max_sensors">Top 10 wards by sensor count</button>
-        <button class="chip" data-quick="min_sensors">10 wards with fewest sensors</button>
-        <button class="chip" data-quick="no_sensors">Wards with no sensors</button>
-        <button class="chip" data-quick="all_wards">Highlight all wards</button>
-        <button class="chip" data-quick="reset">Reset view</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- DETAIL PANEL (slides in from right) -->
-<div id="detail" class="detail-panel" hidden>
-  <div class="detail-header">
-    <div id="detail-title"></div>
-    <button class="close-btn" data-close="detail">×</button>
-  </div>
-  <div id="detail-body" class="detail-body"></div>
-</div>
+    <div id="status-strip" aria-live="polite">
+      <button class="metric-card kpi-clickable" data-kpi-highlight="total" title="Highlight wards with sensors">
+        <span class="metric-value" id="metric-total-sensors">—</span>
+        <span class="metric-label">Total sensors</span>
+      </button>
+      <button class="metric-card kpi-clickable" data-kpi-highlight="covered" title="Highlight covered wards">
+        <span class="metric-value" id="metric-wards">—</span>
+        <span class="metric-label">Wards covered</span>
+      </button>
+      <button class="metric-card kpi-clickable metric-critical-card" data-kpi-highlight="critical" title="Highlight deepening wards">
+        <span class="metric-value metric-critical" id="metric-critical">—</span>
+        <span class="metric-label" id="metric-critical-label">Deepening wards</span>
+      </button>
+      <button class="metric-card kpi-clickable metric-rise-card" data-kpi-highlight="rise" title="Highlight rising wards">
+        <span class="metric-value metric-rise" id="metric-rise">—</span>
+        <span class="metric-label">Rising</span>
+      </button>
+      <button class="metric-card kpi-clickable metric-stable-card" data-kpi-highlight="stable" title="Highlight no-strong-trend wards">
+        <span class="metric-value metric-stable" id="metric-stable">—</span>
+        <span class="metric-label" id="metric-stable-label">No strong trend</span>
+      </button>
+    </div>
 
-<!-- CHART MODAL (fullscreen chart on expand) -->
-<div id="chart-modal" class="overlay" hidden>
-  <div class="overlay-panel chart-modal-panel">
-    <div class="panel-header">
-      <h3 id="chart-modal-title"></h3>
-      <button class="close-btn" data-close="chart-modal">×</button>
+    <div class="topbar-actions">
+      <button id="btn-search" class="tool" title="Search wards or sensors (Ctrl-K)" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zM9.5 14C7 14 5 12 5 9.5S7 5 9.5 5 14 7 14 9.5 12 14 9.5 14"/></svg>
+      </button>
+      <button id="btn-info" class="tool" title="About this dashboard" aria-label="About">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M11 17h2v-6h-2zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8M11 9h2V7h-2z"/></svg>
+      </button>
     </div>
-    <div id="chart-modal-body"></div>
-  </div>
-</div>
+  </header>
 
-<!-- ABOUT OVERLAY (hidden by default) -->
-<div id="about-overlay" class="overlay" hidden>
-  <div class="overlay-panel about-panel">
-    <div class="panel-header">
-      <h3>About</h3>
-      <button class="close-btn" data-close="about-overlay">×</button>
-    </div>
-    <div class="about-body">
-      <p><b>BWSSB Borewell Dashboard</b> - Indian Institute of Science.</p>
-      <p>Wards are BBMP's 198-ward boundary. Sensor locations come from KH Projects. Water-level and discharge readings are taken from the latest KH cleaned Excel data snapshot; clicking any ward isolates it so you can focus on just its sensors.</p>
-      <p id="about-manifest" class="muted"></p>
-      <p class="muted">Click any ward for its summary and sensor list; click a sensor to open its details and time-series charts.</p>
+  <!-- ===================== WORKSPACE ===================== -->
+  <div id="workspace">
+
+    <!-- ------------- LEFT CONTROL RAIL ------------- -->
+    <aside id="rail" aria-label="Controls">
+      <button id="rail-toggle" class="rail-toggle" title="Collapse panel" aria-label="Collapse panel" aria-expanded="true">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <div class="rail-scroll">
+
+        <!-- Primary: what the map shows -->
+        <section class="rail-section">
+          <h2 class="rail-title">Map view</h2>
+          <label class="field">
+            <span class="field-label">Analysis lens</span>
+            <select id="analysis-lens">
+              <option value="groundwater">Groundwater Decline</option>
+              <option value="volumetric_deficit">High Volumetric Deficit (ML)</option>
+              <option value="extraction">High Extraction</option>
+              <option value="pumping_stress">Volume-normalized Drawdown</option>
+              <option value="consumption">Previous Consumption Criticality</option>
+              <option value="specific_capacity">Low Specific Capacity</option>
+              <option value="current_stress">Current Stress (well vs own history)</option>
+            </select>
+          </label>
+          <p class="field-note" id="analytics-note">Groundwater criticality uses the earlier dashboard API when available; no raw water-level or discharge series are imported.</p>
+        </section>
+
+        <!-- Ward / sensor status -->
+        <section class="rail-section">
+          <h2 class="rail-title">Ward status</h2>
+          <div class="chip-group" id="ward-status-controls">
+            <button class="chip active" data-ward-status="">All</button>
+            <button class="chip critical-chip" data-ward-status="critical">Critical</button>
+            <button class="chip rise-chip" data-ward-status="rise">Rising</button>
+            <button class="chip stable-chip" data-ward-status="stable" id="ward-stable-chip">No strong trend</button>
+          </div>
+          <h2 class="rail-title rail-title-sub">Sensors</h2>
+          <div class="chip-group" id="sensor-status-controls">
+            <button class="chip active" data-sensor-status="with_data">Reporting</button>
+            <button class="chip" data-sensor-status="no_data">No data</button>
+            <button class="chip" data-sensor-status="all">All</button>
+          </div>
+        </section>
+
+        <!-- Quick views -->
+        <section class="rail-section">
+          <h2 class="rail-title">Quick views</h2>
+          <div class="chip-group vertical">
+            <button class="chip" data-quick="max_sensors">Top 10 wards by sensor count</button>
+            <button class="chip" data-quick="min_sensors">10 wards with fewest sensors</button>
+            <button class="chip" data-quick="no_sensors">Wards with no sensors</button>
+            <button class="chip" data-quick="all_wards">Highlight all wards</button>
+            <button class="chip" data-quick="reset">Reset view</button>
+          </div>
+        </section>
+
+        <!-- Legend (keyed, survey-sheet style) -->
+        <section class="rail-section" id="legend">
+          <h2 class="rail-title">Legend</h2>
+          <div class="legend-scale" id="legend-scale"></div>
+          <div id="legend-items" class="legend-items"></div>
+          <p class="legend-caption">Wards classified by groundwater decline.</p>
+        </section>
+
+        <!-- Advanced (collapsed): secondary lenses, methods, cross-query -->
+        <details class="rail-advanced">
+          <summary><span>Advanced</span>
+            <svg class="adv-chev" viewBox="0 0 24 24" width="16" height="16"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="rail-advanced-body">
+            <label class="field">
+              <span class="field-label">Classification method</span>
+              <select id="criticality-method">
+                <option value="modern" selected>Recommended (network-percentile + Modified MK)</option>
+                <option value="legacy">Legacy (0.1 ft/week threshold, standard MK)</option>
+              </select>
+            </label>
+            <div class="field" id="groundwater-method-row" hidden>
+              <span class="field-label">Trend method</span>
+              <select id="groundwater-method">
+                <option value="linear">Linear slope only</option>
+                <option value="theil">Theil-Sen only</option>
+                <option value="mann">Mann-Kendall (standard) only</option>
+                <option value="mk_mod">Modified Mann-Kendall (Hamed-Rao)</option>
+                <option value="linear_theil">Linear slope + Theil-Sen</option>
+                <option value="linear_mann">Linear slope + Mann-Kendall</option>
+                <option value="theil_mann">Theil-Sen + Mann-Kendall</option>
+                <option value="linear_mk_mod">Linear slope + Modified MK</option>
+                <option value="theil_mk_mod">Theil-Sen + Modified MK</option>
+                <option value="linear_theil_mk_mod">Linear slope + Theil-Sen + Modified MK</option>
+                <option value="all_three">Linear slope + Theil-Sen + Standard MK</option>
+              </select>
+            </div>
+            <div class="field common-query">
+              <span class="field-label">Cross-lens query</span>
+              <div class="common-query-controls">
+                <input id="common-threshold" type="number" min="1" max="5" step="1" value="2" aria-label="Minimum lenses" />
+                <button class="chip" type="button" id="common-query-apply">Highlight wards</button>
+              </div>
+              <p class="field-note" id="common-query-note">Highlights wards active in at least 2 of 5 component lenses.</p>
+              <div class="chip-group query-chip-group">
+                <button class="chip" type="button" data-query-preset="groundwater_critical">Groundwater critical</button>
+                <button class="chip" type="button" data-query-preset="previous_consumption">Previous consumption</button>
+                <button class="chip" type="button" data-query-preset="volumetric_deficit">Volumetric deficit</button>
+                <button class="chip" type="button" data-query-preset="extraction">High extraction</button>
+                <button class="chip" type="button" data-query-preset="pumping_stress">Volume-normalized drawdown</button>
+                <button class="chip" type="button" data-query-preset="specific_capacity">Low specific capacity</button>
+                <button class="chip" type="button" data-query-preset="current_stress_critical">Current stress critical</button>
+                <button class="chip" type="button" data-query-preset="current_stress_elevated">Current stress elevated</button>
+              </div>
+            </div>
+            <label class="switch-row">
+              <span>
+                <span class="field-label">TV / control-room mode</span>
+                <span class="field-note">Larger type for wall displays.</span>
+              </span>
+              <span class="switch">
+                <input type="checkbox" id="tv-mode-toggle" />
+                <span class="track"><span class="thumb"></span></span>
+              </span>
+            </label>
+          </div>
+        </details>
+
+      </div>
+    </aside>
+
+    <!-- collapsed-rail re-open handle -->
+    <button id="rail-open" class="rail-open" title="Show controls" aria-label="Show controls" hidden>
+      <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <!-- ------------- MAP CANVAS (framed survey sheet) ------------- -->
+    <main id="map-wrap">
+      <div id="data-window-banner" class="data-window-banner">
+        <span>Data window <b>Jul 2025&ndash;Sep 2026</b> (refreshed Sep 2026) — trends in this window largely reflect monsoon recovery, not long-term change.</span>
+        <button class="banner-dismiss" aria-label="Dismiss" onclick="this.parentElement.hidden=true">×</button>
+      </div>
+      <div id="map"></div>
+      <button id="clear-filter-chip" class="clear-filter-chip" hidden title="Clear selection (Esc)">
+        <svg viewBox="0 0 24 24" width="15" height="15"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg>Clear selection
+      </button>
+    </main>
+
+    <!-- ------------- RIGHT DETAIL DRAWER ------------- -->
+    <aside id="detail" class="detail-panel" hidden>
+      <div class="detail-header">
+        <div id="detail-title"></div>
+        <button class="close-btn" data-close="detail" aria-label="Close">×</button>
+      </div>
+      <div id="detail-body" class="detail-body"></div>
+    </aside>
+
+  </div>
+
+  <!-- ===================== MODALS ===================== -->
+  <div id="search-overlay" class="overlay" hidden>
+    <div class="overlay-panel search-panel">
+      <div class="search-header">
+        <input id="search-input" type="text" placeholder="Search by ward name, ward number, or UID…" autocomplete="off" />
+        <button class="close-btn" data-close="search-overlay" aria-label="Close">×</button>
+      </div>
+      <div id="search-results" class="search-results"></div>
+      <div class="search-hint">Tip: type “max sensors”, “min sensors”, or a ward name.</div>
     </div>
   </div>
+
+  <div id="chart-modal" class="overlay" hidden>
+    <div class="overlay-panel chart-modal-panel">
+      <div class="panel-header">
+        <h3 id="chart-modal-title"></h3>
+        <button class="close-btn" data-close="chart-modal" aria-label="Close">×</button>
+      </div>
+      <div id="chart-modal-body"></div>
+    </div>
+  </div>
+
+  <div id="about-overlay" class="overlay" hidden>
+    <div class="overlay-panel about-panel">
+      <div class="panel-header">
+        <h3>About this dashboard</h3>
+        <button class="close-btn" data-close="about-overlay" aria-label="Close">×</button>
+      </div>
+      <div class="about-body">
+        <p>Wards are BBMP's 198-ward boundary. Sensor locations come from KH Projects. Water-level and discharge readings are the latest KH cleaned snapshot; clicking any ward isolates it so you can focus on its sensors.</p>
+        <p id="about-manifest" class="muted"></p>
+        <p class="muted">Click any ward for its summary and sensor list; click a sensor to open its details and time-series charts.</p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<!-- Runtime config + shared helpers (must load before the dashboard modules) -->
 <script src="js/config.js"></script>
 <script src="js/session-quality.js"></script>
-<script src="js/app.js"></script>
+<!-- Dashboard, split from the former app.js into ordered modules.
+     These are classic scripts sharing one global scope; ORDER MATTERS.
+     state -> constants -> core logic -> UI -> bootstrap (which calls boot() last). -->
+<script src="js/state/store.js"></script>
+<script src="js/config/constants.js"></script>
+<script src="js/core/api.js"></script>
+<script src="js/core/classification-helpers.js"></script>
+<script src="js/core/groundwater.js"></script>
+<script src="js/ui/selection.js"></script>
+<script src="js/core/data.js"></script>
+<script src="js/ui/metrics-query.js"></script>
+<script src="js/ui/map-layers.js"></script>
+<script src="js/ui/controls.js"></script>
+<script src="js/ui/detail.js"></script>
+<script src="js/ui/charts.js"></script>
+<script src="js/bootstrap.js"></script>
 </body>
 </html>

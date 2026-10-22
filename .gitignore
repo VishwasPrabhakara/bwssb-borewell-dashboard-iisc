@@ -14,3 +14,12 @@ backend/_scratch/_kh_meta_cache.pkl
 backend/_scratch/_water_stats_cache.pkl
 
 backend/_scratch/*.pkl
+
+# Large source data archive (zips) — never commit or deploy
+data_archive/
+
+# Assistant working outputs & process artifacts — not part of the product
+Claude outputs/
+council-transcript-*.md
+.impeccable/
+docs/superpowers/

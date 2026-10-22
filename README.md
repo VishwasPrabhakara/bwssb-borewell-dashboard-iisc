@@ -14,9 +14,25 @@ If you're brand new here, **read [START_HERE.md](./START_HERE.md) first** — it
 Dashboard_IISC_for_BWSSB/
   index.html                        Dashboard entry (map + overlays). Includes Leaflet + Chart.js via CDN.
   css/style.css                     All styles. Slate/teal palette, minimal chrome, no default sidebars.
-  js/
-    config.js                       Data source switch: "static" (JSON files) or "api" (Cloudflare Worker).
-    app.js                          Everything else: map, ward + sensor rendering, filters, search, sensor detail panel with charts.
+  js/                               Front-end, split from the former single app.js into ordered
+                                    classic scripts that share one global scope (zero build step).
+    config.js                       Data source switch: "static" (JSON files) or "api" (Worker).
+    session-quality.js              Pump-session quality policy (parity with backend).
+    state/store.js                  Single source of truth for mutable state + Store.set/subscribe.
+    config/constants.js             Lens guard, trend thresholds, palette, notifyError banner.
+    core/api.js                     Data-access layer: urlOf/seriesUrlOf, resilient getJson, analytics loaders.
+    core/classification-helpers.js  Ward style/status/colour helpers + shared utils.
+    core/groundwater.js             Groundwater criticality (Theil-Sen + linear + Modified MK), lens logic.
+    core/data.js                    boot(), loadData, sensor-inventory merge, point-in-polygon.
+    ui/selection.js                 Pan / ward selection, choropleth palette, choroColor.
+    ui/metrics-query.js             KPI cards, metrics, common query, presets.
+    ui/map-layers.js                initMap, ward + sensor rendering, legend.
+    ui/controls.js                  Toolbar, overlays, search, filters.
+    ui/detail.js                    Ward + sensor detail panels.
+    ui/charts.js                    Session reconstruction + water/discharge/modal charts.
+    bootstrap.js                    fmtDate, rainfall CSV, global listeners, final boot() call (loads last).
+    app.js                          DEPRECATED placeholder (old monolith); no longer loaded.
+                                    See docs/ARCHITECTURE.md for the module map and load order.
 
   data/                             Data files served by the static site.
     manifest.json                   Snapshot summary (KH ZIP name, dates, counts).
