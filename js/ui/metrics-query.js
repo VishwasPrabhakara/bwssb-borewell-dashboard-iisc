@@ -33,12 +33,7 @@ function updateMetrics() {
   _guardLens();
   clearKpiHighlightState();
   const number = v => v == null ? "—" : Number(v).toLocaleString("en-IN");
-  const usableSet = new Set(["GOOD","USABLE_WITH_CAUTION"]);
-  const reporting = sensors.filter(s => {
-    if (!s) return false;
-    const qc = sensorQcByUid.get(String(s.uid));
-    return qc ? usableSet.has(qc.qc_status) : !!s.has_data;
-  }).length;
+  const reporting = sensors.filter(s => s && s.has_data).length;
   document.getElementById("metric-total-sensors").textContent = number(reporting);
   const wardsWithData = wards?.features?.filter(f => (f.properties.sensor_with_data || 0) > 0).length || 0;
   document.getElementById("metric-wards").textContent = `${number(wardsWithData)}/${number(wards?.features?.length || manifest?.wards || 0)}`;
