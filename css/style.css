@@ -516,3 +516,8 @@ body.tv-mode .leaflet-tooltip.ward-tip { font-size: 14px; }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
+
+/* Day-of-week trend control + recalculated-slope note (water-level chart) */
+.dow-weekday { font-size: 11px; padding: 2px 5px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); margin-left: 2px; }
+.dow-slope-note { font-size: 11.5px; color: var(--muted); padding: 6px 9px; margin-top: 5px; background: var(--accent-soft); border-radius: 6px; line-height: 1.45; }
+.dow-slope-note b { color: var(--ink); font-weight: 700; }

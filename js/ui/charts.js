@@ -9,6 +9,9 @@ const sessionCache = new WeakMap();
 let qualityFilter = "all";
 let waterMode = "cleaned", dischargeMode = "all";
 let showTrend = { water: true, discharge: false };
+let dowWeekday = 4; // JS getDay(): 0=Sun..6=Sat — 4=Thursday (richest weekday in the PPT analysis)
+const DOW_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const DOW_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 let sessionPage = 0;
 const REASON_LABEL = {
   too_few_samples: "Fewer than 3 readings",
@@ -240,6 +243,59 @@ function trendDataset(pts, color, unitLabel) {
   };
 }
 
+// Day-of-week static levels: one median static level per pumping session that
+// falls on the chosen weekday, across the whole period. Mirrors the PPT method
+// (sessions split by >=8h gaps -> one representative level each -> group by weekday).
+function dowLevelPoints(weekday) {
+  const S = currentSensorSeries;
+  if (!S || !S.water_ft) return [];
+  const from = rangeFrom();
+  const out = [];
+  for (const se of computeSessions(S)) {
+    if (qualityFilter !== "all" && se.status !== qualityFilter) continue;
+    const t = se.startTime;
+    if (!t || t.getDay() !== weekday) continue;
+    if (from && t < from) continue;
+    const vals = [];
+    for (let i = se.startIdx; i <= se.stopIdx; i++) {
+      const y = S.water_ft[i];
+      if (y != null && !isNaN(y)) vals.push(y);
+    }
+    if (!vals.length) continue;
+    vals.sort((a, b) => a - b);
+    out.push({ x: t, y: vals[Math.floor(vals.length / 2)] });
+  }
+  out.sort((a, b) => a.x - b.x);
+  return out;
+}
+
+// Update the recalculated day-of-week slope note under the water chart.
+function syncDowControls() {
+  const dowSel = document.getElementById("dow-weekday");
+  if (dowSel) { dowSel.style.display = (waterMode === "dow") ? "" : "none"; dowSel.value = String(dowWeekday); }
+}
+
+function updateDowNote() {
+  const el = document.getElementById("dow-slope-note");
+  if (!el) return;
+  if (waterMode !== "dow") { el.style.display = "none"; return; }
+  el.style.display = "block";
+  const pts = dowLevelPoints(dowWeekday);
+  const o = (pts.length >= 2) ? olsSlope(pts, "ft") : null;
+  if (!o) {
+    el.innerHTML = `<b>${DOW_NAMES[dowWeekday]} trend:</b> only ${pts.length} ${DOW_NAMES[dowWeekday]} session${pts.length === 1 ? "" : "s"} in this range — need at least 2 to fit a slope. Try another weekday or the ALL range.`;
+    return;
+  }
+  const perWeek = o.slope * 1000 * 60 * 60 * 24 * 7;
+  const perYearFt = perWeek * 52;
+  const dir = perWeek > 0.1 ? "deepening — water table falling"
+            : perWeek < -0.1 ? "recovering — water table rising"
+            : "roughly stable";
+  el.innerHTML = `<b>${DOW_NAMES[dowWeekday]} trend</b> · recalculated on <b>${pts.length}</b> session medians: `
+    + `<b>${perWeek >= 0 ? "+" : ""}${perWeek.toFixed(3)} ft/week</b> `
+    + `(${perYearFt >= 0 ? "+" : ""}${perYearFt.toFixed(1)} ft/year) · R² ${o.r2.toFixed(2)} — ${dir}.`;
+}
+
 function drawCharts() {
   if (charts.water) charts.water.destroy();
   if (charts.discharge) charts.discharge.destroy();
@@ -263,12 +319,16 @@ function drawCharts() {
     wDatasets.push({ label: "Water level (cleaned)", data: C.water, borderColor: "#0e7490", backgroundColor: "rgba(14,116,144,0.08)", fill: true, tension: 0.25, pointRadius: 0, borderWidth: 1.4 });
     wLabels = C.times;
     trendPts = C.times.map((t, i) => ({ x: t, y: C.water[i] }));
+  } else if (waterMode === "dow") {
+    const pts = dowLevelPoints(dowWeekday);
+    wDatasets.push({ label: `${DOW_SHORT[dowWeekday]} static median (per session)`, data: pts, borderColor: "#7c3aed", backgroundColor: "rgba(124,58,237,0.12)", fill: false, tension: 0, pointRadius: 3.4, borderWidth: 1.6, showLine: true });
+    trendPts = pts;
   } else { // static
     const pts = cleanedStaticPoints(8);
     wDatasets.push({ label: "Static level (cleaned + rested ≥ 8h)", data: pts, borderColor: "#0e7490", backgroundColor: "rgba(14,116,144,0.10)", fill: false, tension: 0.2, pointRadius: 2.6, borderWidth: 1.8 });
     trendPts = pts;
   }
-  if (showTrend.water && trendPts) {
+  if ((showTrend.water || waterMode === "dow") && trendPts) {
     const td = trendDataset(trendPts, "#b45309", "ft");
     if (td) wDatasets.push(td);
   }
@@ -277,6 +337,8 @@ function drawCharts() {
     data: wLabels ? { labels: wLabels, datasets: wDatasets } : { datasets: wDatasets },
     options: yOpts("ft below surface  (lower on chart = deeper water)"),
   });
+  updateDowNote();
+  syncDowControls();
 
   // Discharge -----------------------------------------------------------
   let fDatasets = [], fLabels, fTrendPts = null;
@@ -386,10 +448,21 @@ function wireRangeChips() {
   });
   document.querySelectorAll(".chart-mode").forEach(sel => {
     sel.addEventListener("change", () => {
-      if (sel.dataset.chart === "water") waterMode = sel.value; else dischargeMode = sel.value;
+      if (sel.dataset.chart === "water") {
+        waterMode = sel.value;
+        // Day-of-week needs the full history to fit a meaningful slope.
+        if (waterMode === "dow" && currentRange !== "ALL") {
+          Store.set("currentRange", "ALL");
+          document.querySelectorAll(".range-chip[data-range]").forEach(c => c.classList.toggle("active", c.dataset.range === "ALL"));
+        }
+      } else {
+        dischargeMode = sel.value;
+      }
       drawCharts();
     });
   });
+  const dowSel = document.getElementById("dow-weekday");
+  if (dowSel) dowSel.addEventListener("change", () => { dowWeekday = Number(dowSel.value); drawCharts(); });
   document.querySelectorAll(".trend-btn[data-trend]").forEach(btn => {
     btn.addEventListener("click", () => {
       const which = btn.dataset.trend;

@@ -113,9 +113,10 @@ function sensorChartsHTML() {
     <div class="chart-block">
       <div class="chart-header">
         <div class="chart-title">Water level (ft below surface)</div>
-        <div class="chart-actions"><select class="chart-mode" data-chart="water" title="Water-level view"><option value="raw">Raw (as recorded)</option><option value="cleaned" selected>Cleaned (QC applied)</option><option value="static">Static (cleaned + rested ≥ 8h)</option></select>${chips}<button class="trend-btn" data-trend="water" title="Toggle OLS trend line">Trend</button><button class="dl-btn" data-download="water" title="Download PNG">⬇</button><button class="expand-btn" data-expand="water" title="Expand">⤢</button></div>
+        <div class="chart-actions"><select class="chart-mode" data-chart="water" title="Water-level view"><option value="raw">Raw (as recorded)</option><option value="cleaned" selected>Cleaned (QC applied)</option><option value="static">Static (cleaned + rested ≥ 8h)</option><option value="dow">Day-of-week trend</option></select><select class="dow-weekday" id="dow-weekday" title="Weekday for day-of-week trend" style="display:none"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4" selected>Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select>${chips}<button class="trend-btn" data-trend="water" title="Toggle OLS trend line">Trend</button><button class="dl-btn" data-download="water" title="Download PNG">⬇</button><button class="expand-btn" data-expand="water" title="Expand">⤢</button></div>
       </div>
       <div class="chart-canvas-wrap"><canvas id="chart-water"></canvas></div>
+      <div id="dow-slope-note" class="dow-slope-note" style="display:none"></div>
     </div>
     <div class="chart-block">
       <div class="chart-header">
