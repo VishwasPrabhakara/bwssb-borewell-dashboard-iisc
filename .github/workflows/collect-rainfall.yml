@@ -1,0 +1,29 @@
+name: Daily KSNDMC Rainfall Collection
+
+on:
+  schedule:
+    - cron: '0 4 * * *'   # 09:30 IST ≈ 04:00 UTC
+  workflow_dispatch:        # manual trigger button
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run collector
+        run: python backend/collect_ksndmc_daily.py
+
+      - name: Commit if new data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data_raw/ksndmc/ksndmc_daily_rainfall.csv
+          git diff --cached --quiet || git commit -m "rainfall: $(date -u +%Y-%m-%d) KSNDMC daily"
+          git push
