@@ -26,7 +26,7 @@
     <div id="status-strip" aria-live="polite">
       <button class="metric-card kpi-clickable" data-kpi-highlight="total" title="Highlight wards with sensors">
         <span class="metric-value" id="metric-total-sensors">—</span>
-        <span class="metric-label">Reporting sensors</span>
+        <span class="metric-label">Reporting borewells</span>
       </button>
       <button class="metric-card kpi-clickable" data-kpi-highlight="covered" title="Highlight covered wards">
         <span class="metric-value" id="metric-wards">—</span>
@@ -80,6 +80,7 @@
               <option value="consumption">Previous Consumption Criticality</option>
               <option value="specific_capacity">Low Specific Capacity</option>
               <option value="current_stress">Current Stress (well vs own history)</option>
+              <option value="water_level_class">Water Level Classification (depth bands)</option>
             </select>
           </label>
           <p class="field-note" id="analytics-note">Groundwater criticality uses the earlier dashboard API when available; no raw water-level or discharge series are imported.</p>

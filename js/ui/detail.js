@@ -34,6 +34,7 @@ function openWardDetail(p, feat) {
       <div class="criticality-line"><b>${gw.category}</b> · ${gw.direction}${gw.previousCritical ? " · Previous consumption-critical ward" : ""}</div>
       ${gw.reason ? `<div class="criticality-note">${gw.reason}</div>` : ""}
     </div>` : ""}
+    ${(() => { const wlc = waterLevelClassByNo.get(normalizeWardNo(p.ward_no)); return wlc ? `<div class="criticality-summary"><div class="section-title">Water Level Classification</div><div class="criticality-line">Dominant band: <b>${wlc.dominantBand}</b> · Median depth: <b>${wlc.medianDepthFt != null ? wlc.medianDepthFt.toFixed(0) + " ft" : "—"}</b> · ${wlc.wellCount} sensor${wlc.wellCount === 1 ? "" : "s"}</div></div>` : ""; })()}
     <div class="section-title">Sensors in this ward (${list.length})</div>
     <div class="uid-list" id="ward-uid-list"></div>
   `;
@@ -74,6 +75,7 @@ async function openSensorDetail(uid) {
       <div class="stat-card"><div class="stat-label">Ward</div><div class="stat-value small">${s.ward_no != null ? `${s.ward_no} · ${s.ward_name || ""}` : "Unassigned"}</div></div>
       <div class="stat-card"><div class="stat-label">Motor HP</div><div class="stat-value small">${s.motor_hp != null ? s.motor_hp : "—"}</div></div>
       <div class="stat-card"><div class="stat-label">Borewell depth</div><div class="stat-value small">${s.borewell_depth != null ? s.borewell_depth + " ft" : "—"}</div></div>
+      ${(() => { const d = sensorDepthBandByUid.get(String(s.uid)); return d ? `<div class="stat-card"><div class="stat-label">Water level (latest)</div><div class="stat-value small">${d.latest_ft} ft</div><div class="stat-sub">${DEPTH_BAND_LABELS[d.band]}</div></div>` : ""; })()}
       <div class="stat-card"><div class="stat-label">Readings</div><div class="stat-value small">${(s.reading_count || 0).toLocaleString("en-IN")}</div></div>
       <div class="stat-card"><div class="stat-label">Status</div><div class="stat-value small">${sensorStatusLabel(sensorStatusKey(s))}</div></div>
       <div class="stat-card"><div class="stat-label">First reading</div><div class="stat-value small">${fmtDate(s.first_data_at)}</div></div>

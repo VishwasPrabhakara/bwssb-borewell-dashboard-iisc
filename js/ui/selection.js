@@ -61,6 +61,11 @@ const CHORO = ["#f0f9fb", "#d3ecf1", "#a8d8e2", "#79c1d1", "#4ea6bd", "#2f8ba3",
 const CRITICALITY_COLORS = { critical: "#c23a2e", rise: "#2f9c69", stable: "#cf9a2c", none: "#d4dadd" };
 const BASE_WARD_COLOR = { fill: "#a8d8e2", stroke: "#5a7a86", opacity: 0.22 };
 const SENSOR_COLORS = { with_data: "#0e7490", no_data: "#64748b" };
+// Water-level depth bands for individual borewells (coloured on the map).
+// Shallow water table = water near surface (green); deepening to red.
+const DEPTH_BAND_COLORS = { shallow: "#16a34a", moderate: "#eab308", deep: "#f97316", verydeep: "#dc2626" };
+const DEPTH_BAND_LABELS = { shallow: "<100 ft", moderate: "100–250 ft", deep: "250–500 ft", verydeep: ">500 ft" };
+const DEPTH_BAND_ORDER = ["shallow", "moderate", "deep", "verydeep"];
 const GROUNDWATER_MIN_SLOPE_WEEKS = 4;
 
 function choroColor(value, breaks) {

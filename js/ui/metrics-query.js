@@ -33,8 +33,11 @@ function updateMetrics() {
   _guardLens();
   clearKpiHighlightState();
   const number = v => v == null ? "—" : Number(v).toLocaleString("en-IN");
+  // Reporting borewells = sensors in the uploaded data that are actually giving
+  // readings. The full BWSSB inventory (no-data devices) is deliberately not counted.
   const reporting = sensors.filter(s => s && s.has_data).length;
-  document.getElementById("metric-total-sensors").textContent = number(reporting);
+  const elReporting = document.getElementById("metric-total-sensors");
+  if (elReporting) elReporting.textContent = number(reporting);
   const wardsWithData = wards?.features?.filter(f => (f.properties.sensor_with_data || 0) > 0).length || 0;
   document.getElementById("metric-wards").textContent = `${number(wardsWithData)}/${number(wards?.features?.length || manifest?.wards || 0)}`;
   updateLensCounts();

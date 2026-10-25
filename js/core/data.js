@@ -49,7 +49,9 @@ async function loadData() {
     for (const row of qcPayload.sensors) sensorQcByUid.set(String(row.uid), row);
   }
   wards = ws;
-  sensors = mergeSensorInventory(ss, analytics.fullSensors || []);
+  // Only the locally-uploaded data counts (the borewell zip). The Worker/Neon
+  // inventory is intentionally NOT merged in — it inflated the reporting count.
+  sensors = mergeSensorInventory(ss, []);
   manifest = mf;
   sessionSummary = qs;
   currentStressByNo = new Map((analytics.currentStress?.wards || [])
@@ -62,6 +64,17 @@ async function loadData() {
   pumpingPerformanceWardSummaryByNo = new Map((analytics.pumpingPerformance?.wards || []).map(item => [normalizeWardNo(item.wardNo), item]).filter(([k]) => k != null));
   pumpingPerformanceWardThresholds = analytics.pumpingPerformance?.thresholds || {};
   volumetricDeficitByNo = new Map((analytics.volumetricDeficit?.wards || []).map(item => [normalizeWardNo(item.wardNo), item]).filter(([k]) => k != null));
+  // Water level classification
+  const wlcData = await getJson("./data/water_level_classification.json", { fallback: null, label: "water level classification" });
+  if (wlcData) {
+    waterLevelClassByNo = new Map((wlcData.wards || []).map(w => [normalizeWardNo(w.wardNo), w]).filter(([k]) => k != null));
+    waterLevelClassSensors = wlcData.sensors || [];
+  }
+  // Per-sensor water-level depth bands (all reporting borewells, from local data)
+  const depthData = await getJson("./data/sensor_depth_bands.json", { fallback: null, label: "sensor depth bands" });
+  if (depthData && Array.isArray(depthData.sensors)) {
+    sensorDepthBandByUid = new Map(depthData.sensors.map(s => [String(s.uid), s]));
+  }
   analyticsLoaded = criticalGroundwaterByNo.size > 0;
   if (analyticsLoaded) currentLens = "groundwater";
   console.info("[dashboard] loaded", { wards: wards.features.length, sensors: sensors.length, sensorsWithData: sensors.filter(s => s.has_data).length, manifest });

@@ -68,6 +68,24 @@ function renderWards() {
         }
         if (parts.length) methodBadges = `<div class="kv" style="font-size:11px;line-height:1.4">${parts.join("<br/>")}</div>`;
       }
+      // Water level classification info
+      let wlcRow = "";
+      if (currentLens === "water_level_class") {
+        const wlc = waterLevelClassByNo.get(normalizeWardNo(p.ward_no));
+        if (wlc) {
+          const bands = wlc.bandCounts || {};
+          const parts = [];
+          for (const [bk, bv] of Object.entries(bands)) {
+            if (bv > 0) {
+              const short = bk.startsWith("Very") ? "V.Deep" : bk.startsWith("Deep") ? "Deep" : bk.startsWith("Mod") ? "Moderate" : "Shallow";
+              parts.push(short + ": " + bv);
+            }
+          }
+          wlcRow = '<div class="kv">Dominant: <b>' + (wlc.dominantBand || '—') + '</b></div>'
+                 + '<div class="kv">Sensors by band: ' + (parts.join(' · ') || '—') + '</div>'
+                 + '<div class="kv">Median depth: <b>' + (wlc.medianDepthFt != null ? wlc.medianDepthFt.toFixed(0) + ' ft' : '—') + '</b></div>';
+        }
+      }
       const tip = `
         <div class="name">Ward ${p.ward_no} — ${p.ward_name}</div>
         <div class="kv">Sensors with data: <b>${p.sensor_with_data || 0}</b> / ${p.sensor_total || 0}</div>
@@ -75,6 +93,7 @@ function renderWards() {
         ${fiveNumRow}
         ${confidenceBadge}
         ${methodBadges}
+        ${wlcRow}
         <div class="kv">Population (2026 proj): ${p.population_2026 ? Math.round(p.population_2026).toLocaleString("en-IN") : "—"}</div>
         <div class="kv">Area: ${p.area_km2 ? p.area_km2.toFixed(1) + " km²" : "—"}</div>
       `;
@@ -94,6 +113,9 @@ function wardStatusLabel(key) {
   if (currentLens === "current_stress") {
     return ({ critical: "Critical current stress", rise: "Elevated current stress", stable: "Normal / recovered", none: "No current-stress data" })[key] || "All wards";
   }
+  if (currentLens === "water_level_class") {
+    return ({ critical: "Very Deep (>500 ft)", rise: "Deep (250–500 ft)", stable: "Shallow / Moderate (<250 ft)", none: "No classification data" })[key] || "All wards";
+  }
   return ({ critical: "Critical", rise: "Rising / improving", stable: stableStatusLabel(), high: "High coverage", low: "Needs coverage", none: "No sensors" })[key] || "All wards";
 }
 
@@ -105,15 +127,19 @@ function renderSensors() {
   for (const s of visible) {
     const isSel = selectedSensorUid === s.uid;
     const status = sensorStatusKey(s);
+    const depth = sensorDepthBandByUid.get(String(s.uid));
+    // Reporting borewells are coloured by water-level depth band; no-data stays grey.
+    const fill = depth ? DEPTH_BAND_COLORS[depth.band] : SENSOR_COLORS[status];
     const m = L.circleMarker([s.lat, s.lng], {
       radius: isSel ? 11 : 6,
       color: isSel ? "#f59e0b" : "#ffffff",
       weight: isSel ? 3 : 1.6,
-      fillColor: SENSOR_COLORS[status],
+      fillColor: fill,
       fillOpacity: 0.95,
     });
     const wardLabel = s.ward_no != null ? `Ward ${s.ward_no} — ${s.ward_name || ""}` : "Unassigned";
-    m.bindTooltip(`<b>${s.uid}</b><br/>${wardLabel}<br/>${sensorStatusLabel(status)}${s.last_data_at ? " · " + fmtDate(s.last_data_at) : ""}`, { className: "sensor-tip", direction: "top" });
+    const depthLine = depth ? `<br/>Water level: <b>${depth.latest_ft} ft</b> · ${DEPTH_BAND_LABELS[depth.band]}` : "";
+    m.bindTooltip(`<b>${s.uid}</b><br/>${wardLabel}<br/>${sensorStatusLabel(status)}${s.last_data_at ? " · " + fmtDate(s.last_data_at) : ""}${depthLine}`, { className: "sensor-tip", direction: "top" });
     m.on("click", () => openSensorDetail(s.uid));
     currentSensorMarkers.addLayer(m);
     if (isSel) m.bringToFront();
@@ -167,11 +193,11 @@ function buildLegend() {
     const wardItems = isAnalysisLens(currentLens) && analyticsLoaded
       ? [
           ["critical", CRITICALITY_COLORS.critical, analysisCriticalLabel()],
-          ["rise", CRITICALITY_COLORS.rise, currentLens === "current_stress" ? "Elevated current stress" : "Groundwater Rise"],
+          ["rise", CRITICALITY_COLORS.rise, currentLens === "current_stress" ? "Elevated current stress" : currentLens === "water_level_class" ? "Deep (250–500 ft)" : "Groundwater Rise"],
           ["stable", CRITICALITY_COLORS.stable, stableStatusLabel()],
           ["none", BASE_WARD_COLOR.fill, "Other wards"],
         ]
-          .filter(([key]) => key !== "rise" || ["groundwater", "current_stress"].includes(currentLens))
+          .filter(([key]) => key !== "rise" || ["groundwater", "current_stress", "water_level_class"].includes(currentLens))
           .filter(([key]) => key !== "stable" || !["overall", "consumption"].includes(currentLens))
           .filter(([key]) => visibleWards.some(f => wardStatusKey(f.properties) === key))
           .map(([, color, label]) => [color, label])
@@ -184,13 +210,19 @@ function buildLegend() {
     const selectionItems = ["query", "quick"].includes(highlightStyleMode) && highlightedWardNos.size
       ? [["#2563eb", quickViewLabel || "Highlighted wards"]]
       : [];
-    const visibleSensorStatuses = new Set(filteredSensors().map(sensorStatusKey));
-    const sensorItems = [
-      ["with_data", SENSOR_COLORS.with_data, "Reporting sensor"],
-      ["no_data", SENSOR_COLORS.no_data, "No-data sensor"],
-    ]
-      .filter(([key]) => visibleSensorStatuses.has(key))
-      .map(([, color, label]) => [color, label]);
+    const visibleSensors = filteredSensors();
+    const visibleSensorStatuses = new Set(visibleSensors.map(sensorStatusKey));
+    // Reporting borewells are shown by water-level depth band.
+    const visibleDepthBands = new Set(
+      visibleSensors.map(s => sensorDepthBandByUid.get(String(s.uid))?.band).filter(Boolean)
+    );
+    const depthItems = DEPTH_BAND_ORDER
+      .filter(k => visibleDepthBands.has(k))
+      .map(k => [DEPTH_BAND_COLORS[k], "Water level " + DEPTH_BAND_LABELS[k]]);
+    const noDataItem = visibleSensorStatuses.has("no_data")
+      ? [[SENSOR_COLORS.no_data, "No-data borewell"]]
+      : [];
+    const sensorItems = [...depthItems, ...noDataItem];
     items.innerHTML = [...selectionItems, ...wardItems, ...sensorItems]
       .map(([color, label]) => `<div class="legend-item"><span style="background:${color}"></span>${label}</div>`)
       .join("");

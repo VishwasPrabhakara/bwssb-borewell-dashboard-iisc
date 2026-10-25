@@ -20,6 +20,9 @@ let currentStressByNo = new Map();
 let pumpingPerformanceWardSummaryByNo = new Map();
 let pumpingPerformanceWardThresholds = {};
 let volumetricDeficitByNo = new Map();
+let waterLevelClassByNo = new Map();
+let waterLevelClassSensors = [];
+let sensorDepthBandByUid = new Map();
 let sensorsByUid = {};
 let sensorsByWard = {};         // ward_no -> [sensor]
 

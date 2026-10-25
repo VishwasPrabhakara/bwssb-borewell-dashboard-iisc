@@ -141,7 +141,7 @@ function groundwaterWardStatusKey(wardNo) {
 }
 
 function isAnalysisLens(value) {
-  return ["groundwater", "volumetric_deficit", "extraction", "pumping_stress", "consumption", "specific_capacity", "current_stress"].includes(value);
+  return ["groundwater", "volumetric_deficit", "extraction", "pumping_stress", "consumption", "specific_capacity", "current_stress", "water_level_class"].includes(value);
 }
 
 function pumpingWardSummaryForNo(wardNo) {
@@ -254,6 +254,16 @@ function mapAnalysisWardStatusKey(wardNo) {
     if (!pumping) return "none";
     return pumping.highNormalizedDrawdown ? "critical" : "stable";
   }
+  if (currentLens === "water_level_class") {
+    const wlc = waterLevelClassByNo.get(normalizeWardNo(wardNo));
+    if (!wlc) return "none";
+    const band = wlc.dominantBand || "";
+    if (band.startsWith("Very Deep")) return "critical";
+    if (band.startsWith("Deep")) return "rise";
+    if (band.startsWith("Moderate")) return "stable";
+    if (band.startsWith("Shallow")) return "stable";
+    return "none";
+  }
   return groundwaterWardStatusKey(wardNo);
 }
 
@@ -283,6 +293,7 @@ function analysisLensLabel(value = currentLens) {
     consumption: "Previous Consumption Criticality",
     specific_capacity: "Low Specific Capacity",
     current_stress: "Current Stress Percentile",
+    water_level_class: "Water Level Classification",
     coverage: "Sensor Coverage",
     readings: "Reading Load",
   })[value] || "Groundwater Decline";
@@ -297,12 +308,14 @@ function analysisCriticalLabel(value = currentLens) {
     consumption: "Previous Consumption Critical",
     specific_capacity: "Critical: Low Specific Capacity",
     current_stress: "Critical: Currently deep vs own history",
+    water_level_class: "Very Deep: >500 ft",
   })[value] || "Critical ward";
 }
 
 function stableStatusLabel(value = currentLens) {
   if (value === "groundwater") return "No strong trend";
   if (value === "current_stress") return "Normal / recovered";
+  if (value === "water_level_class") return "Shallow / Moderate (<250 ft)";
   if (["extraction", "pumping_stress", "specific_capacity", "volumetric_deficit"].includes(value)) return "Below threshold";
   return "No strong trend";
 }
