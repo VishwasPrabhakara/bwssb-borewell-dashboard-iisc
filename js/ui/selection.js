@@ -70,7 +70,7 @@ const DEPTH_BAND_COLORS = Object.fromEntries(DEPTH_BAND_ORDER.map((k, i) => [k, 
 // Borewell marker colour = Sen/Mann-Kendall (Hamed-Rao) trend class from data/sensor_trends.json.
 const TREND_ORDER = ["declining", "stable", "rising", "none"];
 const TREND_COLORS = { declining: CRITICALITY_COLORS.critical, stable: CRITICALITY_COLORS.stable, rising: CRITICALITY_COLORS.rise, none: "#64748b" };
-const TREND_LABELS = { declining: "Declining (water table falling)", stable: "Stable", rising: "Rising (water table recovering)", none: "No trend (no / too little data)" };
+const TREND_LABELS = { declining: "Declining", stable: "Stable", rising: "Rising", none: "No trend" };
 const TREND_MODE_LABELS = { raw: "raw readings", cleaned: "cleaned readings", static: "static ≥8h weekly medians", dow: "day-of-week session medians" };
 const GROUNDWATER_MIN_SLOPE_WEEKS = 4;
 

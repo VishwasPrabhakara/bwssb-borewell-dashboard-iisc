@@ -176,9 +176,9 @@ function filteredSensors() {
     if (s.lat == null || s.lng == null) return false;
     if (!legendFilterMatch(s)) return false;
     if (selectedWardNo != null && s.ward_no !== selectedWardNo) return false;
-    if (wardStatusFilter) {
+    if (legendFilter.ward.size) {
       const wardProps = wards?.features?.find(f => f.properties.ward_no === s.ward_no)?.properties;
-      if (!wardProps || wardStatusKey(wardProps) !== wardStatusFilter) return false;
+      if (!wardProps || !legendFilter.ward.has(wardStatusKey(wardProps))) return false;
     }
     return sensorFilterMatch(s);
   });
@@ -190,7 +190,6 @@ function visibleWardFeaturesForLegend() {
     const wardNo = normalizeWardNo(f.properties.ward_no);
     if (selectedWardNo != null && wardNo !== normalizeWardNo(selectedWardNo)) return false;
     if (highlightedWardNos.size > 0 && !highlightedWardNos.has(wardNo)) return false;
-    if (wardStatusFilter && wardStatusKey(f.properties) !== wardStatusFilter) return false;
     return true;
   });
 }
@@ -215,11 +214,10 @@ function buildLegend() {
           .filter(([key]) => key !== "rise" || ["groundwater", "current_stress", "water_level_class"].includes(currentLens))
           .filter(([key]) => key !== "stable" || !["overall", "consumption"].includes(currentLens))
           .filter(([key]) => visibleWards.some(f => wardStatusKey(f.properties) === key))
-          .map(([, color, label]) => [color, label])
       : visibleWards.some(f => (currentLens === "readings" ? wardReadingLoad(f.properties) : (f.properties.sensor_with_data || 0)) > 0)
       ? [
-          [CHORO[1], currentLens === "readings" ? "Lower reading load" : "Lower coverage"],
-          [CHORO[6], currentLens === "readings" ? "Higher reading load" : "Higher coverage"],
+          [null, CHORO[1], currentLens === "readings" ? "Lower reading load" : "Lower coverage"],
+          [null, CHORO[6], currentLens === "readings" ? "Higher reading load" : "Higher coverage"],
         ]
       : [];
     const selectionItems = ["query", "quick"].includes(highlightStyleMode) && highlightedWardNos.size
@@ -231,8 +229,10 @@ function buildLegend() {
       return `<div class="legend-item legend-filter${on ? " active" : ""}${dim ? " dim" : ""}" role="button" tabindex="0" aria-pressed="${on}" data-lf-group="${group}" data-lf-key="${key}"><span style="background:${color}"></span>${label}</div>`;
     };
     const plain = ([color, label]) => `<div class="legend-item"><span style="background:${color}"></span>${label}</div>`;
-    items.innerHTML = [...selectionItems, ...wardItems].map(plain).join("")
-      + `<div class="legend-group">Borewell trend (${TREND_MODE_LABELS[trendMode]})</div>`
+    items.innerHTML = selectionItems.map(plain).join("")
+      + (wardItems.length ? `<div class="legend-group">Ward class</div>` : "")
+      + wardItems.map(([key, color, label]) => key ? lfItem("ward", key, color, label) : plain([color, label])).join("")
+      + `<div class="legend-group">Borewell trend</div>`
       + TREND_ORDER.map(k => lfItem("trend", k, TREND_COLORS[k], TREND_LABELS[k])).join("")
       + `<div class="legend-group">Water-level depth</div>`
       + DEPTH_BAND_ORDER.map(k => lfItem("depth", k, DEPTH_BAND_COLORS[k], DEPTH_BAND_LABELS[k])).join("");

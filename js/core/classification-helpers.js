@@ -8,7 +8,7 @@ function defaultWardStyle(feat) {
   const p = feat.properties;
   const isSelected = selectedWardNo != null && p.ward_no === selectedWardNo;
   const status = wardStatusKey(p);
-  const filterDimmed = wardStatusFilter && status !== wardStatusFilter;
+  const filterDimmed = legendFilter.ward.size > 0 && !legendFilter.ward.has(status);
   const isHighlighted = highlightedWardNos.has(normalizeWardNo(p.ward_no));
   const selectionHighlighted = isHighlighted && ["query", "quick"].includes(highlightStyleMode);
   const quickDimmed = highlightedWardNos.size > 0 && !isHighlighted;

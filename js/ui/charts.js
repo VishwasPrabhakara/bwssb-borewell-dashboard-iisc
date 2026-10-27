@@ -58,7 +58,7 @@ async function loadAndRenderSeries(uid) {
   qualityFilter = "all";
   sessionPage = 0;
   currentRange = "1M";
-  waterMode = "all"; dischargeMode = "all";
+  waterMode = "cleaned"; dischargeMode = "all"; // water default must match the selected <option>
   drawCharts();
 }
 
@@ -258,7 +258,7 @@ function senTrendDataset(pts, color) {
   const xs = v.map(p => +p.x), mx = med(xs), my = med(v.map(p => p.y)), k = t.s / (7 * 86400000);
   const x0 = Math.min(...xs), x1 = Math.max(...xs);
   return {
-    label: `Sen ${t.s > 0 ? "+" : ""}${t.s} ft/wk · MK(Hamed-Rao) p=${t.p} · ${t.c}`,
+    label: `Sen ${t.s > 0 ? "+" : ""}${t.s} ft/wk · MK(Hamed-Rao) p=${t.p} · ${t.c} (full record)`,
     data: [{ x: new Date(x0), y: my + k * (x0 - mx) }, { x: new Date(x1), y: my + k * (x1 - mx) }],
     borderColor: color, borderWidth: 2, borderDash: [6, 4], fill: false, pointRadius: 0, tension: 0, parsing: false,
   };

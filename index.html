@@ -86,38 +86,9 @@
           <p class="field-note" id="analytics-note">Groundwater criticality uses the earlier dashboard API when available; no raw water-level or discharge series are imported.</p>
         </section>
 
-        <!-- Ward / sensor status -->
-        <section class="rail-section">
-          <h2 class="rail-title">Ward status</h2>
-          <div class="chip-group" id="ward-status-controls">
-            <button class="chip active" data-ward-status="">All</button>
-            <button class="chip critical-chip" data-ward-status="critical">Critical</button>
-            <button class="chip rise-chip" data-ward-status="rise">Rising</button>
-            <button class="chip stable-chip" data-ward-status="stable" id="ward-stable-chip">No strong trend</button>
-          </div>
-          <h2 class="rail-title rail-title-sub">Sensors</h2>
-          <div class="chip-group" id="sensor-status-controls">
-            <button class="chip active" data-sensor-status="with_data">Reporting</button>
-            <button class="chip" data-sensor-status="no_data">No data</button>
-            <button class="chip" data-sensor-status="all">All</button>
-          </div>
-        </section>
-
-        <!-- Quick views -->
-        <section class="rail-section">
-          <h2 class="rail-title">Quick views</h2>
-          <div class="chip-group vertical">
-            <button class="chip" data-quick="max_sensors">Top 10 wards by sensor count</button>
-            <button class="chip" data-quick="min_sensors">10 wards with fewest sensors</button>
-            <button class="chip" data-quick="no_sensors">Wards with no sensors</button>
-            <button class="chip" data-quick="all_wards">Highlight all wards</button>
-            <button class="chip" data-quick="reset">Reset view</button>
-          </div>
-        </section>
-
         <!-- Legend (keyed, survey-sheet style) -->
         <section class="rail-section" id="legend">
-          <h2 class="rail-title">Legend</h2>
+          <div class="rail-head"><h2 class="rail-title">Legend</h2><button class="chip" type="button" id="reset-all" title="Clear every filter and selection">↺ Reset</button></div>
           <div class="legend-scale" id="legend-scale"></div>
           <label class="field">
             <span class="field-label">Borewell colour from trend of</span>
@@ -129,9 +100,34 @@
             </select>
           </label>
           <div id="legend-items" class="legend-items"></div>
-          <p class="legend-caption">Click legend classes to filter borewells.</p>
-          <p class="legend-caption">Wards classified by groundwater decline.</p>
+          <p class="legend-caption"></p>
         </section>
+
+        <!-- Ward / sensor status -->
+        <section class="rail-section">
+          <h2 class="rail-title">Sensors</h2>
+          <div class="chip-group" id="sensor-status-controls">
+            <button class="chip active" data-sensor-status="with_data">Reporting</button>
+            <button class="chip" data-sensor-status="no_data">No data</button>
+            <button class="chip" data-sensor-status="all">All</button>
+          </div>
+        </section>
+
+        <!-- Quick views (collapsed) -->
+        <details class="rail-advanced">
+          <summary><span>Quick views</span>
+            <svg class="adv-chev" viewBox="0 0 24 24" width="16" height="16"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="rail-advanced-body">
+            <div class="chip-group vertical">
+            <button class="chip" data-quick="max_sensors">Top 10 wards by sensor count</button>
+            <button class="chip" data-quick="min_sensors">10 wards with fewest sensors</button>
+            <button class="chip" data-quick="no_sensors">Wards with no sensors</button>
+            <button class="chip" data-quick="all_wards">Highlight all wards</button>
+            <button class="chip" data-quick="reset">Reset view</button>
+          </div>
+          </div>
+        </details>
 
         <!-- Advanced (collapsed): secondary lenses, methods, cross-query -->
         <details class="rail-advanced">
@@ -139,29 +135,6 @@
             <svg class="adv-chev" viewBox="0 0 24 24" width="16" height="16"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </summary>
           <div class="rail-advanced-body">
-            <label class="field">
-              <span class="field-label">Classification method</span>
-              <select id="criticality-method">
-                <option value="modern" selected>Recommended (network-percentile + Modified MK)</option>
-                <option value="legacy">Legacy (0.1 ft/week threshold, standard MK)</option>
-              </select>
-            </label>
-            <div class="field" id="groundwater-method-row" hidden>
-              <span class="field-label">Trend method</span>
-              <select id="groundwater-method">
-                <option value="linear">Linear slope only</option>
-                <option value="theil">Theil-Sen only</option>
-                <option value="mann">Mann-Kendall (standard) only</option>
-                <option value="mk_mod">Modified Mann-Kendall (Hamed-Rao)</option>
-                <option value="linear_theil">Linear slope + Theil-Sen</option>
-                <option value="linear_mann">Linear slope + Mann-Kendall</option>
-                <option value="theil_mann">Theil-Sen + Mann-Kendall</option>
-                <option value="linear_mk_mod">Linear slope + Modified MK</option>
-                <option value="theil_mk_mod">Theil-Sen + Modified MK</option>
-                <option value="linear_theil_mk_mod">Linear slope + Theil-Sen + Modified MK</option>
-                <option value="all_three">Linear slope + Theil-Sen + Standard MK</option>
-              </select>
-            </div>
             <div class="field common-query">
               <span class="field-label">Cross-lens query</span>
               <div class="common-query-controls">
@@ -203,10 +176,6 @@
 
     <!-- ------------- MAP CANVAS (framed survey sheet) ------------- -->
     <main id="map-wrap">
-      <div id="data-window-banner" class="data-window-banner">
-        <span>Data window <b>Jul 2025&ndash;Sep 2026</b> (refreshed Sep 2026) — trends in this window largely reflect monsoon recovery, not long-term change.</span>
-        <button class="banner-dismiss" aria-label="Dismiss" onclick="this.parentElement.hidden=true">×</button>
-      </div>
       <div id="map"></div>
       <button id="clear-filter-chip" class="clear-filter-chip" hidden title="Clear selection (Esc)">
         <svg viewBox="0 0 24 24" width="15" height="15"><path d="M19 6.4 17.6 5 12 10.6 6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12z"/></svg>Clear selection

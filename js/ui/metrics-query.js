@@ -14,10 +14,6 @@ function recomputeWardSensorCounts() {
 function syncAnalyticsControls() {
   const lensSelect = document.getElementById("analysis-lens");
   if (lensSelect) lensSelect.value = currentLens;
-  const methodSelect = document.getElementById("groundwater-method");
-  if (methodSelect) methodSelect.value = groundwaterMethodMode;
-  const methodRow = document.getElementById("groundwater-method-row");
-  if (methodRow) methodRow.hidden = !(analyticsLoaded && currentLens === "groundwater");
   const note = document.getElementById("analytics-note");
   if (note) note.textContent = analyticsLoaded
     ? "Earlier-dashboard ward criticality and the full 1,594-device inventory are loaded. Raw water-level/discharge series are not imported here."
@@ -64,8 +60,6 @@ function updateLensCounts() {
   }
   const stableLbl = document.getElementById("metric-stable-label");
   if (stableLbl) stableLbl.textContent = stableStatusLabel();
-  const stableChip = document.getElementById("ward-stable-chip");
-  if (stableChip) stableChip.textContent = stableStatusLabel();
 }
 
 function wardFeaturesForKpi(kind) {
@@ -129,10 +123,9 @@ function applyQueryResult(features, label) {
   highlightStyleMode = "query";
   selectedWardNo = null;
   selectedSensorUid = null;
-  wardStatusFilter = "";
+  legendFilter.ward.clear();
   quickViewLabel = label;
   clearKpiHighlightState();
-  document.querySelectorAll("[data-ward-status]").forEach(c => c.classList.toggle("active", c.dataset.wardStatus === ""));
   closeAllOverlays();
   if (wardLayer) wardLayer.setStyle(defaultWardStyle);
   renderSensors();

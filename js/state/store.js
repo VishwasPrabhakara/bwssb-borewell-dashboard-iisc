@@ -36,7 +36,6 @@ let map;
 let currentShading = "with_data";
 let currentLens = "coverage";         // active analysis lens
 let criticalityMethod = "modern";     // "modern" | "legacy"
-let wardStatusFilter = "";            // "", "critical", "rise", "stable"
 let sensorStatusFilter = "with_data"; // "with_data" | "no_data" | "all"
 let groundwaterMethodMode = "linear_mk_mod";
 let selectedWardNo = null;
@@ -46,7 +45,7 @@ let quickViewLabel = "";
 let highlightStyleMode = "";
 let currentRange = "1M";              // chart range
 let trendMode = "static";             // which chart filter's trend colours the borewells
-const legendFilter = { depth: new Set(), trend: new Set() }; // clicked legend classes; groups AND, classes OR
+const legendFilter = { ward: new Set(), depth: new Set(), trend: new Set() }; // clicked legend classes; groups AND, classes OR
 
 /* ---- Chart handles / caches ---- */
 let charts = { water: null, discharge: null, modal: null };
@@ -64,7 +63,6 @@ const Store = (() => {
       case "currentShading": currentShading = value; break;
       case "currentLens": currentLens = value; break;
       case "criticalityMethod": criticalityMethod = value; break;
-      case "wardStatusFilter": wardStatusFilter = value; break;
       case "sensorStatusFilter": sensorStatusFilter = value; break;
       case "groundwaterMethodMode": groundwaterMethodMode = value; break;
       case "selectedWardNo": selectedWardNo = value; break;
@@ -79,7 +77,7 @@ const Store = (() => {
     return value;
   }
   function get(key) {
-    const bag = { currentShading, currentLens, criticalityMethod, wardStatusFilter,
+    const bag = { currentShading, currentLens, criticalityMethod,
       sensorStatusFilter, groundwaterMethodMode, selectedWardNo, selectedSensorUid,
       quickViewLabel, highlightStyleMode, currentRange };
     return bag[key];

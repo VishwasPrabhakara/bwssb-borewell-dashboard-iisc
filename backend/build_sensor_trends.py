@@ -25,7 +25,7 @@ from pathlib import Path
 import numpy as np
 from scipy.stats import norm, rankdata
 
-from build_critical_ward_groundwater import filter_static, sensor_weekly_series
+from build_critical_ward_groundwater import USABLE_QC, filter_static, sensor_weekly_series
 
 DATA = Path(__file__).resolve().parents[1] / "data"
 ALPHA = 0.05
@@ -83,13 +83,19 @@ def record(xs_days, ys, thin=False):
     return {"n": n, "s": round(s, 4), "p": round(p, 4), "c": cls}
 
 
+def static_weekly(d):
+    """{(iso_year, iso_week): median} of cleaned readings rested >= 8 h."""
+    times, water = d.get("times") or [], d.get("water_ft") or []
+    st_t, st_v = filter_static(d.get("cleaned_times") or times, d.get("cleaned_water_ft") or water)
+    return sensor_weekly_series(st_t, st_v)
+
+
 def sensor_trends(d):
     times, water = d.get("times") or [], d.get("water_ft") or []
     ct, cw = d.get("cleaned_times") or times, d.get("cleaned_water_ft") or water
     raw = [(_day(t), v) for t, v in zip(times, water) if v is not None]
     cln = [(_day(t), v) for t, v in zip(ct, cw) if v is not None]
-    st_t, st_v = filter_static(ct, cw)
-    weekly = sorted(sensor_weekly_series(st_t, st_v).items())
+    weekly = sorted(static_weekly(d).items())
     wk = [(dt.date.fromisocalendar(y, w, 1).toordinal(), v) for (y, w), v in weekly]
     by_dow = {k: [] for k in range(7)}
     for se in d.get("sessions") or []:
@@ -106,16 +112,57 @@ def sensor_trends(d):
     }
 
 
+WARD_CATEGORY = {"declining": "Critical: Ward-average groundwater decline",
+                 "rising": "Confirmed groundwater rise",
+                 "stable": "Stable groundwater trend",
+                 "none": "Insufficient data"}
+WARD_STATUS = {"declining": ("Critical", "Declining", "Yes"), "rising": ("Normal", "Improving", "No"),
+               "stable": ("Normal", "Stable", "No"), "none": ("Insufficient data", "Not computed", "No")}
+
+
+def update_ward_summary(weekly_by_ward):
+    """Classify every ward with the same fixed method, in place in the ward summary the dashboard reads."""
+    path = DATA / "critical_groundwater_ward_summary.json"
+    payload = json.load(open(path))
+    for row in payload["wards"]:
+        wk = weekly_by_ward.get(str(row["wardNo"]), {})
+        weeks = sorted(wk)
+        r = record([dt.date.fromisocalendar(y, w, 1).toordinal() for y, w in weeks],
+                   [statistics.median(wk[k]) for k in weeks])
+        status, direction, action = WARD_STATUS[r["c"]]
+        sig = r["p"] is not None and r["p"] < ALPHA
+        row.update({
+            "linearSlopeFtPerWeek": r["s"], "senSlopeFtPerWeek": r["s"], "declineStrengthFtPerWeek": r["s"],
+            "mannKendallP": r["p"], "mannKendallVerdict": "Yes" if sig else "No", "mkConfirmed": sig,
+            "usableWeeklyValues": r["n"], "groundwaterStatus": status, "groundwaterDirection": direction,
+            "dashboardAction": action, "dashboardMapCategory": WARD_CATEGORY[r["c"]],
+            "slopeReliable": r["s"] is None or abs(r["s"] * 52 * 0.3048) <= 5.0,
+            "stepChangeDetected": "No",  # Pettitt is not part of the fixed method
+        })
+    payload["method"] = "Sen slope + Mann-Kendall (Hamed-Rao) on ward weekly medians of static >=8h readings"
+    json.dump(payload, open(path, "w"), separators=(",", ":"))
+    print("wards", {c: sum(r["dashboardMapCategory"] == v for r in payload["wards"]) for c, v in WARD_CATEGORY.items()})
+
+
 def main():
     out = {}
+    sensors = {str(x["uid"]): x for x in json.load(open(DATA / "sensors.json"))}
+    qc = {str(x["uid"]): x["qc_status"] for x in json.load(open(DATA / "sensor_qc.json"))["sensors"]}
+    weekly_by_ward = {}
     files = sorted((DATA / "sensor_series").glob("*.json"))
     for n, fp in enumerate(files, 1):
-        out[fp.stem] = sensor_trends(json.load(open(fp)))
+        d = json.load(open(fp))
+        out[fp.stem] = sensor_trends(d)
+        wn = (sensors.get(fp.stem) or {}).get("ward_no")
+        if wn not in (None, "") and qc.get(fp.stem) in USABLE_QC:
+            for wk, v in static_weekly(d).items():
+                weekly_by_ward.setdefault(str(int(wn)), {}).setdefault(wk, []).append(v)
         if n % 100 == 0:
             print(f"  {n}/{len(files)}", file=sys.stderr)
     payload = {"generated_at": dt.datetime.utcnow().isoformat() + "Z", "alpha": ALPHA,
                "slope_ft_per_week": SLOPE_FT_PER_WEEK, "sensors": out}
     json.dump(payload, open(DATA / "sensor_trends.json", "w"), separators=(",", ":"))
+    update_ward_summary(weekly_by_ward)
     for m in ("raw", "cleaned", "static"):
         c = {}
         for r in out.values():

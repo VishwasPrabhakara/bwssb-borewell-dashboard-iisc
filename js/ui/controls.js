@@ -125,27 +125,42 @@ function runSearch(q, container) {
 }
 
 // ---------- Filters ----------
+// Back to the opening view: no selection, no filters, default lens and trend source.
+function resetAllFilters() {
+  Store.set("selectedWardNo", null);
+  Store.set("selectedSensorUid", null);
+  highlightedWardNos = new Set();
+  Store.set("highlightStyleMode", "");
+  Store.set("quickViewLabel", "");
+  Store.set("sensorStatusFilter", "with_data");
+  Store.set("trendMode", "static");
+  Store.set("currentLens", analyticsLoaded ? "groundwater" : "coverage");
+  for (const set of Object.values(legendFilter)) set.clear();
+  document.querySelectorAll("[data-sensor-status]").forEach(c => c.classList.toggle("active", c.dataset.sensorStatus === "with_data"));
+  document.getElementById("trend-mode").value = "static";
+  clearKpiHighlightState();
+  closeAllOverlays();
+  document.getElementById("detail").hidden = true;
+  updateClearFilterChip();
+  syncAnalyticsControls();
+  updateCommonQueryNote();
+  if (wardLayer) wardLayer.setStyle(defaultWardStyle);
+  updateMetrics();
+  renderSensors();
+  buildLegend();
+  map.setView([12.972, 77.594], 11);
+}
+
 function wireFilters() {
   const lensSelect = document.getElementById("analysis-lens");
   if (lensSelect) {
     lensSelect.addEventListener("change", () => {
       Store.set("currentLens", lensSelect.value || "groundwater");
+      legendFilter.ward.clear(); // ward class keys mean something different per lens
       syncAnalyticsControls();
       if (wardLayer) wardLayer.setStyle(defaultWardStyle);
       updateMetrics();
       buildLegend();
-    });
-  }
-  const methodSelect = document.getElementById("groundwater-method");
-  if (methodSelect) {
-    methodSelect.addEventListener("change", () => {
-      Store.set("groundwaterMethodMode", methodSelect.value || "dashboard");
-      if (wardLayer) wardLayer.setStyle(defaultWardStyle);
-      updateMetrics();
-      buildLegend();
-      if (!document.getElementById("detail").hidden && activeWardPropsForDetail()) {
-        openWardDetail(activeWardPropsForDetail());
-      }
     });
   }
   const commonApply = document.getElementById("common-query-apply");
@@ -163,15 +178,6 @@ function wireFilters() {
   document.querySelectorAll("[data-query-preset]").forEach(chip => {
     chip.addEventListener("click", () => applyPresetQuery(chip.dataset.queryPreset));
   });
-  document.querySelectorAll("[data-ward-status]").forEach(chip => {
-    chip.addEventListener("click", () => {
-      Store.set("wardStatusFilter", chip.dataset.wardStatus);
-      document.querySelectorAll("[data-ward-status]").forEach(c => c.classList.toggle("active", c === chip));
-      if (wardLayer) wardLayer.setStyle(defaultWardStyle);
-      renderSensors();
-      buildLegend();
-    });
-  });
   document.querySelectorAll("[data-sensor-status]").forEach(chip => {
     chip.addEventListener("click", () => {
       Store.set("sensorStatusFilter", chip.dataset.sensorStatus);
@@ -180,6 +186,7 @@ function wireFilters() {
       buildLegend();
     });
   });
+  document.getElementById("reset-all")?.addEventListener("click", resetAllFilters);
   const redrawSensors = () => { renderSensors(); buildLegend(); };
   document.getElementById("trend-mode")?.addEventListener("change", e => { Store.set("trendMode", e.target.value); redrawSensors(); });
   const legendEl = document.getElementById("legend-items");
@@ -187,6 +194,7 @@ function wireFilters() {
     const f = el.closest("[data-lf-group]"); if (!f) return;
     const set = legendFilter[f.dataset.lfGroup], k = f.dataset.lfKey;
     set.has(k) ? set.delete(k) : set.add(k);
+    if (wardLayer) wardLayer.setStyle(defaultWardStyle); // ward polygons dim to the clicked ward classes
     redrawSensors();
   };
   legendEl?.addEventListener("click", e => legendToggle(e.target));
@@ -204,26 +212,7 @@ function wireFilters() {
       clearKpiHighlightState();
       highlightStyleMode = "";
       closeAllOverlays();
-      if (which === "reset") {
-        Store.set("selectedWardNo", null);
-        Store.set("selectedSensorUid", null);
-        highlightedWardNos = new Set();
-        Store.set("highlightStyleMode", "");
-        Store.set("quickViewLabel", "");
-        Store.set("wardStatusFilter", "");
-        Store.set("sensorStatusFilter", "with_data");
-        legendFilter.depth.clear(); legendFilter.trend.clear();
-        Store.set("currentLens", analyticsLoaded ? "groundwater" : "coverage");
-        document.querySelectorAll("[data-ward-status]").forEach(c => c.classList.toggle("active", c.dataset.wardStatus === ""));
-        document.querySelectorAll("[data-sensor-status]").forEach(c => c.classList.toggle("active", c.dataset.sensorStatus === "with_data"));
-        syncAnalyticsControls();
-        updateCommonQueryNote();
-        if (wardLayer) wardLayer.setStyle(defaultWardStyle);
-        renderSensors();
-        buildLegend();
-        map.setView([12.972, 77.594], 11);
-        return;
-      }
+      if (which === "reset") { resetAllFilters(); return; }
       if (which === "all_wards") {
         highlightedWardNos = new Set(wards.features.map(f => normalizeWardNo(f.properties.ward_no)));
         highlightStyleMode = "quick";

@@ -268,20 +268,7 @@ function mapAnalysisWardStatusKey(wardNo) {
 }
 
 function groundwaterMethodLabel() {
-  return ({
-    linear_mk_mod: "Linear slope + Modified Mann-Kendall",
-    theil_mk_mod: "Theil-Sen + Modified Mann-Kendall",
-    linear_theil_mk_mod: "Linear slope + Theil-Sen + Modified MK",
-    mk_mod: "Modified Mann-Kendall (Hamed-Rao)",
-    dashboard: "Linear slope + Mann-Kendall with Review",
-    linear: "Linear slope only",
-    theil: "Theil-Sen only",
-    mann: "Mann-Kendall only",
-    linear_theil: "Linear slope + Theil-Sen",
-    linear_mann: "Linear slope + Mann-Kendall",
-    theil_mann: "Theil-Sen + Mann-Kendall",
-    all_three: "Linear slope + Theil-Sen + Standard MK",
-  })[groundwaterMethodMode] || "Linear slope + Mann-Kendall with Review";
+  return "Sen slope + Mann-Kendall (Hamed-Rao)";
 }
 
 function analysisLensLabel(value = currentLens) {
