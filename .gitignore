@@ -30,7 +30,7 @@ backend/_scratch/
 data_raw/*
 !data_raw/ksndmc/
 data_raw/ksndmc/*
-!data_raw/ksndmc/ksndmc_daily_rainfall.csv
+!data_raw/ksndmc/ksndmc_*.csv
 !data_raw/ksndmc/*.kml
 
 outputs/

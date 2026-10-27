@@ -8,7 +8,7 @@ import json, csv, os, re, glob, urllib.request
 from xml.etree import ElementTree as ET
 
 URL = "https://ksndmc.org/en/DailyReport/getRainFallReport?drpVal={:02d}"
-OUT = "data_raw/ksndmc/ksndmc_daily_rainfall.csv"
+OUT_DIR = "data_raw/ksndmc"   # yearly files: ksndmc_<YYYY>.csv
 HEADERS = {"User-Agent": "Mozilla/5.0", "X-Requested-With": "XMLHttpRequest"}
 
 def norm(s):
@@ -73,24 +73,36 @@ for d in range(1, 36):
         rows.append([date, r.get("RAINGAUGE"), r.get("HOBLINAME"), r.get("TALUKNAME"),
                      r.get("DISTRICT"), r.get("RAIN"), ward])
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
+os.makedirs(OUT_DIR, exist_ok=True)
+HEADER = ["date", "gauge_id", "station", "taluk", "district", "rain_mm", "ward_no"]
 
-# ---- append, de-duplicate on (gauge_id, date) ----
-seen = set()
-if os.path.exists(OUT):
-    with open(OUT) as fh:
-        for row in csv.reader(fh):
-            if len(row) >= 2: seen.add((row[1], row[0]))
-new = [r for r in rows if (str(r[1]), r[0]) not in seen]
-write_header = not os.path.exists(OUT)
-with open(OUT, "a", newline="") as fh:
-    w = csv.writer(fh)
-    if write_header: w.writerow(["date", "gauge_id", "station", "taluk", "district", "rain_mm", "ward_no"])
-    w.writerows(new)
+# ---- append per YEAR (ksndmc_<YYYY>.csv), de-duplicated on (gauge_id, date) ----
+# Yearly rotation keeps each file small; a row is filed by the year in its own date.
+by_year = {}
+for r in rows:
+    yr = str(r[0])[:4]
+    if yr.isdigit():
+        by_year.setdefault(yr, []).append(r)
+
+new = []
+for yr, yr_rows in by_year.items():
+    out = os.path.join(OUT_DIR, f"ksndmc_{yr}.csv")
+    seen = set()
+    if os.path.exists(out):
+        with open(out) as fh:
+            for row in csv.reader(fh):
+                if len(row) >= 2: seen.add((row[1], row[0]))
+    fresh = [r for r in yr_rows if (str(r[1]), r[0]) not in seen]
+    write_header = not os.path.exists(out)
+    with open(out, "a", newline="") as fh:
+        w = csv.writer(fh)
+        if write_header: w.writerow(HEADER)
+        w.writerows(fresh)
+    new.extend(fresh)
 
 # ---- summary ----
 mapped = sum(1 for r in rows if r[6] != "")
 in_ward_kml = sum(1 for n, (lat, lng) in name2xy.items() if ward_of(lat, lng))
 mapped_names = {r[2] for r in rows if r[6] != ""}
 print(f"fetched rows: {len(rows)} | mapped to a ward: {mapped} ({len(mapped_names)}/{in_ward_kml} in-ward gauges reported today)")
-print(f"new rows added: {len(new)} -> {OUT}")
+print(f"new rows added: {len(new)} -> {OUT_DIR}/ksndmc_<year>.csv  (years: {sorted(by_year)})")
