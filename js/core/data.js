@@ -75,6 +75,8 @@ async function loadData() {
   if (depthData && Array.isArray(depthData.sensors)) {
     sensorDepthBandByUid = new Map(depthData.sensors.map(s => [String(s.uid), s]));
   }
+  const trendData = await getJson("./data/sensor_trends.json", { fallback: null, label: "sensor trends" });
+  if (trendData) sensorTrendByUid = trendData.sensors || {};
   analyticsLoaded = criticalGroundwaterByNo.size > 0;
   if (analyticsLoaded) currentLens = "groundwater";
   console.info("[dashboard] loaded", { wards: wards.features.length, sensors: sensors.length, sensorsWithData: sensors.filter(s => s.has_data).length, manifest });

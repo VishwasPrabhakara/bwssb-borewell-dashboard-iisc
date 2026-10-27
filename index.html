@@ -119,7 +119,17 @@
         <section class="rail-section" id="legend">
           <h2 class="rail-title">Legend</h2>
           <div class="legend-scale" id="legend-scale"></div>
+          <label class="field">
+            <span class="field-label">Borewell colour from trend of</span>
+            <select id="trend-mode">
+              <option value="static" selected>Static ≥8h (weekly medians)</option>
+              <option value="raw">Raw readings</option>
+              <option value="cleaned">Cleaned readings</option>
+              <option value="dow">Day-of-week (chart weekday)</option>
+            </select>
+          </label>
           <div id="legend-items" class="legend-items"></div>
+          <p class="legend-caption">Click legend classes to filter borewells.</p>
           <p class="legend-caption">Wards classified by groundwater decline.</p>
         </section>
 

@@ -2,14 +2,11 @@
 """
 build_sensor_depth_bands.py
 Classify every REPORTING borewell (sensor with data in sensors.json) into one of
-four water-level depth bands, using the latest valid water-level reading from its
+six water-level depth bands, using the latest valid water-level reading from its
 series file.
 
 Bands (depth to water, feet below ground):
-    Shallow        < 100 ft
-    Moderate       100 - 250 ft
-    Deep           250 - 500 ft
-    Very Deep      > 500 ft
+    0-100, 100-250, 250-500, 500-750, 750-1000, >1000 ft
 
 Output: data/sensor_depth_bands.json
     {
@@ -30,17 +27,18 @@ SERIES_DIR = os.path.join(ROOT, "data", "sensor_series")
 OUT = os.path.join(ROOT, "data", "sensor_depth_bands.json")
 
 BANDS = [
-    {"key": "shallow",  "label": "Shallow (<100 ft)",      "min": 0,    "max": 100},
-    {"key": "moderate", "label": "Moderate (100–250 ft)",  "min": 100,  "max": 250},
-    {"key": "deep",     "label": "Deep (250–500 ft)",      "min": 250,  "max": 500},
-    {"key": "verydeep", "label": "Very Deep (>500 ft)",    "min": 500,  "max": None},
+    {"key": "d0",    "label": "0–100 ft",    "min": 0,    "max": 100},
+    {"key": "d100",  "label": "100–250 ft",  "min": 100,  "max": 250},
+    {"key": "d250",  "label": "250–500 ft",  "min": 250,  "max": 500},
+    {"key": "d500",  "label": "500–750 ft",  "min": 500,  "max": 750},
+    {"key": "d750",  "label": "750–1000 ft", "min": 750,  "max": 1000},
+    {"key": "d1000", "label": ">1000 ft",    "min": 1000, "max": None},
 ]
 
 def band_for(ft):
-    if ft < 100:  return "shallow"
-    if ft < 250:  return "moderate"
-    if ft < 500:  return "deep"
-    return "verydeep"
+    for b in BANDS:
+        if b["max"] is None or ft < b["max"]:
+            return b["key"]
 
 def latest_valid(water):
     for i in range(len(water) - 1, -1, -1):

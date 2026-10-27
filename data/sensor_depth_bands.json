@@ -1,36 +1,50 @@
 {
-"generated_at": "2026-10-25T18:05:23.486450Z",
+"generated_at": "2026-10-27T18:29:05.131174Z",
 "bands": [
 {
-"key": "shallow",
-"label": "Shallow (<100 ft)",
+"key": "d0",
+"label": "0\u2013100 ft",
 "min": 0,
 "max": 100
 },
 {
-"key": "moderate",
-"label": "Moderate (100\u2013250 ft)",
+"key": "d100",
+"label": "100\u2013250 ft",
 "min": 100,
 "max": 250
 },
 {
-"key": "deep",
-"label": "Deep (250\u2013500 ft)",
+"key": "d250",
+"label": "250\u2013500 ft",
 "min": 250,
 "max": 500
 },
 {
-"key": "verydeep",
-"label": "Very Deep (>500 ft)",
+"key": "d500",
+"label": "500\u2013750 ft",
 "min": 500,
+"max": 750
+},
+{
+"key": "d750",
+"label": "750\u20131000 ft",
+"min": 750,
+"max": 1000
+},
+{
+"key": "d1000",
+"label": ">1000 ft",
+"min": 1000,
 "max": null
 }
 ],
 "by_band": {
-"shallow": 126,
-"moderate": 335,
-"deep": 328,
-"verydeep": 76
+"d0": 126,
+"d100": 335,
+"d250": 328,
+"d500": 48,
+"d750": 18,
+"d1000": 10
 },
 "total": 865,
 "sensors": [
@@ -38,5191 +52,5191 @@
 "uid": "860996084497914",
 "ward_no": 186,
 "latest_ft": 178.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "860996084502259",
 "ward_no": 25,
 "latest_ft": 369.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "860996084502978",
 "ward_no": 187,
 "latest_ft": 201.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060803705",
 "ward_no": 7,
 "latest_ft": 951.7,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357060803721",
 "ward_no": 23,
 "latest_ft": 316.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060803747",
 "ward_no": 26,
 "latest_ft": 290.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060803762",
 "ward_no": 32,
 "latest_ft": 184.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060803770",
 "ward_no": 141,
 "latest_ft": 89.7,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357060803788",
 "ward_no": 7,
 "latest_ft": 115.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060803796",
 "ward_no": 51,
 "latest_ft": 420.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060803820",
 "ward_no": 39,
 "latest_ft": 355.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060803838",
 "ward_no": 124,
 "latest_ft": 294.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060803853",
 "ward_no": 8,
 "latest_ft": 149.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060803879",
 "ward_no": 26,
 "latest_ft": 239.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060803887",
 "ward_no": 161,
 "latest_ft": 164.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060803895",
 "ward_no": 51,
 "latest_ft": 272.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060803903",
 "ward_no": 141,
 "latest_ft": 119.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060803937",
 "ward_no": 161,
 "latest_ft": 267.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804000",
 "ward_no": 32,
 "latest_ft": 229.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804034",
 "ward_no": 51,
 "latest_ft": 234.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804042",
 "ward_no": 161,
 "latest_ft": 30.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357060804091",
 "ward_no": 25,
 "latest_ft": 194.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804109",
 "ward_no": 51,
 "latest_ft": 570.9,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357060804125",
 "ward_no": 32,
 "latest_ft": 745.4,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357060804265",
 "ward_no": 8,
 "latest_ft": 138.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804273",
 "ward_no": 32,
 "latest_ft": 332.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804299",
 "ward_no": 58,
 "latest_ft": 195.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804307",
 "ward_no": 7,
 "latest_ft": 550.5,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357060804380",
 "ward_no": 57,
 "latest_ft": 189.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804406",
 "ward_no": 7,
 "latest_ft": 437.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804455",
 "ward_no": 57,
 "latest_ft": 92.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357060804489",
 "ward_no": 124,
 "latest_ft": 202.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804497",
 "ward_no": 32,
 "latest_ft": 219.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804521",
 "ward_no": 5,
 "latest_ft": 902.2,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357060804539",
 "ward_no": 7,
 "latest_ft": 368.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804554",
 "ward_no": 51,
 "latest_ft": 212.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804604",
 "ward_no": 32,
 "latest_ft": 233.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804687",
 "ward_no": 32,
 "latest_ft": 324.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804729",
 "ward_no": 25,
 "latest_ft": 254.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804737",
 "ward_no": 26,
 "latest_ft": 701.5,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357060804760",
 "ward_no": 73,
 "latest_ft": 227.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804786",
 "ward_no": 51,
 "latest_ft": 343.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804794",
 "ward_no": 51,
 "latest_ft": 313.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804802",
 "ward_no": 124,
 "latest_ft": 263.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804869",
 "ward_no": 32,
 "latest_ft": 227.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804893",
 "ward_no": 23,
 "latest_ft": 293.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804927",
 "ward_no": 25,
 "latest_ft": 139.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060804943",
 "ward_no": 25,
 "latest_ft": 346.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060804950",
 "ward_no": 51,
 "latest_ft": 120.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060805007",
 "ward_no": 7,
 "latest_ft": 693.2,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357060805015",
 "ward_no": 23,
 "latest_ft": 134.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060805023",
 "ward_no": 51,
 "latest_ft": 548.2,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357060805031",
 "ward_no": 26,
 "latest_ft": 266.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805080",
 "ward_no": 122,
 "latest_ft": 1480.4,
-"band": "verydeep"
+"band": "d1000"
 },
 {
 "uid": "865357060805106",
 "ward_no": 148,
 "latest_ft": 474.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805130",
 "ward_no": 148,
 "latest_ft": 142.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060805205",
 "ward_no": 52,
 "latest_ft": 491.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805254",
 "ward_no": 123,
 "latest_ft": 560.4,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357060805346",
 "ward_no": 10,
 "latest_ft": 244.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060805361",
 "ward_no": 32,
 "latest_ft": 286.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805411",
 "ward_no": 51,
 "latest_ft": 357.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805460",
 "ward_no": 57,
 "latest_ft": 699.2,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357060805486",
 "ward_no": 51,
 "latest_ft": 448.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805585",
 "ward_no": 51,
 "latest_ft": 230.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060805619",
 "ward_no": 39,
 "latest_ft": 745.3,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357060805627",
 "ward_no": 5,
 "latest_ft": 403.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805650",
 "ward_no": 57,
 "latest_ft": 275.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805684",
 "ward_no": 52,
 "latest_ft": 496.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805775",
 "ward_no": 106,
 "latest_ft": 287.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805825",
 "ward_no": 122,
 "latest_ft": 990.1,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357060805940",
 "ward_no": 51,
 "latest_ft": 279.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805981",
 "ward_no": 26,
 "latest_ft": 334.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060805999",
 "ward_no": 51,
 "latest_ft": 373.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060806005",
 "ward_no": 51,
 "latest_ft": 313.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060806070",
 "ward_no": 104,
 "latest_ft": 116.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060806088",
 "ward_no": 5,
 "latest_ft": 211.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060806096",
 "ward_no": 32,
 "latest_ft": 246.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357060806120",
 "ward_no": 32,
 "latest_ft": 291.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357060806187",
 "ward_no": 123,
 "latest_ft": 287.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062661085",
 "ward_no": 52,
 "latest_ft": 69.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062661283",
 "ward_no": 32,
 "latest_ft": 233.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062662349",
 "ward_no": 47,
 "latest_ft": 300.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062662380",
 "ward_no": 141,
 "latest_ft": 101.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062662844",
 "ward_no": 141,
 "latest_ft": 186.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062662851",
 "ward_no": 186,
 "latest_ft": 262.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062662919",
 "ward_no": 32,
 "latest_ft": 299.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062662984",
 "ward_no": 47,
 "latest_ft": 211.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062663008",
 "ward_no": 141,
 "latest_ft": 79.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062788631",
 "ward_no": 141,
 "latest_ft": 298.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062788656",
 "ward_no": 183,
 "latest_ft": 448.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062788664",
 "ward_no": 25,
 "latest_ft": 145.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062788672",
 "ward_no": 161,
 "latest_ft": 120.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062788714",
 "ward_no": 30,
 "latest_ft": 186.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062788722",
 "ward_no": 50,
 "latest_ft": 272.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062788763",
 "ward_no": 25,
 "latest_ft": 310.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062788771",
 "ward_no": 161,
 "latest_ft": 524.5,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062788789",
 "ward_no": 130,
 "latest_ft": 303.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062788797",
 "ward_no": 25,
 "latest_ft": 301.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062788813",
 "ward_no": 87,
 "latest_ft": 133.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062788854",
 "ward_no": 148,
 "latest_ft": 1207.5,
-"band": "verydeep"
+"band": "d1000"
 },
 {
 "uid": "865357062788870",
 "ward_no": 49,
 "latest_ft": 211.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062788888",
 "ward_no": 183,
 "latest_ft": 355.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062788904",
 "ward_no": 130,
 "latest_ft": 292.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062788946",
 "ward_no": 161,
 "latest_ft": 110.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062788953",
 "ward_no": 13,
 "latest_ft": 889.9,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357062788995",
 "ward_no": 25,
 "latest_ft": 362.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789019",
 "ward_no": null,
 "latest_ft": 218.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789050",
 "ward_no": 9,
 "latest_ft": 281.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789142",
 "ward_no": 25,
 "latest_ft": 309.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789159",
 "ward_no": 187,
 "latest_ft": 158.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789167",
 "ward_no": 161,
 "latest_ft": 152.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789175",
 "ward_no": 25,
 "latest_ft": 290.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789191",
 "ward_no": 32,
 "latest_ft": 225.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789209",
 "ward_no": 9,
 "latest_ft": 635.7,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062789217",
 "ward_no": 31,
 "latest_ft": 39.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062789233",
 "ward_no": 38,
 "latest_ft": 146.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789241",
 "ward_no": 183,
 "latest_ft": 111.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789266",
 "ward_no": 87,
 "latest_ft": 481.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789274",
 "ward_no": 26,
 "latest_ft": 488.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789282",
 "ward_no": 148,
 "latest_ft": 370.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789290",
 "ward_no": 161,
 "latest_ft": 125.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789308",
 "ward_no": 86,
 "latest_ft": 52.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062789316",
 "ward_no": 141,
 "latest_ft": 234.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789340",
 "ward_no": 124,
 "latest_ft": 276.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789431",
 "ward_no": 51,
 "latest_ft": 340.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789456",
 "ward_no": 141,
 "latest_ft": 247.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789472",
 "ward_no": 26,
 "latest_ft": 297.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789530",
 "ward_no": 127,
 "latest_ft": 244.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789548",
 "ward_no": 25,
 "latest_ft": 540.8,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062789571",
 "ward_no": 74,
 "latest_ft": 243.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789589",
 "ward_no": null,
 "latest_ft": 436.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789597",
 "ward_no": 141,
 "latest_ft": 100.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789639",
 "ward_no": 50,
 "latest_ft": 67.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062789647",
 "ward_no": 141,
 "latest_ft": 202.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789662",
 "ward_no": 8,
 "latest_ft": 363.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789670",
 "ward_no": 25,
 "latest_ft": 351.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789696",
 "ward_no": 25,
 "latest_ft": 501.2,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062789720",
 "ward_no": 70,
 "latest_ft": 170.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789738",
 "ward_no": 58,
 "latest_ft": 62.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062789746",
 "ward_no": 57,
 "latest_ft": 239.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789761",
 "ward_no": 86,
 "latest_ft": 357.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789779",
 "ward_no": 47,
 "latest_ft": 428.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789803",
 "ward_no": 141,
 "latest_ft": 101.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789811",
 "ward_no": 161,
 "latest_ft": 241.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789852",
 "ward_no": 148,
 "latest_ft": 65.7,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062789910",
 "ward_no": 141,
 "latest_ft": 91.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062789936",
 "ward_no": 9,
 "latest_ft": 384.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789944",
 "ward_no": 25,
 "latest_ft": 752.3,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357062789969",
 "ward_no": 25,
 "latest_ft": 216.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062789977",
 "ward_no": 177,
 "latest_ft": 340.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062789993",
 "ward_no": 25,
 "latest_ft": 769.3,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357062790025",
 "ward_no": 25,
 "latest_ft": 356.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790041",
 "ward_no": 25,
 "latest_ft": 274.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790074",
 "ward_no": 102,
 "latest_ft": 116.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790108",
 "ward_no": 47,
 "latest_ft": 325.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790116",
 "ward_no": 25,
 "latest_ft": 386.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790132",
 "ward_no": 10,
 "latest_ft": 190.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790181",
 "ward_no": 15,
 "latest_ft": 50.1,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062790199",
 "ward_no": 5,
 "latest_ft": 218.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790249",
 "ward_no": 148,
 "latest_ft": 145.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790280",
 "ward_no": 186,
 "latest_ft": 390.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790298",
 "ward_no": 25,
 "latest_ft": 1042.7,
-"band": "verydeep"
+"band": "d1000"
 },
 {
 "uid": "865357062790355",
 "ward_no": 15,
 "latest_ft": 333.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790397",
 "ward_no": 186,
 "latest_ft": 262.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790405",
 "ward_no": 51,
 "latest_ft": 230.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790439",
 "ward_no": 50,
 "latest_ft": 68.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062790447",
 "ward_no": 141,
 "latest_ft": 118.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790454",
 "ward_no": 127,
 "latest_ft": 777.8,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357062790470",
 "ward_no": 148,
 "latest_ft": 114.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790488",
 "ward_no": 50,
 "latest_ft": 342.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790504",
 "ward_no": 32,
 "latest_ft": 241.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790512",
 "ward_no": 32,
 "latest_ft": 104.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790561",
 "ward_no": 25,
 "latest_ft": 342.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790579",
 "ward_no": 5,
 "latest_ft": 238.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790587",
 "ward_no": 50,
 "latest_ft": 256.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790603",
 "ward_no": 27,
 "latest_ft": 306.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790629",
 "ward_no": 161,
 "latest_ft": 133.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790637",
 "ward_no": 186,
 "latest_ft": 183.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790652",
 "ward_no": 186,
 "latest_ft": 155.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790694",
 "ward_no": 25,
 "latest_ft": 1154.3,
-"band": "verydeep"
+"band": "d1000"
 },
 {
 "uid": "865357062790751",
 "ward_no": 25,
 "latest_ft": 677.6,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062790769",
 "ward_no": 27,
 "latest_ft": 16.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062790785",
 "ward_no": 7,
 "latest_ft": 327.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790827",
 "ward_no": 141,
 "latest_ft": 118.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790835",
 "ward_no": 32,
 "latest_ft": 80.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062790850",
 "ward_no": 57,
 "latest_ft": 272.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790868",
 "ward_no": 25,
 "latest_ft": 401.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790884",
 "ward_no": 25,
 "latest_ft": 322.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790892",
 "ward_no": 166,
 "latest_ft": 473.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790900",
 "ward_no": 161,
 "latest_ft": 128.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790942",
 "ward_no": 25,
 "latest_ft": 338.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790959",
 "ward_no": 13,
 "latest_ft": 144.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062790975",
 "ward_no": 15,
 "latest_ft": 269.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062790991",
 "ward_no": 25,
 "latest_ft": 950.2,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357062791015",
 "ward_no": 102,
 "latest_ft": 107.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791023",
 "ward_no": 37,
 "latest_ft": 291.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791031",
 "ward_no": 47,
 "latest_ft": 623.6,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062791049",
 "ward_no": 148,
 "latest_ft": 353.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791056",
 "ward_no": 112,
 "latest_ft": 51.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062791072",
 "ward_no": 25,
 "latest_ft": 396.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791080",
 "ward_no": 25,
 "latest_ft": 409.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791098",
 "ward_no": 50,
 "latest_ft": 252.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791122",
 "ward_no": 13,
 "latest_ft": 371.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791163",
 "ward_no": 5,
 "latest_ft": 316.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791171",
 "ward_no": 186,
 "latest_ft": 226.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791197",
 "ward_no": 183,
 "latest_ft": 123.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791221",
 "ward_no": 25,
 "latest_ft": 304.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791247",
 "ward_no": 141,
 "latest_ft": 152.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791254",
 "ward_no": 70,
 "latest_ft": 191.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791262",
 "ward_no": 27,
 "latest_ft": 57.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062791288",
 "ward_no": 10,
 "latest_ft": 308.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791312",
 "ward_no": 148,
 "latest_ft": 76.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062791320",
 "ward_no": 112,
 "latest_ft": 242.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791338",
 "ward_no": 57,
 "latest_ft": 360.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791379",
 "ward_no": 130,
 "latest_ft": 321.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791387",
 "ward_no": 74,
 "latest_ft": 267.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791429",
 "ward_no": 8,
 "latest_ft": 315.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791445",
 "ward_no": 186,
 "latest_ft": 119.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791544",
 "ward_no": 148,
 "latest_ft": 39.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062791569",
 "ward_no": 148,
 "latest_ft": 35.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062791577",
 "ward_no": 161,
 "latest_ft": 167.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791601",
 "ward_no": 127,
 "latest_ft": 182.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791619",
 "ward_no": 32,
 "latest_ft": 229.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791635",
 "ward_no": 148,
 "latest_ft": 143.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791643",
 "ward_no": 47,
 "latest_ft": 237.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791676",
 "ward_no": 15,
 "latest_ft": 232.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791700",
 "ward_no": 25,
 "latest_ft": 302.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791734",
 "ward_no": 112,
 "latest_ft": 42.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062791759",
 "ward_no": 25,
 "latest_ft": 504.6,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062791767",
 "ward_no": 130,
 "latest_ft": 324.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791775",
 "ward_no": 50,
 "latest_ft": 249.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791791",
 "ward_no": 10,
 "latest_ft": 218.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791809",
 "ward_no": 7,
 "latest_ft": 239.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791817",
 "ward_no": 25,
 "latest_ft": 120.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791825",
 "ward_no": 148,
 "latest_ft": 217.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791882",
 "ward_no": 50,
 "latest_ft": 404.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791890",
 "ward_no": 25,
 "latest_ft": 279.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791916",
 "ward_no": 53,
 "latest_ft": 313.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791924",
 "ward_no": 125,
 "latest_ft": 229.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062791940",
 "ward_no": 7,
 "latest_ft": 296.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791965",
 "ward_no": 25,
 "latest_ft": 285.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062791999",
 "ward_no": 141,
 "latest_ft": 36.1,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062792021",
 "ward_no": 7,
 "latest_ft": 303.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792047",
 "ward_no": 148,
 "latest_ft": 189.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792062",
 "ward_no": 127,
 "latest_ft": 74.2,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062792070",
 "ward_no": 116,
 "latest_ft": 241.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792104",
 "ward_no": 12,
 "latest_ft": 384.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792112",
 "ward_no": 74,
 "latest_ft": 202.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792120",
 "ward_no": 161,
 "latest_ft": 362.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792161",
 "ward_no": 32,
 "latest_ft": 364.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792179",
 "ward_no": 25,
 "latest_ft": 1127.4,
-"band": "verydeep"
+"band": "d1000"
 },
 {
 "uid": "865357062792187",
 "ward_no": 141,
 "latest_ft": 131.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792195",
 "ward_no": 14,
 "latest_ft": 62.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062792203",
 "ward_no": 32,
 "latest_ft": 46.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062792286",
 "ward_no": 25,
 "latest_ft": 295.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792294",
 "ward_no": 11,
 "latest_ft": 783.2,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357062792302",
 "ward_no": 50,
 "latest_ft": 75.2,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062792344",
 "ward_no": 5,
 "latest_ft": 160.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792401",
 "ward_no": 25,
 "latest_ft": 243.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792419",
 "ward_no": 73,
 "latest_ft": 209.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792443",
 "ward_no": 32,
 "latest_ft": 169.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792468",
 "ward_no": 5,
 "latest_ft": 308.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792518",
 "ward_no": 141,
 "latest_ft": 80.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062792534",
 "ward_no": 161,
 "latest_ft": 147.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792591",
 "ward_no": null,
 "latest_ft": 249.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792609",
 "ward_no": 50,
 "latest_ft": 217.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792617",
 "ward_no": 73,
 "latest_ft": 338.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792625",
 "ward_no": 148,
 "latest_ft": 395.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792633",
 "ward_no": 177,
 "latest_ft": 190.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792658",
 "ward_no": null,
 "latest_ft": 178.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792666",
 "ward_no": 85,
 "latest_ft": 33.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062792682",
 "ward_no": 183,
 "latest_ft": 549.3,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062792716",
 "ward_no": 25,
 "latest_ft": 332.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792740",
 "ward_no": 183,
 "latest_ft": 193.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792757",
 "ward_no": 112,
 "latest_ft": 43.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062792773",
 "ward_no": 8,
 "latest_ft": 336.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792799",
 "ward_no": 141,
 "latest_ft": 129.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062792807",
 "ward_no": 141,
 "latest_ft": 385.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792823",
 "ward_no": 141,
 "latest_ft": 59.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062792864",
 "ward_no": 50,
 "latest_ft": 341.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792872",
 "ward_no": 25,
 "latest_ft": 352.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062792906",
 "ward_no": 29,
 "latest_ft": 67.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062792922",
 "ward_no": 25,
 "latest_ft": 542.2,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062792963",
 "ward_no": 33,
 "latest_ft": 245.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793029",
 "ward_no": 73,
 "latest_ft": 64.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062793037",
 "ward_no": 14,
 "latest_ft": 342.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793102",
 "ward_no": 148,
 "latest_ft": 94.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062793128",
 "ward_no": null,
 "latest_ft": 275.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793136",
 "ward_no": 25,
 "latest_ft": 395.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793169",
 "ward_no": 161,
 "latest_ft": 102.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793193",
 "ward_no": 30,
 "latest_ft": 325.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793201",
 "ward_no": 43,
 "latest_ft": 265.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793219",
 "ward_no": 25,
 "latest_ft": 296.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793235",
 "ward_no": 112,
 "latest_ft": 196.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793268",
 "ward_no": 183,
 "latest_ft": 127.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793318",
 "ward_no": 29,
 "latest_ft": 359.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793326",
 "ward_no": 8,
 "latest_ft": 241.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793334",
 "ward_no": 161,
 "latest_ft": 82.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062793342",
 "ward_no": 25,
 "latest_ft": 403.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793359",
 "ward_no": 14,
 "latest_ft": 105.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793367",
 "ward_no": 25,
 "latest_ft": 336.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793417",
 "ward_no": 14,
 "latest_ft": 298.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793425",
 "ward_no": 27,
 "latest_ft": 363.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793441",
 "ward_no": 86,
 "latest_ft": 41.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062793482",
 "ward_no": 161,
 "latest_ft": 130.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793524",
 "ward_no": 25,
 "latest_ft": 267.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793532",
 "ward_no": 25,
 "latest_ft": 943.5,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357062793557",
 "ward_no": 25,
 "latest_ft": 313.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793573",
 "ward_no": 161,
 "latest_ft": 336.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793581",
 "ward_no": 25,
 "latest_ft": 232.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793615",
 "ward_no": 141,
 "latest_ft": 79.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062793631",
 "ward_no": 32,
 "latest_ft": 332.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793664",
 "ward_no": 141,
 "latest_ft": 441.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793672",
 "ward_no": 87,
 "latest_ft": 38.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062793680",
 "ward_no": 25,
 "latest_ft": 76.1,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062793698",
 "ward_no": 161,
 "latest_ft": 362.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793730",
 "ward_no": 25,
 "latest_ft": 116.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793748",
 "ward_no": 15,
 "latest_ft": 139.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793755",
 "ward_no": 159,
 "latest_ft": 363.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793763",
 "ward_no": 48,
 "latest_ft": 296.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793789",
 "ward_no": 10,
 "latest_ft": 159.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793805",
 "ward_no": 7,
 "latest_ft": 208.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793813",
 "ward_no": 128,
 "latest_ft": 187.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793821",
 "ward_no": null,
 "latest_ft": 315.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793839",
 "ward_no": 25,
 "latest_ft": 523.9,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062793847",
 "ward_no": 25,
 "latest_ft": 857.8,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357062793870",
 "ward_no": 183,
 "latest_ft": 256.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793888",
 "ward_no": 73,
 "latest_ft": 192.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793896",
 "ward_no": 11,
 "latest_ft": 168.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793912",
 "ward_no": 7,
 "latest_ft": 343.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793938",
 "ward_no": 87,
 "latest_ft": 263.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793946",
 "ward_no": 25,
 "latest_ft": 296.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062793961",
 "ward_no": 25,
 "latest_ft": 541.2,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062793979",
 "ward_no": 53,
 "latest_ft": 121.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062793995",
 "ward_no": 116,
 "latest_ft": 110.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794001",
 "ward_no": 141,
 "latest_ft": 353.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794019",
 "ward_no": 5,
 "latest_ft": 301.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794035",
 "ward_no": 27,
 "latest_ft": 438.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794076",
 "ward_no": 57,
 "latest_ft": 407.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794084",
 "ward_no": 141,
 "latest_ft": 111.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794100",
 "ward_no": 25,
 "latest_ft": 511.4,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062794142",
 "ward_no": 136,
 "latest_ft": 157.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794209",
 "ward_no": 25,
 "latest_ft": 474.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794233",
 "ward_no": 50,
 "latest_ft": 192.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794241",
 "ward_no": 87,
 "latest_ft": 282.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794266",
 "ward_no": 25,
 "latest_ft": 686.7,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062794274",
 "ward_no": 161,
 "latest_ft": 135.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794308",
 "ward_no": 161,
 "latest_ft": 66.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062794316",
 "ward_no": 112,
 "latest_ft": 1172.6,
-"band": "verydeep"
+"band": "d1000"
 },
 {
 "uid": "865357062794373",
 "ward_no": 148,
 "latest_ft": 201.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794399",
 "ward_no": 161,
 "latest_ft": 87.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062794423",
 "ward_no": 9,
 "latest_ft": 150.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794431",
 "ward_no": 37,
 "latest_ft": 142.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794449",
 "ward_no": 13,
 "latest_ft": 258.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794456",
 "ward_no": 186,
 "latest_ft": 243.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794472",
 "ward_no": 9,
 "latest_ft": 215.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794514",
 "ward_no": 29,
 "latest_ft": 66.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062794522",
 "ward_no": 25,
 "latest_ft": 333.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794530",
 "ward_no": 50,
 "latest_ft": 198.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794548",
 "ward_no": 26,
 "latest_ft": 237.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794563",
 "ward_no": 187,
 "latest_ft": 183.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794589",
 "ward_no": 14,
 "latest_ft": 513.2,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062794597",
 "ward_no": 25,
 "latest_ft": 486.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794605",
 "ward_no": 148,
 "latest_ft": 217.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794670",
 "ward_no": 87,
 "latest_ft": 389.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794712",
 "ward_no": 50,
 "latest_ft": 283.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794761",
 "ward_no": 7,
 "latest_ft": 325.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794779",
 "ward_no": 50,
 "latest_ft": 366.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794787",
 "ward_no": 25,
 "latest_ft": 284.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794829",
 "ward_no": 86,
 "latest_ft": 158.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794860",
 "ward_no": 141,
 "latest_ft": 72.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062794878",
 "ward_no": 38,
 "latest_ft": 298.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062794886",
 "ward_no": 70,
 "latest_ft": 170.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794910",
 "ward_no": 13,
 "latest_ft": 758.0,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357062794936",
 "ward_no": 27,
 "latest_ft": 159.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062794944",
 "ward_no": 70,
 "latest_ft": 179.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795024",
 "ward_no": 12,
 "latest_ft": 260.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795032",
 "ward_no": 130,
 "latest_ft": 220.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795040",
 "ward_no": 87,
 "latest_ft": 28.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062795057",
 "ward_no": 25,
 "latest_ft": 563.1,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062795065",
 "ward_no": 86,
 "latest_ft": 407.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795073",
 "ward_no": 183,
 "latest_ft": 201.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795081",
 "ward_no": 148,
 "latest_ft": 444.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795123",
 "ward_no": 127,
 "latest_ft": 167.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795164",
 "ward_no": 17,
 "latest_ft": 338.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795172",
 "ward_no": 180,
 "latest_ft": 58.2,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062795206",
 "ward_no": 25,
 "latest_ft": 1134.9,
-"band": "verydeep"
+"band": "d1000"
 },
 {
 "uid": "865357062795214",
 "ward_no": 25,
 "latest_ft": 325.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795222",
 "ward_no": 27,
 "latest_ft": 373.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795230",
 "ward_no": 15,
 "latest_ft": 331.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795248",
 "ward_no": 50,
 "latest_ft": 284.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795255",
 "ward_no": 159,
 "latest_ft": 355.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795263",
 "ward_no": 86,
 "latest_ft": 64.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062795297",
 "ward_no": 27,
 "latest_ft": 240.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795305",
 "ward_no": 11,
 "latest_ft": 294.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795313",
 "ward_no": 7,
 "latest_ft": 213.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795339",
 "ward_no": 183,
 "latest_ft": 308.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795347",
 "ward_no": 161,
 "latest_ft": 155.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795362",
 "ward_no": 159,
 "latest_ft": 208.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795370",
 "ward_no": 52,
 "latest_ft": 295.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795396",
 "ward_no": 141,
 "latest_ft": 98.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062795412",
 "ward_no": 87,
 "latest_ft": 426.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795420",
 "ward_no": 73,
 "latest_ft": 289.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795487",
 "ward_no": 11,
 "latest_ft": 522.4,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062795495",
 "ward_no": 25,
 "latest_ft": 418.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795529",
 "ward_no": 148,
 "latest_ft": 550.2,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062795552",
 "ward_no": 161,
 "latest_ft": 419.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795602",
 "ward_no": 148,
 "latest_ft": 234.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795628",
 "ward_no": 161,
 "latest_ft": 114.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795636",
 "ward_no": 180,
 "latest_ft": 264.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795644",
 "ward_no": 161,
 "latest_ft": 134.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795685",
 "ward_no": 159,
 "latest_ft": 144.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795768",
 "ward_no": 50,
 "latest_ft": 225.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795776",
 "ward_no": 70,
 "latest_ft": 188.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795792",
 "ward_no": 41,
 "latest_ft": 334.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795818",
 "ward_no": 141,
 "latest_ft": 107.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795834",
 "ward_no": 25,
 "latest_ft": 498.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795842",
 "ward_no": 47,
 "latest_ft": 567.7,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062795867",
 "ward_no": 14,
 "latest_ft": 382.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795883",
 "ward_no": 141,
 "latest_ft": 144.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795891",
 "ward_no": 32,
 "latest_ft": 388.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795909",
 "ward_no": 57,
 "latest_ft": 294.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062795925",
 "ward_no": 70,
 "latest_ft": 176.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062795966",
 "ward_no": 87,
 "latest_ft": 260.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796071",
 "ward_no": 53,
 "latest_ft": 371.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796089",
 "ward_no": 73,
 "latest_ft": 203.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796113",
 "ward_no": 141,
 "latest_ft": 316.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796139",
 "ward_no": 187,
 "latest_ft": 204.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796147",
 "ward_no": 126,
 "latest_ft": 410.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796170",
 "ward_no": 148,
 "latest_ft": 107.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796196",
 "ward_no": 148,
 "latest_ft": 275.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796204",
 "ward_no": 183,
 "latest_ft": 415.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796212",
 "ward_no": 137,
 "latest_ft": 293.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796261",
 "ward_no": 128,
 "latest_ft": 162.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796287",
 "ward_no": 48,
 "latest_ft": 335.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796329",
 "ward_no": 23,
 "latest_ft": 450.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796360",
 "ward_no": 165,
 "latest_ft": 55.1,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062796378",
 "ward_no": 186,
 "latest_ft": 121.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796428",
 "ward_no": 50,
 "latest_ft": 537.4,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062796436",
 "ward_no": 25,
 "latest_ft": 464.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796444",
 "ward_no": 130,
 "latest_ft": 212.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796469",
 "ward_no": 50,
 "latest_ft": 309.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796493",
 "ward_no": 161,
 "latest_ft": 152.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796519",
 "ward_no": 73,
 "latest_ft": 1016.3,
-"band": "verydeep"
+"band": "d1000"
 },
 {
 "uid": "865357062796550",
 "ward_no": 50,
 "latest_ft": 80.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062796642",
 "ward_no": 27,
 "latest_ft": 347.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796725",
 "ward_no": 87,
 "latest_ft": 283.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796733",
 "ward_no": 25,
 "latest_ft": 399.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796774",
 "ward_no": 148,
 "latest_ft": 133.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796782",
 "ward_no": 186,
 "latest_ft": 284.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796790",
 "ward_no": 14,
 "latest_ft": 350.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796808",
 "ward_no": null,
 "latest_ft": 287.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062796816",
 "ward_no": 130,
 "latest_ft": 707.5,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062796824",
 "ward_no": 128,
 "latest_ft": 147.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796857",
 "ward_no": 87,
 "latest_ft": 40.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062796881",
 "ward_no": 73,
 "latest_ft": 230.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796907",
 "ward_no": 161,
 "latest_ft": 138.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796980",
 "ward_no": 141,
 "latest_ft": 125.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062796998",
 "ward_no": 87,
 "latest_ft": 242.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797004",
 "ward_no": 27,
 "latest_ft": 304.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797020",
 "ward_no": null,
 "latest_ft": 246.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797038",
 "ward_no": 141,
 "latest_ft": 53.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062797046",
 "ward_no": 5,
 "latest_ft": 273.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797087",
 "ward_no": 112,
 "latest_ft": 288.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797137",
 "ward_no": 8,
 "latest_ft": 350.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797145",
 "ward_no": 25,
 "latest_ft": 438.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797160",
 "ward_no": 25,
 "latest_ft": 441.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797210",
 "ward_no": 9,
 "latest_ft": 386.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797277",
 "ward_no": 25,
 "latest_ft": 299.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797293",
 "ward_no": 81,
 "latest_ft": 334.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797301",
 "ward_no": null,
 "latest_ft": 237.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797335",
 "ward_no": 183,
 "latest_ft": 150.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797368",
 "ward_no": 73,
 "latest_ft": 287.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797376",
 "ward_no": 73,
 "latest_ft": 306.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797392",
 "ward_no": 25,
 "latest_ft": 463.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797400",
 "ward_no": 70,
 "latest_ft": 112.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797426",
 "ward_no": 136,
 "latest_ft": 101.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797442",
 "ward_no": null,
 "latest_ft": 205.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797483",
 "ward_no": 187,
 "latest_ft": 273.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797491",
 "ward_no": 5,
 "latest_ft": 196.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797517",
 "ward_no": 25,
 "latest_ft": 445.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797541",
 "ward_no": 195,
 "latest_ft": 230.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797566",
 "ward_no": 29,
 "latest_ft": 392.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797582",
 "ward_no": 127,
 "latest_ft": 98.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062797608",
 "ward_no": 50,
 "latest_ft": 368.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797624",
 "ward_no": 87,
 "latest_ft": 171.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797681",
 "ward_no": 26,
 "latest_ft": 308.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797707",
 "ward_no": 73,
 "latest_ft": 18.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062797715",
 "ward_no": 12,
 "latest_ft": 309.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797723",
 "ward_no": 130,
 "latest_ft": 133.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797731",
 "ward_no": 32,
 "latest_ft": 337.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797756",
 "ward_no": 51,
 "latest_ft": 280.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797764",
 "ward_no": 58,
 "latest_ft": 29.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062797780",
 "ward_no": 161,
 "latest_ft": 117.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797798",
 "ward_no": 10,
 "latest_ft": 293.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797806",
 "ward_no": 112,
 "latest_ft": 378.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797830",
 "ward_no": 187,
 "latest_ft": 324.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797848",
 "ward_no": 161,
 "latest_ft": 141.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797855",
 "ward_no": 137,
 "latest_ft": 141.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797871",
 "ward_no": 48,
 "latest_ft": 654.8,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062797889",
 "ward_no": 25,
 "latest_ft": 275.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062797947",
 "ward_no": 50,
 "latest_ft": 81.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062797954",
 "ward_no": 87,
 "latest_ft": 208.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062797970",
 "ward_no": 159,
 "latest_ft": 399.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062798010",
 "ward_no": 25,
 "latest_ft": 172.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062798036",
 "ward_no": 128,
 "latest_ft": 712.6,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062798044",
 "ward_no": 5,
 "latest_ft": 319.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062798051",
 "ward_no": 25,
 "latest_ft": 450.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062798085",
 "ward_no": 128,
 "latest_ft": 243.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062798119",
 "ward_no": 5,
 "latest_ft": 338.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062798143",
 "ward_no": 112,
 "latest_ft": 80.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062798150",
 "ward_no": 25,
 "latest_ft": 718.1,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062798218",
 "ward_no": 25,
 "latest_ft": 100.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062798234",
 "ward_no": 159,
 "latest_ft": 159.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062798242",
 "ward_no": 161,
 "latest_ft": 152.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062798259",
 "ward_no": 73,
 "latest_ft": 534.4,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865357062798283",
 "ward_no": 47,
 "latest_ft": 92.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062798325",
 "ward_no": 87,
 "latest_ft": 371.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062798333",
 "ward_no": 148,
 "latest_ft": 92.1,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062798390",
 "ward_no": 25,
 "latest_ft": 394.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062798432",
 "ward_no": 87,
 "latest_ft": 112.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062798440",
 "ward_no": 130,
 "latest_ft": 498.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062798457",
 "ward_no": 148,
 "latest_ft": 66.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062798465",
 "ward_no": 86,
 "latest_ft": 44.7,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865357062798481",
 "ward_no": 52,
 "latest_ft": 130.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062798515",
 "ward_no": 17,
 "latest_ft": 378.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062798523",
 "ward_no": 25,
 "latest_ft": 959.7,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865357062798549",
 "ward_no": 51,
 "latest_ft": 436.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062798556",
 "ward_no": 127,
 "latest_ft": 262.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865357062798598",
 "ward_no": 73,
 "latest_ft": 226.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865357062798606",
 "ward_no": 73,
 "latest_ft": 194.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087407482",
 "ward_no": 13,
 "latest_ft": 149.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087407524",
 "ward_no": 147,
 "latest_ft": 56.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087407631",
 "ward_no": 187,
 "latest_ft": 589.4,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087407730",
 "ward_no": 161,
 "latest_ft": 158.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087407789",
 "ward_no": 85,
 "latest_ft": 22.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087407813",
 "ward_no": 185,
 "latest_ft": 318.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087407904",
 "ward_no": 53,
 "latest_ft": 436.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087408027",
 "ward_no": 161,
 "latest_ft": 154.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087408050",
 "ward_no": 12,
 "latest_ft": 92.1,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087408217",
 "ward_no": 185,
 "latest_ft": 796.4,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865931087408274",
 "ward_no": 15,
 "latest_ft": 258.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087408290",
 "ward_no": 102,
 "latest_ft": 133.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087408316",
 "ward_no": 103,
 "latest_ft": 171.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087408357",
 "ward_no": 3,
 "latest_ft": 152.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087408399",
 "ward_no": 82,
 "latest_ft": 201.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087408423",
 "ward_no": 3,
 "latest_ft": 261.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087408472",
 "ward_no": 24,
 "latest_ft": 59.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087408480",
 "ward_no": 182,
 "latest_ft": 280.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087408514",
 "ward_no": 181,
 "latest_ft": 186.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087408597",
 "ward_no": 81,
 "latest_ft": 388.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087408613",
 "ward_no": 159,
 "latest_ft": 156.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087408647",
 "ward_no": 103,
 "latest_ft": 101.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087408670",
 "ward_no": 186,
 "latest_ft": 396.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087408738",
 "ward_no": 186,
 "latest_ft": 159.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087408746",
 "ward_no": 56,
 "latest_ft": 309.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087408779",
 "ward_no": 50,
 "latest_ft": 360.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087408787",
 "ward_no": 185,
 "latest_ft": 795.8,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865931087408837",
 "ward_no": 151,
 "latest_ft": 50.2,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087408936",
 "ward_no": 187,
 "latest_ft": 106.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087409090",
 "ward_no": 161,
 "latest_ft": 229.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087409488",
 "ward_no": 15,
 "latest_ft": 63.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087409512",
 "ward_no": 147,
 "latest_ft": 193.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087409686",
 "ward_no": 29,
 "latest_ft": 229.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087410098",
 "ward_no": 147,
 "latest_ft": 81.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087410114",
 "ward_no": 32,
 "latest_ft": 117.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087410163",
 "ward_no": 147,
 "latest_ft": 236.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087410205",
 "ward_no": 2,
 "latest_ft": 139.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087410213",
 "ward_no": 147,
 "latest_ft": 142.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087410254",
 "ward_no": 54,
 "latest_ft": 872.0,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865931087410296",
 "ward_no": 15,
 "latest_ft": 199.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087410304",
 "ward_no": 167,
 "latest_ft": 134.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087410320",
 "ward_no": 140,
 "latest_ft": 117.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087410338",
 "ward_no": 25,
 "latest_ft": 368.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087410387",
 "ward_no": 163,
 "latest_ft": 81.7,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087410437",
 "ward_no": 75,
 "latest_ft": 204.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087410536",
 "ward_no": 185,
 "latest_ft": 604.7,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087410627",
 "ward_no": 146,
 "latest_ft": 91.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087410775",
 "ward_no": 161,
 "latest_ft": 153.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087410783",
 "ward_no": 186,
 "latest_ft": 36.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087410908",
 "ward_no": 185,
 "latest_ft": 181.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411005",
 "ward_no": 53,
 "latest_ft": 268.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087411021",
 "ward_no": 195,
 "latest_ft": 133.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411195",
 "ward_no": 194,
 "latest_ft": 179.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411252",
 "ward_no": 141,
 "latest_ft": 249.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411278",
 "ward_no": 161,
 "latest_ft": 126.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411294",
 "ward_no": 83,
 "latest_ft": 37.7,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087411310",
 "ward_no": 85,
 "latest_ft": 435.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087411328",
 "ward_no": 161,
 "latest_ft": 210.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411369",
 "ward_no": 19,
 "latest_ft": 404.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087411385",
 "ward_no": 81,
 "latest_ft": 283.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087411468",
 "ward_no": 56,
 "latest_ft": 396.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087411476",
 "ward_no": 19,
 "latest_ft": 215.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411575",
 "ward_no": 81,
 "latest_ft": 421.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087411617",
 "ward_no": 185,
 "latest_ft": 417.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087411658",
 "ward_no": 4,
 "latest_ft": 134.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411690",
 "ward_no": 13,
 "latest_ft": 247.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411708",
 "ward_no": 187,
 "latest_ft": 103.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411724",
 "ward_no": 52,
 "latest_ft": 345.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087411765",
 "ward_no": 163,
 "latest_ft": 188.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411815",
 "ward_no": 116,
 "latest_ft": 159.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411831",
 "ward_no": 173,
 "latest_ft": 235.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411856",
 "ward_no": 103,
 "latest_ft": 131.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087411930",
 "ward_no": 194,
 "latest_ft": 175.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087412086",
 "ward_no": 4,
 "latest_ft": 195.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087412151",
 "ward_no": 147,
 "latest_ft": 34.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087412185",
 "ward_no": 163,
 "latest_ft": 124.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087412193",
 "ward_no": 13,
 "latest_ft": 374.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087412250",
 "ward_no": 12,
 "latest_ft": 282.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087412318",
 "ward_no": 116,
 "latest_ft": 65.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087412508",
 "ward_no": 185,
 "latest_ft": 229.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087412649",
 "ward_no": 155,
 "latest_ft": 38.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087412664",
 "ward_no": 81,
 "latest_ft": 352.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087412813",
 "ward_no": 185,
 "latest_ft": 28.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087412839",
 "ward_no": 185,
 "latest_ft": 21.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087413068",
 "ward_no": 178,
 "latest_ft": 282.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087413167",
 "ward_no": 161,
 "latest_ft": 293.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087413290",
 "ward_no": 185,
 "latest_ft": 92.7,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087413316",
 "ward_no": 54,
 "latest_ft": 255.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087413324",
 "ward_no": 114,
 "latest_ft": 77.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087413399",
 "ward_no": 185,
 "latest_ft": 142.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087413415",
 "ward_no": 81,
 "latest_ft": 81.7,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087413423",
 "ward_no": 53,
 "latest_ft": 241.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087413548",
 "ward_no": 185,
 "latest_ft": 77.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087413662",
 "ward_no": 186,
 "latest_ft": 224.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087413696",
 "ward_no": 177,
 "latest_ft": 618.9,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087413803",
 "ward_no": 75,
 "latest_ft": 180.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087413811",
 "ward_no": 164,
 "latest_ft": 53.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087413829",
 "ward_no": 54,
 "latest_ft": 86.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087413837",
 "ward_no": 146,
 "latest_ft": 368.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087413860",
 "ward_no": 161,
 "latest_ft": 74.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087413886",
 "ward_no": 130,
 "latest_ft": 208.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087413936",
 "ward_no": 12,
 "latest_ft": 529.9,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087414025",
 "ward_no": 82,
 "latest_ft": 473.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087414058",
 "ward_no": 50,
 "latest_ft": 314.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087414074",
 "ward_no": 12,
 "latest_ft": 235.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087414082",
 "ward_no": 80,
 "latest_ft": 280.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087414157",
 "ward_no": 173,
 "latest_ft": 133.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087414165",
 "ward_no": 83,
 "latest_ft": 168.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087414173",
 "ward_no": 161,
 "latest_ft": 136.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087414181",
 "ward_no": 82,
 "latest_ft": 268.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087414264",
 "ward_no": 147,
 "latest_ft": 60.2,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087414314",
 "ward_no": 186,
 "latest_ft": 163.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087414322",
 "ward_no": 54,
 "latest_ft": 345.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087414330",
 "ward_no": 56,
 "latest_ft": 323.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087414355",
 "ward_no": 12,
 "latest_ft": 140.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087414371",
 "ward_no": 54,
 "latest_ft": 469.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087414405",
 "ward_no": 53,
 "latest_ft": 300.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087414454",
 "ward_no": 83,
 "latest_ft": 188.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087414751",
 "ward_no": 161,
 "latest_ft": 79.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087414769",
 "ward_no": 82,
 "latest_ft": 450.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087414785",
 "ward_no": 25,
 "latest_ft": 68.2,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087414884",
 "ward_no": 177,
 "latest_ft": 561.7,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087414926",
 "ward_no": 185,
 "latest_ft": 183.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087414975",
 "ward_no": 187,
 "latest_ft": 33.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087415014",
 "ward_no": 187,
 "latest_ft": 147.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087415105",
 "ward_no": 185,
 "latest_ft": 159.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087415139",
 "ward_no": 85,
 "latest_ft": 196.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087415402",
 "ward_no": 7,
 "latest_ft": 768.8,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865931087415428",
 "ward_no": 141,
 "latest_ft": 251.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087415436",
 "ward_no": 54,
 "latest_ft": 263.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087415485",
 "ward_no": 187,
 "latest_ft": 121.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087415535",
 "ward_no": 25,
 "latest_ft": 425.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087415600",
 "ward_no": 141,
 "latest_ft": 63.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087415618",
 "ward_no": 141,
 "latest_ft": 324.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087415675",
 "ward_no": 50,
 "latest_ft": 411.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087415717",
 "ward_no": 161,
 "latest_ft": 361.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087416004",
 "ward_no": 186,
 "latest_ft": 126.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087416061",
 "ward_no": 185,
 "latest_ft": 308.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087416111",
 "ward_no": 52,
 "latest_ft": 21.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087416194",
 "ward_no": 183,
 "latest_ft": 321.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087416210",
 "ward_no": 4,
 "latest_ft": 58.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087416228",
 "ward_no": 52,
 "latest_ft": 69.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087416293",
 "ward_no": 13,
 "latest_ft": 549.5,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087416301",
 "ward_no": 85,
 "latest_ft": 62.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087416327",
 "ward_no": 12,
 "latest_ft": 238.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087416376",
 "ward_no": 141,
 "latest_ft": 206.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087416400",
 "ward_no": 183,
 "latest_ft": 90.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087416418",
 "ward_no": 12,
 "latest_ft": 262.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087416483",
 "ward_no": 83,
 "latest_ft": 188.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087416509",
 "ward_no": 155,
 "latest_ft": 70.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087416582",
 "ward_no": 186,
 "latest_ft": 206.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087416798",
 "ward_no": 147,
 "latest_ft": 152.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087416806",
 "ward_no": 147,
 "latest_ft": 149.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087416822",
 "ward_no": null,
 "latest_ft": 477.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087416855",
 "ward_no": 183,
 "latest_ft": 240.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087416871",
 "ward_no": 12,
 "latest_ft": 356.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087416913",
 "ward_no": 57,
 "latest_ft": 291.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087416947",
 "ward_no": 186,
 "latest_ft": 233.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087416954",
 "ward_no": 137,
 "latest_ft": 274.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087416970",
 "ward_no": 129,
 "latest_ft": 137.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087416996",
 "ward_no": 82,
 "latest_ft": 365.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087417002",
 "ward_no": 141,
 "latest_ft": 169.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417010",
 "ward_no": 141,
 "latest_ft": 141.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417028",
 "ward_no": 13,
 "latest_ft": 221.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417085",
 "ward_no": 185,
 "latest_ft": 280.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087417119",
 "ward_no": 15,
 "latest_ft": 137.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417127",
 "ward_no": 82,
 "latest_ft": 485.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087417184",
 "ward_no": 141,
 "latest_ft": 407.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087417218",
 "ward_no": 80,
 "latest_ft": 130.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417226",
 "ward_no": 46,
 "latest_ft": 220.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417242",
 "ward_no": 31,
 "latest_ft": 21.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087417283",
 "ward_no": 156,
 "latest_ft": 231.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417341",
 "ward_no": 12,
 "latest_ft": 198.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417382",
 "ward_no": 155,
 "latest_ft": 340.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087417424",
 "ward_no": 161,
 "latest_ft": 122.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417598",
 "ward_no": 179,
 "latest_ft": 44.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087417606",
 "ward_no": 186,
 "latest_ft": 385.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087417614",
 "ward_no": 186,
 "latest_ft": 346.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087417838",
 "ward_no": 186,
 "latest_ft": 203.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417945",
 "ward_no": 161,
 "latest_ft": 165.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087417986",
 "ward_no": 54,
 "latest_ft": 1412.6,
-"band": "verydeep"
+"band": "d1000"
 },
 {
 "uid": "865931087418034",
 "ward_no": 82,
 "latest_ft": 303.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087418083",
 "ward_no": 141,
 "latest_ft": 452.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087418158",
 "ward_no": 144,
 "latest_ft": 19.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087418174",
 "ward_no": 82,
 "latest_ft": 285.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087418190",
 "ward_no": 81,
 "latest_ft": 124.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087418257",
 "ward_no": 85,
 "latest_ft": 212.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087418265",
 "ward_no": 195,
 "latest_ft": 302.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087418315",
 "ward_no": 53,
 "latest_ft": 46.2,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087418364",
 "ward_no": 173,
 "latest_ft": 37.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087418638",
 "ward_no": 80,
 "latest_ft": 338.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087418661",
 "ward_no": 160,
 "latest_ft": 244.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087418711",
 "ward_no": 185,
 "latest_ft": 233.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087418778",
 "ward_no": 12,
 "latest_ft": 32.4,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087418794",
 "ward_no": 114,
 "latest_ft": 64.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087418877",
 "ward_no": 185,
 "latest_ft": 265.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087418935",
 "ward_no": 186,
 "latest_ft": 217.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087419008",
 "ward_no": 68,
 "latest_ft": 140.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087419016",
 "ward_no": 31,
 "latest_ft": 82.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087419081",
 "ward_no": 185,
 "latest_ft": 37.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087419099",
 "ward_no": 51,
 "latest_ft": 240.7,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087419123",
 "ward_no": 103,
 "latest_ft": 259.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087419131",
 "ward_no": 4,
 "latest_ft": 243.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087419164",
 "ward_no": 15,
 "latest_ft": 275.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087419206",
 "ward_no": 26,
 "latest_ft": 181.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087419222",
 "ward_no": 13,
 "latest_ft": 230.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087419636",
 "ward_no": 185,
 "latest_ft": 421.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087419925",
 "ward_no": 176,
 "latest_ft": 331.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087420014",
 "ward_no": 185,
 "latest_ft": 116.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087420147",
 "ward_no": 141,
 "latest_ft": 125.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087420170",
 "ward_no": 85,
 "latest_ft": 38.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087420204",
 "ward_no": 115,
 "latest_ft": 85.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087420261",
 "ward_no": 173,
 "latest_ft": 385.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087420428",
 "ward_no": 75,
 "latest_ft": 290.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087420469",
 "ward_no": 12,
 "latest_ft": 143.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087420485",
 "ward_no": 186,
 "latest_ft": 210.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087420568",
 "ward_no": 173,
 "latest_ft": 298.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087420600",
 "ward_no": 151,
 "latest_ft": 46.1,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087420618",
 "ward_no": 161,
 "latest_ft": 148.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087420659",
 "ward_no": 176,
 "latest_ft": 566.2,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087420741",
 "ward_no": 25,
 "latest_ft": 439.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087420758",
 "ward_no": 185,
 "latest_ft": 273.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087421004",
 "ward_no": 51,
 "latest_ft": 553.3,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087421087",
 "ward_no": 56,
 "latest_ft": 303.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087421111",
 "ward_no": 4,
 "latest_ft": 190.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087421145",
 "ward_no": 116,
 "latest_ft": 64.3,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087421178",
 "ward_no": 80,
 "latest_ft": 124.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087421186",
 "ward_no": 146,
 "latest_ft": 257.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087421194",
 "ward_no": 176,
 "latest_ft": 326.2,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087421210",
 "ward_no": 52,
 "latest_ft": 291.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087421244",
 "ward_no": 82,
 "latest_ft": 86.2,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087421285",
 "ward_no": 160,
 "latest_ft": 395.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087421319",
 "ward_no": 83,
 "latest_ft": 194.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087421418",
 "ward_no": 12,
 "latest_ft": 231.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087421442",
 "ward_no": 130,
 "latest_ft": 149.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087421533",
 "ward_no": 15,
 "latest_ft": 189.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087421558",
 "ward_no": 87,
 "latest_ft": 542.6,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087421798",
 "ward_no": 185,
 "latest_ft": 1450.3,
-"band": "verydeep"
+"band": "d1000"
 },
 {
 "uid": "865931087421806",
 "ward_no": 186,
 "latest_ft": 385.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087421814",
 "ward_no": 2,
 "latest_ft": 158.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087421848",
 "ward_no": 136,
 "latest_ft": 8.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087421905",
 "ward_no": 12,
 "latest_ft": 603.1,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087421913",
 "ward_no": 33,
 "latest_ft": 311.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087421939",
 "ward_no": 176,
 "latest_ft": 40.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087421996",
 "ward_no": 173,
 "latest_ft": 84.7,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087422077",
 "ward_no": 12,
 "latest_ft": 346.3,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087422085",
 "ward_no": 186,
 "latest_ft": 178.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422127",
 "ward_no": 11,
 "latest_ft": 96.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087422143",
 "ward_no": 68,
 "latest_ft": 166.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422192",
 "ward_no": 15,
 "latest_ft": 134.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422267",
 "ward_no": 53,
 "latest_ft": 742.5,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087422283",
 "ward_no": 166,
 "latest_ft": 130.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422309",
 "ward_no": 13,
 "latest_ft": 138.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422333",
 "ward_no": 188,
 "latest_ft": 104.0,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422341",
 "ward_no": 186,
 "latest_ft": 466.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087422382",
 "ward_no": 141,
 "latest_ft": 275.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087422465",
 "ward_no": 185,
 "latest_ft": 289.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087422499",
 "ward_no": 166,
 "latest_ft": 437.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087422515",
 "ward_no": 31,
 "latest_ft": 238.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422549",
 "ward_no": 56,
 "latest_ft": 180.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422580",
 "ward_no": 12,
 "latest_ft": 155.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422598",
 "ward_no": 155,
 "latest_ft": 167.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422648",
 "ward_no": 161,
 "latest_ft": 322.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087422705",
 "ward_no": 54,
 "latest_ft": 237.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422713",
 "ward_no": 13,
 "latest_ft": 395.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087422770",
 "ward_no": 54,
 "latest_ft": 265.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087422796",
 "ward_no": 155,
 "latest_ft": 284.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087422895",
 "ward_no": 147,
 "latest_ft": 118.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087422937",
 "ward_no": 186,
 "latest_ft": 699.3,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087423000",
 "ward_no": 147,
 "latest_ft": 45.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087423042",
 "ward_no": 187,
 "latest_ft": 238.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087423067",
 "ward_no": 15,
 "latest_ft": 465.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087423083",
 "ward_no": 3,
 "latest_ft": 149.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087423133",
 "ward_no": 147,
 "latest_ft": 39.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087423141",
 "ward_no": 85,
 "latest_ft": 323.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087423182",
 "ward_no": 87,
 "latest_ft": 187.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087423216",
 "ward_no": 13,
 "latest_ft": 134.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087423240",
 "ward_no": 161,
 "latest_ft": 539.5,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087423281",
 "ward_no": 186,
 "latest_ft": 977.2,
-"band": "verydeep"
+"band": "d750"
 },
 {
 "uid": "865931087423307",
 "ward_no": 4,
 "latest_ft": 101.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087423315",
 "ward_no": 80,
 "latest_ft": 98.1,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087423554",
 "ward_no": 185,
 "latest_ft": 211.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087423885",
 "ward_no": 54,
 "latest_ft": 209.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087424107",
 "ward_no": 161,
 "latest_ft": 66.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087424156",
 "ward_no": 183,
 "latest_ft": 137.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087424172",
 "ward_no": 161,
 "latest_ft": 476.5,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087424297",
 "ward_no": 146,
 "latest_ft": 77.5,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087424321",
 "ward_no": 114,
 "latest_ft": 375.0,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087424396",
 "ward_no": 167,
 "latest_ft": 309.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087424412",
 "ward_no": 187,
 "latest_ft": 223.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087424446",
 "ward_no": 144,
 "latest_ft": 29.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087424479",
 "ward_no": 114,
 "latest_ft": 26.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087424545",
 "ward_no": 141,
 "latest_ft": 164.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087424602",
 "ward_no": 183,
 "latest_ft": 60.7,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087424727",
 "ward_no": 195,
 "latest_ft": 419.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087424768",
 "ward_no": 130,
 "latest_ft": 135.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087424776",
 "ward_no": 144,
 "latest_ft": 127.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087424784",
 "ward_no": 15,
 "latest_ft": 112.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087424917",
 "ward_no": 195,
 "latest_ft": 127.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087424933",
 "ward_no": 147,
 "latest_ft": 288.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087424958",
 "ward_no": 85,
 "latest_ft": 298.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087425088",
 "ward_no": 181,
 "latest_ft": 218.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087425096",
 "ward_no": 5,
 "latest_ft": 431.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087425104",
 "ward_no": 147,
 "latest_ft": 239.3,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087425401",
 "ward_no": 12,
 "latest_ft": 413.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087425419",
 "ward_no": 161,
 "latest_ft": 486.8,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087425435",
 "ward_no": 155,
 "latest_ft": 144.8,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087425534",
 "ward_no": 140,
 "latest_ft": 253.9,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087425567",
 "ward_no": 187,
 "latest_ft": 261.1,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087425716",
 "ward_no": 12,
 "latest_ft": 201.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087425724",
 "ward_no": 114,
 "latest_ft": 32.0,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087425765",
 "ward_no": 12,
 "latest_ft": 228.5,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087425963",
 "ward_no": 83,
 "latest_ft": 348.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087426086",
 "ward_no": 13,
 "latest_ft": 186.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087426151",
 "ward_no": 185,
 "latest_ft": 533.8,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087426342",
 "ward_no": 187,
 "latest_ft": 224.1,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087426383",
 "ward_no": 161,
 "latest_ft": 637.5,
-"band": "verydeep"
+"band": "d500"
 },
 {
 "uid": "865931087426441",
 "ward_no": 159,
 "latest_ft": 100.9,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087426474",
 "ward_no": 185,
 "latest_ft": 108.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087426508",
 "ward_no": 50,
 "latest_ft": 89.1,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087426524",
 "ward_no": 161,
 "latest_ft": 310.7,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087426599",
 "ward_no": 187,
 "latest_ft": 161.6,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087426615",
 "ward_no": 163,
 "latest_ft": 79.8,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087426813",
 "ward_no": 144,
 "latest_ft": 75.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087426888",
 "ward_no": 173,
 "latest_ft": 342.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087426904",
 "ward_no": 195,
 "latest_ft": 116.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087426938",
 "ward_no": 182,
 "latest_ft": 334.4,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087426979",
 "ward_no": 15,
 "latest_ft": 78.9,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087427118",
 "ward_no": 151,
 "latest_ft": 133.2,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087427142",
 "ward_no": 141,
 "latest_ft": 91.2,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087427241",
 "ward_no": 144,
 "latest_ft": 21.6,
-"band": "shallow"
+"band": "d0"
 },
 {
 "uid": "865931087427357",
 "ward_no": 165,
 "latest_ft": 174.4,
-"band": "moderate"
+"band": "d100"
 },
 {
 "uid": "865931087427373",
 "ward_no": 25,
 "latest_ft": 336.6,
-"band": "deep"
+"band": "d250"
 },
 {
 "uid": "865931087427415",
 "ward_no": 11,
 "latest_ft": 148.2,
-"band": "moderate"
+"band": "d100"
 }
 ]
 }

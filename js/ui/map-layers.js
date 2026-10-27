@@ -128,8 +128,9 @@ function renderSensors() {
     const isSel = selectedSensorUid === s.uid;
     const status = sensorStatusKey(s);
     const depth = sensorDepthBandByUid.get(String(s.uid));
-    // Reporting borewells are coloured by water-level depth band; no-data stays grey.
-    const fill = depth ? DEPTH_BAND_COLORS[depth.band] : SENSOR_COLORS[status];
+    const tr = sensorTrend(s);
+    // Borewells are coloured by their Sen / Mann-Kendall (Hamed-Rao) trend class.
+    const fill = TREND_COLORS[tr.c];
     const m = L.circleMarker([s.lat, s.lng], {
       radius: isSel ? 11 : 6,
       color: isSel ? "#f59e0b" : "#ffffff",
@@ -139,7 +140,8 @@ function renderSensors() {
     });
     const wardLabel = s.ward_no != null ? `Ward ${s.ward_no} — ${s.ward_name || ""}` : "Unassigned";
     const depthLine = depth ? `<br/>Water level: <b>${depth.latest_ft} ft</b> · ${DEPTH_BAND_LABELS[depth.band]}` : "";
-    m.bindTooltip(`<b>${s.uid}</b><br/>${wardLabel}<br/>${sensorStatusLabel(status)}${s.last_data_at ? " · " + fmtDate(s.last_data_at) : ""}${depthLine}`, { className: "sensor-tip", direction: "top" });
+    const trendLine = `<br/>Trend (${TREND_MODE_LABELS[trendMode]}): <b>${tr.c}</b>` + (tr.s != null ? ` · ${tr.s > 0 ? "+" : ""}${tr.s} ft/wk · p=${tr.p} · n=${tr.n}` : "");
+    m.bindTooltip(`<b>${s.uid}</b><br/>${wardLabel}<br/>${sensorStatusLabel(status)}${s.last_data_at ? " · " + fmtDate(s.last_data_at) : ""}${depthLine}${trendLine}`, { className: "sensor-tip", direction: "top" });
     m.on("click", () => openSensorDetail(s.uid));
     currentSensorMarkers.addLayer(m);
     if (isSel) m.bringToFront();
@@ -157,9 +159,22 @@ function sensorFilterMatch(s) {
   return sensorStatusKey(s) === sensorStatusFilter;
 }
 
+// Trend record {c, s, p, n} of a borewell for the chosen chart filter (dow uses the chart's weekday).
+function sensorTrend(s) {
+  const r = sensorTrendByUid[String(s.uid)];
+  return (r && (trendMode === "dow" ? r.dow[String(dowWeekday)] : r[trendMode])) || { c: "none" };
+}
+
+function legendFilterMatch(s) {
+  const d = sensorDepthBandByUid.get(String(s.uid))?.band;
+  return (!legendFilter.depth.size || legendFilter.depth.has(d)) &&
+         (!legendFilter.trend.size || legendFilter.trend.has(sensorTrend(s).c));
+}
+
 function filteredSensors() {
   return sensors.filter(s => {
     if (s.lat == null || s.lng == null) return false;
+    if (!legendFilterMatch(s)) return false;
     if (selectedWardNo != null && s.ward_no !== selectedWardNo) return false;
     if (wardStatusFilter) {
       const wardProps = wards?.features?.find(f => f.properties.ward_no === s.ward_no)?.properties;
@@ -210,22 +225,17 @@ function buildLegend() {
     const selectionItems = ["query", "quick"].includes(highlightStyleMode) && highlightedWardNos.size
       ? [["#2563eb", quickViewLabel || "Highlighted wards"]]
       : [];
-    const visibleSensors = filteredSensors();
-    const visibleSensorStatuses = new Set(visibleSensors.map(sensorStatusKey));
-    // Reporting borewells are shown by water-level depth band.
-    const visibleDepthBands = new Set(
-      visibleSensors.map(s => sensorDepthBandByUid.get(String(s.uid))?.band).filter(Boolean)
-    );
-    const depthItems = DEPTH_BAND_ORDER
-      .filter(k => visibleDepthBands.has(k))
-      .map(k => [DEPTH_BAND_COLORS[k], "Water level " + DEPTH_BAND_LABELS[k]]);
-    const noDataItem = visibleSensorStatuses.has("no_data")
-      ? [[SENSOR_COLORS.no_data, "No-data borewell"]]
-      : [];
-    const sensorItems = [...depthItems, ...noDataItem];
-    items.innerHTML = [...selectionItems, ...wardItems, ...sensorItems]
-      .map(([color, label]) => `<div class="legend-item"><span style="background:${color}"></span>${label}</div>`)
-      .join("");
+    // Clickable classes: click toggles; picking several in one group = OR, across groups = AND.
+    const lfItem = (group, key, color, label) => {
+      const on = legendFilter[group].has(key), dim = legendFilter[group].size && !on;
+      return `<div class="legend-item legend-filter${on ? " active" : ""}${dim ? " dim" : ""}" role="button" tabindex="0" aria-pressed="${on}" data-lf-group="${group}" data-lf-key="${key}"><span style="background:${color}"></span>${label}</div>`;
+    };
+    const plain = ([color, label]) => `<div class="legend-item"><span style="background:${color}"></span>${label}</div>`;
+    items.innerHTML = [...selectionItems, ...wardItems].map(plain).join("")
+      + `<div class="legend-group">Borewell trend (${TREND_MODE_LABELS[trendMode]})</div>`
+      + TREND_ORDER.map(k => lfItem("trend", k, TREND_COLORS[k], TREND_LABELS[k])).join("")
+      + `<div class="legend-group">Water-level depth</div>`
+      + DEPTH_BAND_ORDER.map(k => lfItem("depth", k, DEPTH_BAND_COLORS[k], DEPTH_BAND_LABELS[k])).join("");
   }
   const cap = document.querySelector(".legend-caption");
   if (cap) {

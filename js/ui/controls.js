@@ -180,6 +180,17 @@ function wireFilters() {
       buildLegend();
     });
   });
+  const redrawSensors = () => { renderSensors(); buildLegend(); };
+  document.getElementById("trend-mode")?.addEventListener("change", e => { Store.set("trendMode", e.target.value); redrawSensors(); });
+  const legendEl = document.getElementById("legend-items");
+  const legendToggle = el => {
+    const f = el.closest("[data-lf-group]"); if (!f) return;
+    const set = legendFilter[f.dataset.lfGroup], k = f.dataset.lfKey;
+    set.has(k) ? set.delete(k) : set.add(k);
+    redrawSensors();
+  };
+  legendEl?.addEventListener("click", e => legendToggle(e.target));
+  legendEl?.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); legendToggle(e.target); } });
   const tvToggle = document.getElementById("tv-mode-toggle");
   if (tvToggle) {
     tvToggle.addEventListener("change", () => {
@@ -201,6 +212,7 @@ function wireFilters() {
         Store.set("quickViewLabel", "");
         Store.set("wardStatusFilter", "");
         Store.set("sensorStatusFilter", "with_data");
+        legendFilter.depth.clear(); legendFilter.trend.clear();
         Store.set("currentLens", analyticsLoaded ? "groundwater" : "coverage");
         document.querySelectorAll("[data-ward-status]").forEach(c => c.classList.toggle("active", c.dataset.wardStatus === ""));
         document.querySelectorAll("[data-sensor-status]").forEach(c => c.classList.toggle("active", c.dataset.sensorStatus === "with_data"));

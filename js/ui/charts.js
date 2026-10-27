@@ -243,6 +243,27 @@ function trendDataset(pts, color, unitLabel) {
   };
 }
 
+// Precomputed Sen / Mann-Kendall (Hamed-Rao) record for the current water filter.
+function waterTrendRecord() {
+  const r = sensorTrendByUid[String(currentSensorSeries?.uid)];
+  return r && (waterMode === "dow" ? r.dow[String(dowWeekday)] : r[waterMode]);
+}
+
+// Trend line from the full-record Sen slope, anchored at the median of the plotted points.
+// Falls back to the OLS line when sensor_trends.json has no entry (e.g. API mode).
+function senTrendDataset(pts, color) {
+  const t = waterTrendRecord(), v = pts.filter(p => p && p.y != null && !isNaN(p.y));
+  if (!t || t.s == null || v.length < 2) return trendDataset(pts, color, "ft");
+  const med = a => { const b = [...a].sort((x, y) => x - y); return b[Math.floor(b.length / 2)]; };
+  const xs = v.map(p => +p.x), mx = med(xs), my = med(v.map(p => p.y)), k = t.s / (7 * 86400000);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs);
+  return {
+    label: `Sen ${t.s > 0 ? "+" : ""}${t.s} ft/wk · MK(Hamed-Rao) p=${t.p} · ${t.c}`,
+    data: [{ x: new Date(x0), y: my + k * (x0 - mx) }, { x: new Date(x1), y: my + k * (x1 - mx) }],
+    borderColor: color, borderWidth: 2, borderDash: [6, 4], fill: false, pointRadius: 0, tension: 0, parsing: false,
+  };
+}
+
 // Day-of-week static levels: one median static level per pumping session that
 // falls on the chosen weekday, across the whole period. Mirrors the PPT method
 // (sessions split by >=8h gaps -> one representative level each -> group by weekday).
@@ -286,14 +307,15 @@ function updateDowNote() {
     el.innerHTML = `<b>${DOW_NAMES[dowWeekday]} trend:</b> only ${pts.length} ${DOW_NAMES[dowWeekday]} session${pts.length === 1 ? "" : "s"} in this range — need at least 2 to fit a slope. Try another weekday or the ALL range.`;
     return;
   }
-  const perWeek = o.slope * 1000 * 60 * 60 * 24 * 7;
+  const t = waterTrendRecord();
+  const perWeek = t && t.s != null ? t.s : o.slope * 1000 * 60 * 60 * 24 * 7;
   const perYearFt = perWeek * 52;
   const dir = perWeek > 0.1 ? "deepening — water table falling"
             : perWeek < -0.1 ? "recovering — water table rising"
             : "roughly stable";
-  el.innerHTML = `<b>${DOW_NAMES[dowWeekday]} trend</b> · recalculated on <b>${pts.length}</b> session medians: `
+  el.innerHTML = `<b>${DOW_NAMES[dowWeekday]} trend</b> · Sen slope on <b>${pts.length}</b> session medians${t && t.p != null ? ` (Mann-Kendall/Hamed-Rao p=${t.p}, ${t.c})` : ""}: `
     + `<b>${perWeek >= 0 ? "+" : ""}${perWeek.toFixed(3)} ft/week</b> `
-    + `(${perYearFt >= 0 ? "+" : ""}${perYearFt.toFixed(1)} ft/year) · R² ${o.r2.toFixed(2)} — ${dir}.`;
+    + `(${perYearFt >= 0 ? "+" : ""}${perYearFt.toFixed(1)} ft/year) — ${dir}.`;
 }
 
 function drawCharts() {
@@ -329,7 +351,7 @@ function drawCharts() {
     trendPts = pts;
   }
   if ((showTrend.water || waterMode === "dow") && trendPts) {
-    const td = trendDataset(trendPts, "#b45309", "ft");
+    const td = senTrendDataset(trendPts, "#b45309");
     if (td) wDatasets.push(td);
   }
   charts.water = new Chart(document.getElementById("chart-water"), {
@@ -462,7 +484,7 @@ function wireRangeChips() {
     });
   });
   const dowSel = document.getElementById("dow-weekday");
-  if (dowSel) dowSel.addEventListener("change", () => { dowWeekday = Number(dowSel.value); drawCharts(); });
+  if (dowSel) dowSel.addEventListener("change", () => { dowWeekday = Number(dowSel.value); drawCharts(); if (trendMode === "dow") { renderSensors(); buildLegend(); } });
   document.querySelectorAll(".trend-btn[data-trend]").forEach(btn => {
     btn.addEventListener("click", () => {
       const which = btn.dataset.trend;

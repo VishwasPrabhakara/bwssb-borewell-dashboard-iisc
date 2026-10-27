@@ -23,6 +23,7 @@ let volumetricDeficitByNo = new Map();
 let waterLevelClassByNo = new Map();
 let waterLevelClassSensors = [];
 let sensorDepthBandByUid = new Map();
+let sensorTrendByUid = {};      // uid -> {raw, cleaned, static, dow:{0..6}} from sensor_trends.json
 let sensorsByUid = {};
 let sensorsByWard = {};         // ward_no -> [sensor]
 
@@ -44,6 +45,8 @@ let highlightedWardNos = new Set();
 let quickViewLabel = "";
 let highlightStyleMode = "";
 let currentRange = "1M";              // chart range
+let trendMode = "static";             // which chart filter's trend colours the borewells
+const legendFilter = { depth: new Set(), trend: new Set() }; // clicked legend classes; groups AND, classes OR
 
 /* ---- Chart handles / caches ---- */
 let charts = { water: null, discharge: null, modal: null };
@@ -69,6 +72,7 @@ const Store = (() => {
       case "quickViewLabel": quickViewLabel = value; break;
       case "highlightStyleMode": highlightStyleMode = value; break;
       case "currentRange": currentRange = value; break;
+      case "trendMode": trendMode = value; break;
       default: console.warn("[store] unknown key:", key); return value;
     }
     emit(key, value);

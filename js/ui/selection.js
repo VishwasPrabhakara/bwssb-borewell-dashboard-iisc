@@ -63,9 +63,15 @@ const BASE_WARD_COLOR = { fill: "#a8d8e2", stroke: "#5a7a86", opacity: 0.22 };
 const SENSOR_COLORS = { with_data: "#0e7490", no_data: "#64748b" };
 // Water-level depth bands for individual borewells (coloured on the map).
 // Shallow water table = water near surface (green); deepening to red.
-const DEPTH_BAND_COLORS = { shallow: "#16a34a", moderate: "#eab308", deep: "#f97316", verydeep: "#dc2626" };
-const DEPTH_BAND_LABELS = { shallow: "<100 ft", moderate: "100–250 ft", deep: "250–500 ft", verydeep: ">500 ft" };
-const DEPTH_BAND_ORDER = ["shallow", "moderate", "deep", "verydeep"];
+// Depth is a legend filter (not a marker colour), so the swatches are one neutral ramp.
+const DEPTH_BAND_ORDER = ["d0", "d100", "d250", "d500", "d750", "d1000"];
+const DEPTH_BAND_LABELS = { d0: "0–100 ft", d100: "100–250 ft", d250: "250–500 ft", d500: "500–750 ft", d750: "750–1000 ft", d1000: ">1000 ft" };
+const DEPTH_BAND_COLORS = Object.fromEntries(DEPTH_BAND_ORDER.map((k, i) => [k, CHORO[i + 2]]));
+// Borewell marker colour = Sen/Mann-Kendall (Hamed-Rao) trend class from data/sensor_trends.json.
+const TREND_ORDER = ["declining", "stable", "rising", "none"];
+const TREND_COLORS = { declining: CRITICALITY_COLORS.critical, stable: CRITICALITY_COLORS.stable, rising: CRITICALITY_COLORS.rise, none: "#64748b" };
+const TREND_LABELS = { declining: "Declining (water table falling)", stable: "Stable", rising: "Rising (water table recovering)", none: "No trend (no / too little data)" };
+const TREND_MODE_LABELS = { raw: "raw readings", cleaned: "cleaned readings", static: "static ≥8h weekly medians", dow: "day-of-week session medians" };
 const GROUNDWATER_MIN_SLOPE_WEEKS = 4;
 
 function choroColor(value, breaks) {
