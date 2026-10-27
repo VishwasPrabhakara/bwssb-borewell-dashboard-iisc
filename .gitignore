@@ -25,6 +25,12 @@ council-transcript-*.md
 docs/superpowers/
 
 backend/_scratch/
-data_raw/
+# data_raw/ is ignored EXCEPT the KSNDMC daily rainfall CSV + station KML,
+# which the GitHub Action needs to read, append and commit.
+data_raw/*
+!data_raw/ksndmc/
+data_raw/ksndmc/*
+!data_raw/ksndmc/ksndmc_daily_rainfall.csv
+!data_raw/ksndmc/*.kml
 
 outputs/

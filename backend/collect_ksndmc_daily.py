@@ -73,6 +73,8 @@ for d in range(1, 36):
         rows.append([date, r.get("RAINGAUGE"), r.get("HOBLINAME"), r.get("TALUKNAME"),
                      r.get("DISTRICT"), r.get("RAIN"), ward])
 
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+
 # ---- append, de-duplicate on (gauge_id, date) ----
 seen = set()
 if os.path.exists(OUT):
